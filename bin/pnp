@@ -1,0 +1,5 @@
+#!/bin/sh
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+OPENPNP_CFG="$HOME/dev/lumenpnp_nwc/config"
+JAVA_TOOL_OPTIONS="-DconfigDir=$OPENPNP_CFG" "$HOME/openpnp/v2.6/OpenPnP" "$@"
+
