@@ -2,3 +2,6 @@
 *.stl
 config/backups/
 config/log/
+config/*.tmp
+config/*.bak
+config/*.lck
