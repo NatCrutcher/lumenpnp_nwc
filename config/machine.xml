@@ -286,8 +286,8 @@
                      <string>NT1</string>
                      <string>TIP16b1a61b09e0c660</string>
                   </compatible-nozzle-tip-ids>
-                  <head-offsets units="Millimeters" x="22.687303984084853" y="-64.0320883796669" z="-0.17000000000003546" rotation="0.0"/>
-                  <manual-nozzle-tip-change-location units="Millimeters" x="263.7893039840849" y="17.874911620333094" z="31.329999999999963" rotation="0.0"/>
+                  <head-offsets units="Millimeters" x="22.675575321964114" y="-64.07005060388457" z="-0.17000000000003546" rotation="0.0"/>
+                  <manual-nozzle-tip-change-location units="Millimeters" x="263.7775753219641" y="17.83694939611543" z="31.329999999999963" rotation="0.0"/>
                   <vacuum-sense-actuator-name>VAC2</vacuum-sense-actuator-name>
                   <vacuum-actuator-name>VAC2</vacuum-actuator-name>
                </nozzle>
