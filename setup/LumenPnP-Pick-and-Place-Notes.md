@@ -23,6 +23,8 @@ Per Claude's recommendations, I used the .tar.gz download approach to simplify m
 * Try Non-Squareness Compensation: [https://github.com/openpnp/openpnp/wiki/Linear-Transformed-Axes\#use-case--non-squareness-compensation](https://github.com/openpnp/openpnp/wiki/Linear-Transformed-Axes#use-case--non-squareness-compensation)   
 * Try second fiducial calibration: [https://github.com/openpnp/openpnp/wiki/Vision-Solutions\#calibration-secondary-fiducial](https://github.com/openpnp/openpnp/wiki/Vision-Solutions#calibration-secondary-fiducial) 
 
+* Try bottom camera auto-focus for part height detection.
+
 ## Enhancements
 
 1. Aluminum build plate - 6mm thick, 600x300mm, tapped 3mm holes. 15X stiffer
