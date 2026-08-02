@@ -286,8 +286,8 @@
                      <string>NT1</string>
                      <string>TIP16b1a61b09e0c660</string>
                   </compatible-nozzle-tip-ids>
-                  <head-offsets units="Millimeters" x="22.681665204219115" y="-63.980794183848985" z="-0.17000000000003546" rotation="0.0"/>
-                  <manual-nozzle-tip-change-location units="Millimeters" x="263.7836652042191" y="17.92620581615101" z="31.329999999999963" rotation="0.0"/>
+                  <head-offsets units="Millimeters" x="22.687303984084853" y="-64.0320883796669" z="-0.17000000000003546" rotation="0.0"/>
+                  <manual-nozzle-tip-change-location units="Millimeters" x="263.7893039840849" y="17.874911620333094" z="31.329999999999963" rotation="0.0"/>
                   <vacuum-sense-actuator-name>VAC2</vacuum-sense-actuator-name>
                   <vacuum-actuator-name>VAC2</vacuum-actuator-name>
                </nozzle>
@@ -363,7 +363,7 @@
             <calibration-secondary-fiducial-location units="Millimeters" x="216.93610424373065" y="106.9935319264055" z="13.940000000000003" rotation="0.0"/>
             <calibration-primary-fiducial-diameter value="1.0176869901689825" units="Millimeters"/>
             <calibration-secondary-fiducial-diameter value="1.4208683428030704" units="Millimeters"/>
-            <calibration-test-object-diameter value="6.084469026329448" units="Millimeters"/>
+            <calibration-test-object-diameter value="6.106121941013895" units="Millimeters"/>
          </head>
       </heads>
       <signalers/>
@@ -1058,6 +1058,7 @@
             <string>c15ef57f0dcd294ab89817b092cacfbdd06bac47</string>
             <string>88cecb197dd4d95cf7e3ba2916536d19493c7968</string>
             <string>d0cdf1c68b2d2effd44748eb86ab84e52e562c7c</string>
+            <string>2232e07f6085c0a347b9d658cf91923b18466e1f</string>
             <string>6b2530ad7ec28983e1e52de96e5338c3e58d9bdb</string>
          </solved-solutions>
       </solutions>
