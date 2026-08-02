@@ -286,8 +286,8 @@
                      <string>NT1</string>
                      <string>TIP16b1a61b09e0c660</string>
                   </compatible-nozzle-tip-ids>
-                  <head-offsets units="Millimeters" x="23.922" y="-64.393" z="0.0" rotation="0.0"/>
-                  <manual-nozzle-tip-change-location units="Millimeters" x="241.102" y="81.907" z="31.5" rotation="0.0"/>
+                  <head-offsets units="Millimeters" x="22.681665204219115" y="-63.980794183848985" z="-0.17000000000003546" rotation="0.0"/>
+                  <manual-nozzle-tip-change-location units="Millimeters" x="263.7836652042191" y="17.92620581615101" z="31.329999999999963" rotation="0.0"/>
                   <vacuum-sense-actuator-name>VAC2</vacuum-sense-actuator-name>
                   <vacuum-actuator-name>VAC2</vacuum-actuator-name>
                </nozzle>
@@ -1054,6 +1054,7 @@
             <string>c15ef57f0dcd294ab89817b092cacfbdd06bac47</string>
             <string>88cecb197dd4d95cf7e3ba2916536d19493c7968</string>
             <string>d0cdf1c68b2d2effd44748eb86ab84e52e562c7c</string>
+            <string>6b2530ad7ec28983e1e52de96e5338c3e58d9bdb</string>
          </solved-solutions>
       </solutions>
       <visual-solutions min-symmetry="1.5" sub-sampling="4" super-sampling="8" symmetry-score="OverallVarianceVsRingVarianceSum" diagnostics-milliseconds="4000" max-camera-relative-fiducial-area-diameter="0.2" max-camera-relative-subject-diameter="0.5" zero-knowledge-displacement-ratio="0.2" zero-knowledge-displacement-mm="1.0" fiducials-minimum-Z-offset-mm="2.0" zero-knowledge-fiducial-locator-passes="3" fiducial-margin="1.1" zero-knowledge-runout-compensation-shots="6" zero-knowledge-auto-focus-depth-mm="2.0" zero-knowledge-backlash-speed="0.2" zero-knowledge-settle-time-ms="600" settle-wanted-resolution-mm="0.05" settle-acceptable-compute-time="25.0" settle-maximum-pixel-diff="8.0" settle-test-move-mm="1.0">
