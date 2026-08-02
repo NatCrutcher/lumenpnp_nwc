@@ -261,7 +261,7 @@
          </axis>
       </axes>
       <heads>
-         <head class="org.openpnp.machine.reference.ReferenceHead" id="H1" name="H1" vacuum-pump-control="PartOn" pump-on-wait-milliseconds="0" visual-homing-method="None" nozzle-solution="Standalone" nozzle-solutions-multiplier="1">
+         <head class="org.openpnp.machine.reference.ReferenceHead" id="H1" name="H1" vacuum-pump-control="PartOn" pump-on-wait-milliseconds="0" visual-homing-method="ResetToFiducialLocation" nozzle-solution="Standalone" nozzle-solutions-multiplier="1">
             <nozzles>
                <nozzle class="org.openpnp.machine.reference.ReferenceNozzle" axis-X-id="AXS169824381580efcb" axis-Y-id="AXS16982438158c4660" axis-Z-id="AXS16982438158d0458" axis-rotation-id="AXS16b068df4e35374e" id="N1" name="N1" rotation-mode="LimitedArticulation" aligning-rotation-mode="false" max-pick-articulation-angle="15.0" max-alignment-articulation-angle="30.0" pick-dwell-milliseconds="0" place-dwell-milliseconds="0" current-nozzle-tip-id="TIP16b1a61b09e0c660" changer-enabled="false" nozzle-tip-changed-on-manual-feed="false" enable-dynamic-safe-z="true" blow-off-closing-valve="true" version="200" limit-rotation="true">
                   <compatible-nozzle-tip-ids class="java.util.ArrayList">
@@ -359,7 +359,7 @@
             <park-location units="Millimeters" x="302.328" y="411.916" z="0.0" rotation="0.0"/>
             <soft-limits-enabled>false</soft-limits-enabled>
             <homing-fiducial-location units="Millimeters" x="218.107" y="197.304" z="0.0" rotation="0.0"/>
-            <calibration-primary-fiducial-location units="Millimeters" x="217.02776944794965" y="197.17273774255668" z="4.100000000000003" rotation="0.0"/>
+            <calibration-primary-fiducial-location units="Millimeters" x="218.107" y="197.304" z="4.100000000000003" rotation="0.0"/>
             <calibration-secondary-fiducial-location units="Millimeters" x="216.93610424373065" y="106.9935319264055" z="13.940000000000003" rotation="0.0"/>
             <calibration-primary-fiducial-diameter value="1.0176869901689825" units="Millimeters"/>
             <calibration-secondary-fiducial-diameter value="1.4208683428030704" units="Millimeters"/>
