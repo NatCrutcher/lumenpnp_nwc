@@ -443,7 +443,7 @@
             <simulated line-ending-type="LF"/>
             <homing-fiducial-location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="0.0"/>
             <detected-firmware><![CDATA[FIRMWARE_NAME:Marlin bugfix-2.1.x (Sep 19 2024 13:39:21) SOURCE_CODE_URL:github.com/MarlinFirmware/Marlin PROTOCOL_VERSION:1.0 MACHINE_TYPE:LumenPnP EXTRUDER_COUNT:0 AXIS_COUNT:5]]></detected-firmware>
-            <reported-axes><![CDATA[X:217.00 Y:227.00 Z:31.50 A:720.00 B:720.00 Count X:69440 Y:72640 Z:1260 A:3197 B:3197]]></reported-axes>
+            <reported-axes><![CDATA[X:242.92 Y:214.35 Z:5.70 A:0.00 B:0.00 Count X:77733 Y:68592 Z:228 A:0 B:0]]></reported-axes>
             <command type="COMMAND_CONFIRM_REGEX">
                <text><![CDATA[^ok.*]]></text>
             </command>
@@ -718,7 +718,7 @@
             <vision-template-dimension-y value="10.0" units="Millimeters"/>
             <vision-template-tolerance value="4.0" units="Millimeters"/>
             <vision-calibration-tolerance value="0.7" units="Millimeters"/>
-            <min-part-diameter value="0.4" units="Millimeters"/>
+            <min-part-diameter value="1.0" units="Millimeters"/>
             <max-part-diameter value="4.0" units="Millimeters"/>
             <max-part-height value="2.0" units="Millimeters"/>
             <max-pick-tolerance value="0.5" units="Millimeters"/>
@@ -768,10 +768,10 @@
             <vision-template-dimension-y value="10.0" units="Millimeters"/>
             <vision-template-tolerance value="4.0" units="Millimeters"/>
             <vision-calibration-tolerance value="0.7" units="Millimeters"/>
-            <min-part-diameter value="0.8" units="Millimeters"/>
+            <min-part-diameter value="1.5" units="Millimeters"/>
             <max-part-diameter value="8.0" units="Millimeters"/>
             <max-part-height value="4.0" units="Millimeters"/>
-            <max-pick-tolerance value="1.0" units="Millimeters"/>
+            <max-pick-tolerance value="0.5" units="Millimeters"/>
             <calibration angle-subdivisions="6" allow-misdetections="5" angle-start="-180.0" angle-stop="180.0" excenter-ratio="0.25" enabled="true" fail-homing="true" runout-compensation-algorithm="ModelCameraOffsetAffine" version="2.1" recalibration-trigger="Manual" background-calibration-method="None" background-min-hue="0" background-max-hue="0" background-tol-hue="8" background-min-saturation="0" background-max-saturation="0" background-tol-saturation="8" background-min-value="0" background-max-value="0" background-tol-value="8" min-background-mask-value="32" max-background-mask-value="128" background-worst-saturation="63" background-worst-hue-span="42" background-worst-value="127" offset-threshold="0.0" detection-threshold-margin="0.4">
                <pipeline>
                   <stages>
@@ -818,7 +818,7 @@
             <vision-template-dimension-y value="10.0" units="Millimeters"/>
             <vision-template-tolerance value="4.0" units="Millimeters"/>
             <vision-calibration-tolerance value="0.7" units="Millimeters"/>
-            <min-part-diameter value="1.4" units="Millimeters"/>
+            <min-part-diameter value="2.4" units="Millimeters"/>
             <max-part-diameter value="14.0" units="Millimeters"/>
             <max-part-height value="7.0" units="Millimeters"/>
             <max-pick-tolerance value="1.0" units="Millimeters"/>
@@ -868,7 +868,7 @@
             <vision-template-dimension-y value="10.0" units="Millimeters"/>
             <vision-template-tolerance value="4.0" units="Millimeters"/>
             <vision-calibration-tolerance value="0.7" units="Millimeters"/>
-            <min-part-diameter value="2.4" units="Millimeters"/>
+            <min-part-diameter value="4.0" units="Millimeters"/>
             <max-part-diameter value="20.0" units="Millimeters"/>
             <max-part-height value="10.0" units="Millimeters"/>
             <max-pick-tolerance value="1.0" units="Millimeters"/>
@@ -918,7 +918,7 @@
             <vision-template-dimension-y value="10.0" units="Millimeters"/>
             <vision-template-tolerance value="4.0" units="Millimeters"/>
             <vision-calibration-tolerance value="0.7" units="Millimeters"/>
-            <min-part-diameter value="4.0" units="Millimeters"/>
+            <min-part-diameter value="7.0" units="Millimeters"/>
             <max-part-diameter value="30.0" units="Millimeters"/>
             <max-part-height value="15.0" units="Millimeters"/>
             <max-pick-tolerance value="1.5" units="Millimeters"/>
@@ -968,7 +968,7 @@
             <vision-template-dimension-y value="10.0" units="Millimeters"/>
             <vision-template-tolerance value="4.0" units="Millimeters"/>
             <vision-calibration-tolerance value="0.7" units="Millimeters"/>
-            <min-part-diameter value="7.5" units="Millimeters"/>
+            <min-part-diameter value="11.5" units="Millimeters"/>
             <max-part-diameter value="40.0" units="Millimeters"/>
             <max-part-height value="20.0" units="Millimeters"/>
             <max-pick-tolerance value="2.0" units="Millimeters"/>
