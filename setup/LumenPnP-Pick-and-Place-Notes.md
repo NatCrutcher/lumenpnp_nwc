@@ -13,10 +13,19 @@ Per Claude's recommendations, I used the .tar.gz download approach to simplify m
 * ls /dev/serial/by-id  # Check for the LumenPnP serial port by ID
    * /dev/serial/by-id/usb-STMicroelectronics_MARLIN_OPULO_LUMEN_REV5_CDC_in_FS_Mode_398236833034-if00
 
+## Calibration
+### Primary Fiducial N1 Nozzle Position: X:216.940   Y:197.165   Z:4.080     C:0.000
+### Second Fiducial N1 Nozzle Position:  X:216.840   Y:107.025   Z:13.940    C:0.000
+
 ## Task List
 
 * Try Non-Squareness Compensation: [https://github.com/openpnp/openpnp/wiki/Linear-Transformed-Axes\#use-case--non-squareness-compensation](https://github.com/openpnp/openpnp/wiki/Linear-Transformed-Axes#use-case--non-squareness-compensation)   
 * Try second fiducial calibration: [https://github.com/openpnp/openpnp/wiki/Vision-Solutions\#calibration-secondary-fiducial](https://github.com/openpnp/openpnp/wiki/Vision-Solutions#calibration-secondary-fiducial) 
+
+## Enhancements
+
+1. Aluminum build plate - 6mm thick, 600x300mm, tapped 3mm holes. 15X stiffer
+1. 15 mm high second fiducial  - nozzle N1 could not reach the Opulo supported second fiducial (5 mm).
 
 ## Feeders
 
