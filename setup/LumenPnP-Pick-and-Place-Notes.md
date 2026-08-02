@@ -11,6 +11,7 @@ Per Claude's recommendations, I used the .tar.gz download approach to simplify m
 * v4l2-ctl --list-devices   # Check the list of cameras
 * ls /dev/ttyAC*   # Check for the LumenPnP serial port
 * ls /dev/serial/by-id  # Check for the LumenPnP serial port by ID
+   * /dev/serial/by-id/usb-STMicroelectronics_MARLIN_OPULO_LUMEN_REV5_CDC_in_FS_Mode_398236833034-if00
 
 ## Task List
 
