@@ -15,6 +15,7 @@ Per Claude's recommendations, I used the .tar.gz download approach to simplify m
 
 ## Calibration
 ### Set bottom camera offset for centered view X=-51, Y=11
+### Centered top camera on fiducial 1 (with nozzle N1): X:192.230   Y:134.221   Z:26.500    C:0.000    
 ### Primary Fiducial N1 Nozzle Position: X:216.940   Y:197.165   Z:4.080     C:0.000
 ### Second Fiducial N1 Nozzle Position:  X:216.840   Y:107.025   Z:13.940    C:0.000
 ### Primary Fiducial N2 Nozzle Position: X:218.268   Y:196.761   Z:4.270     C:0.000    

@@ -272,8 +272,8 @@
                      <string>TIP16f0412fef58a913</string>
                      <string>TIP16b1a61b09e0c660</string>
                   </compatible-nozzle-tip-ids>
-                  <head-offsets units="Millimeters" x="-24.7763266227185" y="-62.86819588193126" z="0.0" rotation="0.0"/>
-                  <manual-nozzle-tip-change-location units="Millimeters" x="168.9596733772815" y="18.54380411806875" z="31.5" rotation="0.0"/>
+                  <head-offsets units="Millimeters" x="-24.765274614181646" y="-62.912372160708365" z="0.0" rotation="0.0"/>
+                  <manual-nozzle-tip-change-location units="Millimeters" x="168.97072538581835" y="18.49962783929164" z="31.5" rotation="0.0"/>
                   <vacuum-sense-actuator-name>VAC1</vacuum-sense-actuator-name>
                   <vacuum-actuator-name>VAC1</vacuum-actuator-name>
                </nozzle>
@@ -363,6 +363,7 @@
             <calibration-secondary-fiducial-location units="Millimeters" x="216.93610424373065" y="106.9935319264055" z="13.940000000000003" rotation="0.0"/>
             <calibration-primary-fiducial-diameter value="1.0176869901689825" units="Millimeters"/>
             <calibration-secondary-fiducial-diameter value="1.4208683428030704" units="Millimeters"/>
+            <calibration-test-object-diameter value="6.084469026329448" units="Millimeters"/>
          </head>
       </heads>
       <signalers/>
@@ -374,7 +375,7 @@
             <default-z value="61.0" units="Millimeters"/>
             <vision-provider class="org.openpnp.machine.reference.vision.OpenCvVisionProvider"/>
             <roaming-radius value="0.0" units="Millimeters"/>
-            <head-offsets units="Millimeters" x="216.96933758579792" y="152.66656320068773" z="4.20000000000001" rotation="0.0"/>
+            <head-offsets units="Millimeters" x="216.98038959433478" y="152.62238692191062" z="4.20000000000001" rotation="0.0"/>
             <safe-z value="0.0" units="Millimeters"/>
             <calibration enabled="false">
                <camera-matrix length="9">2111.355587855576, 0.0, 605.0663860340355, 0.0, 2128.668185693804, 413.20408953641106, 0.0, 0.0, 1.0</camera-matrix>
@@ -1053,6 +1054,7 @@
             <string>831b760f63cd9d1b93a457157a4f8c366aa0cf33</string>
             <string>eda2a7d4f9d945cd2e20df550eb3a2a57b03e412</string>
             <string>2610dc43dedb9a0506738512da0f237b8422036c</string>
+            <string>2033b3e04a15ab463f1ee9b7147478e317717571</string>
             <string>c15ef57f0dcd294ab89817b092cacfbdd06bac47</string>
             <string>88cecb197dd4d95cf7e3ba2916536d19493c7968</string>
             <string>d0cdf1c68b2d2effd44748eb86ab84e52e562c7c</string>
