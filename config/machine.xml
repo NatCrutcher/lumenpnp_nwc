@@ -746,8 +746,8 @@
             <part-on-check-after-pick>true</part-on-check-after-pick>
             <part-on-check-align>false</part-on-check-align>
             <part-on-check-before-place>false</part-on-check-before-place>
-            <vacuum-level-part-on-low>220.0</vacuum-level-part-on-low>
-            <vacuum-level-part-on-high>241.0</vacuum-level-part-on-high>
+            <vacuum-level-part-on-low>215.0</vacuum-level-part-on-low>
+            <vacuum-level-part-on-high>231.0</vacuum-level-part-on-high>
             <vacuum-difference-part-on-low>0.0</vacuum-difference-part-on-low>
             <vacuum-difference-part-on-high>0.0</vacuum-difference-part-on-high>
             <method-part-off>None</method-part-off>
@@ -901,8 +901,8 @@
             <part-on-check-after-pick>true</part-on-check-after-pick>
             <part-on-check-align>false</part-on-check-align>
             <part-on-check-before-place>false</part-on-check-before-place>
-            <vacuum-level-part-on-low>220.0</vacuum-level-part-on-low>
-            <vacuum-level-part-on-high>248.0</vacuum-level-part-on-high>
+            <vacuum-level-part-on-low>219.0</vacuum-level-part-on-low>
+            <vacuum-level-part-on-high>239.0</vacuum-level-part-on-high>
             <vacuum-difference-part-on-low>0.0</vacuum-difference-part-on-low>
             <vacuum-difference-part-on-high>0.0</vacuum-difference-part-on-high>
             <method-part-off>None</method-part-off>
