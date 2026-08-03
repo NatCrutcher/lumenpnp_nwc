@@ -344,7 +344,7 @@
                   <back-light-compensation property="BackLightCompensation" value="0"/>
                   <brightness property="Brightness" value="0"/>
                   <contrast property="Contrast" value="30"/>
-                  <exposure property="Exposure" value="90" auto="false"/>
+                  <exposure property="Exposure" value="70" auto="false"/>
                   <focus property="Focus" value="0" auto="true"/>
                   <gain property="Gain" value="0"/>
                   <gamma property="Gamma" value="100"/>
@@ -352,7 +352,7 @@
                   <power-line-frequency property="PowerLineFrequency" value="1"/>
                   <saturation property="Saturation" value="64"/>
                   <sharpness property="Sharpness" value="0"/>
-                  <white-balance property="WhiteBalance" value="4000" auto="false"/>
+                  <white-balance property="WhiteBalance" value="6500" auto="false"/>
                   <zoom property="Zoom" value="0"/>
                </camera>
             </cameras>
@@ -368,9 +368,9 @@
       </heads>
       <signalers/>
       <feeders>
-         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18c7ef2c668f337f" name="ReferenceStripFeeder" enabled="true" part-id="R_0603_1608Metric-R_Small" feed-retry-count="1" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="6" max-feed-count="0">
+         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18c7ef2c668f337f" name="ReferenceStripFeeder" enabled="true" part-id="R_0603_1608Metric-R_Small" feed-retry-count="1" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="0" max-feed-count="0">
             <location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="90.0"/>
-            <reference-hole-location units="Millimeters" x="53.473" y="207.659" z="4.9" rotation="0.0"/>
+            <reference-hole-location units="Millimeters" x="53.473" y="208.259" z="4.9" rotation="0.0"/>
             <last-hole-location units="Millimeters" x="53.473" y="203.659" z="0.0" rotation="0.0"/>
             <part-pitch value="4.0" units="Millimeters"/>
             <tape-width value="8.0" units="Millimeters"/>
@@ -434,7 +434,7 @@
             <back-light-compensation property="BackLightCompensation" value="0"/>
             <brightness property="Brightness" value="0"/>
             <contrast property="Contrast" value="30"/>
-            <exposure property="Exposure" value="320" auto="false"/>
+            <exposure property="Exposure" value="220" auto="false"/>
             <focus property="Focus" value="0" auto="true"/>
             <gain property="Gain" value="0"/>
             <gamma property="Gamma" value="100"/>
@@ -442,7 +442,7 @@
             <power-line-frequency property="PowerLineFrequency" value="1"/>
             <saturation property="Saturation" value="64"/>
             <sharpness property="Sharpness" value="0"/>
-            <white-balance property="WhiteBalance" value="4000" auto="false"/>
+            <white-balance property="WhiteBalance" value="5485" auto="false"/>
             <zoom property="Zoom" value="0"/>
          </camera>
       </cameras>
