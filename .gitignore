@@ -1,3 +1,8 @@
 *.3mf
 *.stl
-
+*.swp
+config/backups/
+config/log/
+config/*.tmp
+config/*.bak
+config/*.lck
