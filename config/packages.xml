@@ -497,6 +497,9 @@
          <pad name="A" x="-0.385" y="0.0" width="0.52" height="1.29" rotation="0.0" mark="false" roundness="0.0"/>
          <pad name="K" x="0.385" y="0.0" width="0.2" height="1.29" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
       </compatible-nozzle-tip-ids>
@@ -650,6 +653,9 @@
          <pad name="1" x="-0.725" y="0.0" width="0.7" height="0.85" rotation="0.0" mark="true" roundness="30.0"/>
          <pad name="2" x="0.725" y="0.0" width="0.7" height="0.85" rotation="0.0" mark="false" roundness="30.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
       </compatible-nozzle-tip-ids>

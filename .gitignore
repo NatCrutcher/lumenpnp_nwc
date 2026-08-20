@@ -4,6 +4,8 @@
 config/backups/
 config/log/
 config/org.openpnp.vision.pipeline.stages.ImageWriteDebug/
+config/org.openpnp.machine.reference.ReferenceNozzleTipCalibration/
+config/snapshots/
 config/*.tmp
 config/*.bak
 config/*.lck
