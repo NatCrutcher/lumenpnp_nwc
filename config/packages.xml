@@ -18,6 +18,9 @@
          <pad name="5" x="0.7375" y="0.0" width="1.075" height="0.4" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="6" x="0.7375" y="0.65" width="1.075" height="0.4" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
    </package>
    <package version="1.1" id="Abracon_ASPI-4030S" description="NwcPcbLibrary:Abracon_ASPI-4030S" pick-vacuum-level="0.0" place-blow-off-level="0.0">
@@ -54,6 +57,9 @@
          <pad name="1" x="-0.48" y="0.0" width="0.5" height="0.5" rotation="0.0" mark="true" roundness="30.0"/>
          <pad name="2" x="0.48" y="0.0" width="0.5" height="0.5" rotation="0.0" mark="false" roundness="30.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
    </package>
    <package version="1.1" id="C_0603_1608Metric_HD" description="NwcPcbLibrary:C_0603_1608Metric_HD" pick-vacuum-level="0.0" place-blow-off-level="0.0">

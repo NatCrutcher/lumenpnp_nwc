@@ -3,6 +3,7 @@
 *.swp
 config/backups/
 config/log/
+config/org.openpnp.vision.pipeline.stages.ImageWriteDebug/
 config/*.tmp
 config/*.bak
 config/*.lck
