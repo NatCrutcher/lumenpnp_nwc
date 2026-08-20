@@ -3,6 +3,9 @@
       <footprint units="Millimeters" body-width="0.0" body-height="0.0" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="0.0" y="0.0" width="1.0" height="1.0" rotation="0.0" mark="false" roundness="100.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
    </package>
    <package version="1.1" id="Fiducial_1mm_Mask3mm" pick-vacuum-level="0.0" place-blow-off-level="0.0">
@@ -21,21 +24,34 @@
       <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
          <max-pick-tolerance value="0.0" units="Millimeters"/>
       </vision-compositing>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="Abracon_ASPI-4030S" description="NwcPcbLibrary:Abracon_ASPI-4030S" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="4.0" body-height="4.0" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-1.5" y="0.0" width="1.1" height="3.4" rotation="0.0" mark="true" roundness="20.0"/>
          <pad name="2" x="1.5" y="0.0" width="1.1" height="3.4" rotation="0.0" mark="false" roundness="20.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="BatteryHolder_Keystone_1060_1x2032" description="Battery:BatteryHolder_Keystone_1060_1x2032" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="28.4" body-height="16.0" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-14.65" y="0.0" width="2.6" height="3.6" rotation="0.0" mark="true" roundness="0.0"/>
          <pad name="2" x="14.65" y="0.0" width="2.6" height="3.6" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="Bourns_RES_C01R00" description="NwcPcbLibrary:Bourns_RES_C01R00" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="3.6068" body-height="3.6068" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -43,14 +59,25 @@
          <pad name="2" x="0.0" y="1.6764" width="1.25" height="1.0" rotation="0.0" mark="false" roundness="0.0"/>
          <pad name="3" x="-1.15" y="-1.6764" width="1.0" height="1.0" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="CP_Elec_6.3x5.8" description="Capacitor_SMD:CP_Elec_6.3x5.8" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="6.6" body-height="6.6" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-2.7" y="0.0" width="3.5" height="1.6" rotation="0.0" mark="true" roundness="31.25"/>
          <pad name="2" x="2.7" y="0.0" width="3.5" height="1.6" rotation="0.0" mark="false" roundness="31.25"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="C_0402_1005Metric_HD" description="NwcPcbLibrary:C_0402_1005Metric_HD" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="1.0" body-height="0.5" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -60,42 +87,71 @@
       <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
          <max-pick-tolerance value="0.0" units="Millimeters"/>
       </vision-compositing>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="C_0603_1608Metric_HD" description="NwcPcbLibrary:C_0603_1608Metric_HD" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="1.6" body-height="0.8" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-0.725" y="0.0" width="0.7" height="0.85" rotation="0.0" mark="true" roundness="30.0"/>
          <pad name="2" x="0.725" y="0.0" width="0.7" height="0.85" rotation="0.0" mark="false" roundness="30.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="C_0805_2012Metric" description="Capacitor_SMD:C_0805_2012Metric" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="2.0" body-height="1.25" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-0.95" y="0.0" width="1.0" height="1.45" rotation="0.0" mark="true" roundness="50.0"/>
          <pad name="2" x="0.95" y="0.0" width="1.0" height="1.45" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="C_1206_3216M" description="NwcPcbLibrary:C_1206_3216M" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="3.2" body-height="1.6" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-1.475" y="0.0" width="1.15" height="1.8" rotation="0.0" mark="true" roundness="43.4782"/>
          <pad name="2" x="1.475" y="0.0" width="1.15" height="1.8" rotation="0.0" mark="false" roundness="43.4782"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="C_1210_3225M" description="NwcPcbLibrary:C_1210_3225M" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="3.2" body-height="2.5" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-1.475" y="0.0" width="1.15" height="2.7" rotation="0.0" mark="true" roundness="43.4782"/>
          <pad name="2" x="1.475" y="0.0" width="1.15" height="2.7" rotation="0.0" mark="false" roundness="43.4782"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="C_Elec_5x5.8" description="Capacitor_SMD:C_Elec_5x5.8" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="5.3" body-height="5.3" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-2.0625" y="0.0" width="2.775" height="1.6" rotation="0.0" mark="true" roundness="31.25"/>
          <pad name="2" x="2.0625" y="0.0" width="2.775" height="1.6" rotation="0.0" mark="false" roundness="31.25"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="Cree_XE-G" description="NwcPcbLibrary:Cree_XE-G" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="1.6" body-height="2.05" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -103,7 +159,12 @@
          <pad name="K" x="0.425" y="0.955" width="0.56" height="0.33" rotation="0.0" mark="false" roundness="20.0"/>
          <pad name="TP" x="0.0" y="-0.095" width="1.41" height="1.27" rotation="0.0" mark="false" roundness="7.874"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="Cree_XP-L" description="NwcPcbLibrary:Cree_XP-L" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="3.6" body-height="3.6" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -117,21 +178,37 @@
          <pad name="8" x="-1.4" y="1.32" width="0.5" height="0.64" rotation="0.0" mark="false" roundness="20.0"/>
          <pad name="TP" x="0.0" y="0.0" width="1.0" height="1.0" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="D_SOD-123F" description="Diode_SMD:D_SOD-123F" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="2.8" body-height="1.8" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-1.4" y="0.0" width="1.1" height="1.1" rotation="0.0" mark="true" roundness="45.4545"/>
          <pad name="2" x="1.4" y="0.0" width="1.1" height="1.1" rotation="0.0" mark="false" roundness="45.4545"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="D_SOD-323F" description="Diode_SMD:D_SOD-323F" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="1.8" body-height="1.4" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-1.1" y="0.0" width="0.5" height="0.5" rotation="0.0" mark="true" roundness="50.0"/>
          <pad name="2" x="1.1" y="0.0" width="0.5" height="0.5" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="FIL_CM3421Y600R-10" description="NwcPcbLibrary:FIL_CM3421Y600R-10" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="9.54" body-height="5.65" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -140,7 +217,12 @@
          <pad name="3" x="4.1" y="-1.42" width="3.2" height="1.5" rotation="0.0" mark="false" roundness="0.0"/>
          <pad name="4" x="-4.1" y="-1.42" width="3.2" height="1.5" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="HTSSOP-20-1EP_4.4x6.5mm_P0.65mm_EP3.4x6.5mm_Mask2.75x3.43mm_ThermalVias" description="Package_SO:HTSSOP-20-1EP_4.4x6.5mm_P0.65mm_EP3.4x6.5mm_Mask2.75x3.43mm_ThermalVias" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="4.4" body-height="6.5" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -181,7 +263,12 @@
          <pad name="21" x="1.3" y="-1.3" width="0.6" height="0.6" rotation="0.0" mark="false" roundness="100.0"/>
          <pad name="21" x="1.3" y="-2.6" width="0.6" height="0.6" rotation="0.0" mark="false" roundness="100.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="ICS-40730" description="NwcPcbLibrary:ICS-40730" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="4.85" body-height="3.8" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -190,14 +277,24 @@
          <pad name="3" x="-2.34" y="-1.2" width="0.9" height="0.9" rotation="0.0" mark="false" roundness="100.0"/>
          <pad name="4" x="1.3" y="0.0" width="0.3" height="0.4" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="IND_DR1040" description="NwcPcbLibrary:IND_DR1040" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="11.0" body-height="12.8" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="0.0" y="4.95" width="3.2" height="2.6" rotation="0.0" mark="true" roundness="30.0"/>
          <pad name="2" x="0.0" y="-4.95" width="3.2" height="2.6" rotation="0.0" mark="false" roundness="30.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="JST_SH_BM03B-SRSS-TB_1x03-1MP_P1.00mm_Vert" description="NwcPcbLibrary:JST_SH_BM03B-SRSS-TB_1x03-1MP_P1.00mm_Vert" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="5.0" body-height="2.9" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -207,7 +304,12 @@
          <pad name="MP" x="-2.3" y="1.2" width="1.4" height="2.0" rotation="0.0" mark="false" roundness="41.6666"/>
          <pad name="MP" x="2.3" y="1.2" width="1.4" height="2.0" rotation="0.0" mark="false" roundness="41.6666"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="JST_SH_BM04B-SRSS-TB_1x04-1MP_P1.00mm_Vert" description="NwcPcbLibrary:JST_SH_BM04B-SRSS-TB_1x04-1MP_P1.00mm_Vert" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="6.0" body-height="2.9" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -218,7 +320,12 @@
          <pad name="MP" x="-2.8" y="1.2" width="1.4" height="2.0" rotation="0.0" mark="false" roundness="41.6666"/>
          <pad name="MP" x="2.8" y="1.2" width="1.4" height="2.0" rotation="0.0" mark="false" roundness="41.6666"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="JST_SH_BM05B-SRSS-TB_1x05-1MP_P1.00mm_Vert" description="NwcPcbLibrary:JST_SH_BM05B-SRSS-TB_1x05-1MP_P1.00mm_Vert" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="7.0" body-height="2.9" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -230,7 +337,12 @@
          <pad name="MP" x="-3.3" y="1.2" width="1.4" height="2.0" rotation="0.0" mark="false" roundness="41.6666"/>
          <pad name="MP" x="3.3" y="1.2" width="1.4" height="2.0" rotation="0.0" mark="false" roundness="41.6666"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="JST_SH_BM06B-SRSS-TB_1x06-1MP_P1.00mm_Vert" description="NwcPcbLibrary:JST_SH_BM06B-SRSS-TB_1x06-1MP_P1.00mm_Vert" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="8.0" body-height="2.9" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -243,7 +355,12 @@
          <pad name="MP" x="-3.8" y="1.2" width="1.4" height="2.0" rotation="0.0" mark="false" roundness="41.6666"/>
          <pad name="MP" x="3.8" y="1.2" width="1.4" height="2.0" rotation="0.0" mark="false" roundness="41.6666"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="JST_SH_BM08B-SRSS-TB_1x08-1MP_P1.00mm_Vert" description="NwcPcbLibrary:JST_SH_BM08B-SRSS-TB_1x08-1MP_P1.00mm_Vert" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="10.0" body-height="2.9" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -258,7 +375,9 @@
          <pad name="MP" x="-4.8" y="1.2" width="1.4" height="2.0" rotation="0.0" mark="false" roundness="41.6666"/>
          <pad name="MP" x="4.8" y="1.2" width="1.4" height="2.0" rotation="0.0" mark="false" roundness="41.6666"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="JST_SH_SM03B-SRSS-TB_1x03-1MP_P1.00mm_Horiz" description="NwcPcbLibrary:JST_SH_SM03B-SRSS-TB_1x03-1MP_P1.00mm_Horiz" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="5.0" body-height="4.25" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -268,7 +387,9 @@
          <pad name="MP" x="-2.3" y="-1.875" width="1.2" height="1.8" rotation="0.0" mark="false" roundness="41.6666"/>
          <pad name="MP" x="2.3" y="-1.875" width="1.2" height="1.8" rotation="0.0" mark="false" roundness="41.6666"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="JST_SH_SM04B-SRSS-TB_1x04-1MP_P1.00mm_Horiz" description="NwcPcbLibrary:JST_SH_SM04B-SRSS-TB_1x04-1MP_P1.00mm_Horiz" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="6.0" body-height="4.25" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -279,7 +400,9 @@
          <pad name="MP" x="-2.8" y="-1.875" width="1.2" height="1.8" rotation="0.0" mark="false" roundness="41.6666"/>
          <pad name="MP" x="2.8" y="-1.875" width="1.2" height="1.8" rotation="0.0" mark="false" roundness="41.6666"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="JST_SH_SM06B-SRSS-TB_1x06-1MP_P1.00mm_Horiz" description="NwcPcbLibrary:JST_SH_SM06B-SRSS-TB_1x06-1MP_P1.00mm_Horiz" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="8.0" body-height="4.25" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -292,28 +415,37 @@
          <pad name="MP" x="-3.8" y="-1.875" width="1.2" height="1.8" rotation="0.0" mark="false" roundness="41.6666"/>
          <pad name="MP" x="3.8" y="-1.875" width="1.2" height="1.8" rotation="0.0" mark="false" roundness="41.6666"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="LED_0603_1608Metric_Wurth" description="NwcPcbLibrary:LED_0603_1608Metric_Wurth" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="1.6" body-height="0.8" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="A" x="0.7875" y="0.0" width="0.875" height="0.95" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="K" x="-0.7875" y="0.0" width="0.875" height="0.95" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="L_1008_2520Metric" description="Inductor_SMD:L_1008_2520Metric" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="2.5" body-height="2.0" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-1.075" y="0.0" width="1.25" height="2.2" rotation="0.0" mark="true" roundness="40.0"/>
          <pad name="2" x="1.075" y="0.0" width="1.25" height="2.2" rotation="0.0" mark="false" roundness="40.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="L_1210_3225Metric" description="Inductor_SMD:L_1210_3225Metric" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="3.2" body-height="2.5" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-1.4" y="0.0" width="1.25" height="2.65" rotation="0.0" mark="true" roundness="40.0"/>
          <pad name="2" x="1.4" y="0.0" width="1.25" height="2.65" rotation="0.0" mark="false" roundness="40.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="Luxeon_CZ_LED_AK" description="NwcPcbLibrary:Luxeon_CZ_LED_AK" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="2.0" body-height="2.0" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -321,7 +453,9 @@
          <pad name="K" x="0.75" y="0.0" width="0.3" height="2.0" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="TP" x="0.0" y="0.0" width="0.2" height="0.2" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="Luxeon_C_LED_AK" description="NwcPcbLibrary:Luxeon_C_LED_AK" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="2.0" body-height="2.0" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -329,7 +463,9 @@
          <pad name="K" x="0.75" y="0.0" width="0.3" height="2.0" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="TP" x="0.0" y="0.0" width="0.2" height="0.2" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="Luxeon_RGBW_5052" description="NwcPcbLibrary:Luxeon_RGBW_5052" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="5.2" body-height="5.4" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -343,21 +479,27 @@
          <pad name="8" x="1.6" y="-1.75" width="1.1" height="0.98" rotation="0.0" mark="false" roundness="20.0"/>
          <pad name="9" x="0.0" y="0.0" width="1.1" height="4.48" rotation="0.0" mark="false" roundness="20.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="Nexperia_CFP3_SOD-123W" description="Diode_SMD:Nexperia_CFP3_SOD-123W" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="2.6" body-height="1.7" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-1.4" y="0.0" width="1.2" height="1.2" rotation="0.0" mark="true" roundness="0.0"/>
          <pad name="2" x="1.4" y="0.0" width="1.2" height="1.2" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="OSRAM-OSLON-Pure-1414" description="NwcPcbLibrary:OSRAM-OSLON-Pure-1414" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="1.6" body-height="1.6" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="A" x="-0.385" y="0.0" width="0.52" height="1.29" rotation="0.0" mark="false" roundness="0.0"/>
          <pad name="K" x="0.385" y="0.0" width="0.2" height="1.29" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="Oscillator_SMD_ECS_2520MV-4Pin_2.5x2.0" description="NwcPcbLibrary:Oscillator_SMD_ECS_2520MV-4Pin_2.5x2.0" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="2.0" body-height="2.5" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -366,7 +508,9 @@
          <pad name="3" x="0.725" y="-0.925" width="0.8" height="0.9" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="4" x="0.725" y="0.925" width="0.8" height="0.9" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="PowerPAK_SO-8_A" description="NwcPcbLibrary:PowerPAK_SO-8_A" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="5.89" body-height="4.9" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -382,7 +526,9 @@
          <pad name="5" x="2.795" y="-0.635" width="1.02" height="0.61" rotation="0.0" mark="false" roundness="0.0"/>
          <pad name="5" x="2.795" y="-1.905" width="1.02" height="0.61" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="PulseElec-1210CCMC" description="NwcPcbLibrary:PulseElec-1210CCMC" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="3.2" body-height="2.5" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -391,14 +537,19 @@
          <pad name="3" x="1.6" y="-0.9" width="1.2" height="0.9" rotation="0.0" mark="false" roundness="0.0"/>
          <pad name="4" x="-1.6" y="-0.9" width="1.2" height="0.9" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="Pulse_Ind_BMRF_12x10" description="NwcPcbLibrary:Pulse_Ind_BMRF_12x10" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="10.0" body-height="11.5" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="0.0" y="4.75" width="3.5" height="4.0" rotation="90.0" mark="true" roundness="29.4118"/>
          <pad name="2" x="0.0" y="-4.75" width="3.5" height="4.0" rotation="90.0" mark="false" roundness="29.4118"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="QFN-28_4x4_P0.5" description="NwcPcbLibrary:QFN-28_4x4_P0.5" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="4.0" body-height="4.0" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -431,7 +582,10 @@
          <pad name="27" x="-1.0" y="1.9375" width="0.25" height="0.875" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="28" x="-1.5" y="1.9975" width="0.1369" height="0.1369" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm" description="Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.45x3.45mm" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="5.0" body-height="5.0" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -469,49 +623,64 @@
          <pad name="32" x="-1.75" y="2.4375" width="0.25" height="0.875" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="33" x="0.0" y="0.0" width="3.45" height="3.45" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="R_0402_1005Metric_HD" description="NwcPcbLibrary:R_0402_1005Metric_HD" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="1.0" body-height="0.5" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-0.48" y="0.0" width="0.5" height="0.5" rotation="0.0" mark="true" roundness="30.0"/>
          <pad name="2" x="0.48" y="0.0" width="0.5" height="0.5" rotation="0.0" mark="false" roundness="30.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="R_0603_1608Metric" description="Resistor_SMD:R_0603_1608Metric" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="1.6" body-height="0.825" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-0.825" y="0.0" width="0.8" height="0.95" rotation="0.0" mark="true" roundness="50.0"/>
          <pad name="2" x="0.825" y="0.0" width="0.8" height="0.95" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="R_0603_1608Metric_HD" description="NwcPcbLibrary:R_0603_1608Metric_HD" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="1.6" body-height="0.8" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-0.725" y="0.0" width="0.7" height="0.85" rotation="0.0" mark="true" roundness="30.0"/>
          <pad name="2" x="0.725" y="0.0" width="0.7" height="0.85" rotation="0.0" mark="false" roundness="30.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="R_0612_1632Metric_Ohmite" description="NwcPcbLibrary:R_0612_1632Metric_Ohmite" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="1.6" body-height="3.2" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-0.9" y="0.0" width="1.2" height="3.7" rotation="0.0" mark="true" roundness="50.0"/>
          <pad name="2" x="0.9" y="0.0" width="1.2" height="3.7" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="R_0805_2012Metric_HD" description="NwcPcbLibrary:R_0805_2012Metric_HD" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="2.0" body-height="1.2" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-0.9" y="0.0" width="1.0" height="1.3" rotation="0.0" mark="true" roundness="20.0"/>
          <pad name="2" x="0.9" y="0.0" width="1.0" height="1.3" rotation="0.0" mark="false" roundness="20.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" description="Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="2.0" body-height="1.25" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-1.0" y="0.0" width="1.2" height="1.4" rotation="0.0" mark="true" roundness="41.6666"/>
          <pad name="2" x="1.0" y="0.0" width="1.2" height="1.4" rotation="0.0" mark="false" roundness="41.6666"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="R_Array_Convex_4x0612_2" description="NwcPcbLibrary:R_Array_Convex_4x0612_2" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="1.6" body-height="3.2" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -524,14 +693,19 @@
          <pad name="7" x="0.7" y="0.4" width="0.7" height="0.5" rotation="0.0" mark="false" roundness="0.0"/>
          <pad name="8" x="0.7" y="1.27" width="0.7" height="0.64" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="SOD-123_BIDIR" description="NwcPcbLibrary:SOD-123_BIDIR" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="2.8" body-height="1.8" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-1.65" y="0.0" width="0.9" height="1.2" rotation="0.0" mark="true" roundness="50.0"/>
          <pad name="2" x="1.65" y="0.0" width="0.9" height="1.2" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="SOIC-8_3.9x4.9mm_P1.27mm" description="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="3.9" body-height="4.9" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -544,7 +718,9 @@
          <pad name="7" x="2.475" y="0.635" width="1.95" height="0.6" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="8" x="2.475" y="1.905" width="1.95" height="0.6" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="SOT-23-5" description="Package_TO_SOT_SMD:SOT-23-5" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="1.6" body-height="2.9" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -554,7 +730,9 @@
          <pad name="4" x="1.1375" y="-0.95" width="1.325" height="0.6" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="5" x="1.1375" y="0.95" width="1.325" height="0.6" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="SOT-23-6" description="Package_TO_SOT_SMD:SOT-23-6" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="1.6" body-height="2.9" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -565,7 +743,9 @@
          <pad name="5" x="1.1375" y="0.0" width="1.325" height="0.6" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="6" x="1.1375" y="0.95" width="1.325" height="0.6" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="SOT-23_A" description="NwcPcbLibrary:SOT-23_A" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="1.3" body-height="2.9" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -573,7 +753,9 @@
          <pad name="2" x="-0.9375" y="-0.95" width="1.475" height="0.6" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="3" x="0.9375" y="0.0" width="1.475" height="0.6" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="SOT-583-8_A" description="NwcPcbLibrary:SOT-583-8_A" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="1.2" body-height="2.1" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -586,7 +768,9 @@
          <pad name="7" x="0.74" y="0.25" width="0.67" height="0.3" rotation="0.0" mark="false" roundness="33.3333"/>
          <pad name="8" x="0.74" y="0.75" width="0.67" height="0.3" rotation="0.0" mark="false" roundness="33.3333"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="TI_SIL0010D-MFG_TPSM828214SILR" description="NwcPcbLibrary:TI_SIL0010D-MFG_TPSM828214SILR" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="2.1" body-height="2.6" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -601,7 +785,9 @@
          <pad name="9" x="0.725" y="0.5" width="0.85" height="0.25" rotation="0.0" mark="false" roundness="0.0"/>
          <pad name="10" x="0.725" y="1.0" width="0.85" height="0.25" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="TI_TPSM33615FRDNR" description="NwcPcbLibrary:TI_TPSM33615FRDNR" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="3.62" body-height="4.82" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -631,7 +817,9 @@
          <pad name="10" x="0.0" y="-1.77" width="0.5" height="0.5" rotation="0.0" mark="false" roundness="100.0"/>
          <pad name="11" x="-0.5" y="2.06" width="0.35" height="0.9" rotation="0.0" mark="false" roundness="60.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="TI_VQFN21_RYQ_1" description="NwcPcbLibrary:TI_VQFN21_RYQ_1" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="5.1054" body-height="3.0988" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -657,7 +845,9 @@
          <pad name="20" x="-1.54" y="1.4" width="0.6" height="0.25" rotation="90.0" mark="false" roundness="0.0"/>
          <pad name="21" x="-2.04" y="1.375" width="0.25" height="0.65" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="TI_WQFN-20_3x3_0.5mm" description="NwcPcbLibrary:TI_WQFN-20_3x3_0.5mm" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="3.6" body-height="3.6" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -687,7 +877,10 @@
          <pad name="20" x="-1.2125" y="1.4125" width="0.575" height="0.175" rotation="90.0" mark="false" roundness="57.1429"/>
          <pad name="21" x="0.0" y="0.0" width="1.4" height="1.4" rotation="0.0" mark="false" roundness="7.1429"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="TO-269AA_2" description="NwcPcbLibrary:TO-269AA_2" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="4.1" body-height="4.8" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -696,7 +889,9 @@
          <pad name="3" x="3.075" y="-1.27" width="1.2" height="1.0" rotation="0.0" mark="false" roundness="25.0"/>
          <pad name="4" x="3.075" y="1.27" width="1.2" height="1.0" rotation="0.0" mark="false" roundness="25.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="TSSOP-14_4.4x5mm_P0.65mm" description="Package_SO:TSSOP-14_4.4x5mm_P0.65mm" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="4.4" body-height="5.0" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -715,7 +910,9 @@
          <pad name="13" x="2.8625" y="1.3" width="1.475" height="0.4" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="14" x="2.8625" y="1.95" width="1.475" height="0.4" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="TSSOP-16_4.4x5mm_P0.65mm" description="Package_SO:TSSOP-16_4.4x5mm_P0.65mm" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="4.4" body-height="5.0" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -736,7 +933,9 @@
          <pad name="15" x="2.8625" y="1.625" width="1.475" height="0.4" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="16" x="2.8625" y="2.275" width="1.475" height="0.4" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="TSSOP-28_4.4x9.7mm_P0.65mm" description="Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="4.4" body-height="9.7" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -769,13 +968,17 @@
          <pad name="27" x="2.8625" y="3.575" width="1.475" height="0.4" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="28" x="2.8625" y="4.225" width="1.475" height="0.4" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="TestPoint_Keystone_5015_Micro" description="NwcPcbLibrary:TestPoint_Keystone_5015_Micro" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="2.7" body-height="1.0" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="0.0" y="0.0" width="3.4" height="1.8" rotation="0.0" mark="true" roundness="27.7778"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="Texas_DSG0008A_WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias" description="Package_SON:Texas_DSG0008A_WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm_ThermalVias" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="2.0" body-height="2.0" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -791,7 +994,9 @@
          <pad name="9" x="0.0" y="0.0" width="0.9" height="1.6" rotation="0.0" mark="false" roundness="0.0"/>
          <pad name="9" x="0.0" y="-0.55" width="0.5" height="0.5" rotation="0.0" mark="false" roundness="100.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="Texas_RGE0024H_VQFN-24-1EP_4x4_P0.5_EP2.7x2.7_ThVias" description="NwcPcbLibrary:Texas_RGE0024H_VQFN-24-1EP_4x4_P0.5_EP2.7x2.7_ThVias" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="4.0" body-height="4.0" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -830,7 +1035,12 @@
          <pad name="25" x="1.0" y="0.0" width="0.5" height="0.5" rotation="0.0" mark="false" roundness="100.0"/>
          <pad name="25" x="1.0" y="-1.0" width="0.5" height="0.5" rotation="0.0" mark="false" roundness="100.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="Texas_VQFN-24_4x4mm_P0.5mm_TPS25983" description="NwcPcbLibrary:Texas_VQFN-24_4x4mm_P0.5mm_TPS25983" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="4.0" body-height="4.0" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -861,7 +1071,10 @@
          <pad name="P1" x="0.0" y="0.625" width="2.7" height="1.45" rotation="0.0" mark="false" roundness="6.8966"/>
          <pad name="P2" x="0.0" y="-0.925" width="2.7" height="0.85" rotation="0.0" mark="false" roundness="6.8966"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="UQFN-16_1.8x2.6_P0.4" description="NwcPcbLibrary:UQFN-16_1.8x2.6_P0.4" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="1.8" body-height="2.6" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -882,7 +1095,9 @@
          <pad name="15" x="-0.2" y="1.25" width="0.2" height="0.8" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="16" x="-0.6" y="1.25" width="0.2" height="0.8" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="VSON-8-1EP_3x3_P0.65_EP1.6x2.4" description="NwcPcbLibrary:VSON-8-1EP_3x3_P0.65_EP1.6x2.4" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="3.0" body-height="3.0" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -896,7 +1111,10 @@
          <pad name="8" x="1.4375" y="0.975" width="0.75" height="0.3" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="9" x="0.0" y="0.0" width="1.6" height="2.4" rotation="0.0" mark="false" roundness="12.5"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="VSSOP-8_2.3x2_P0.5" description="NwcPcbLibrary:VSSOP-8_2.3x2_P0.5" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="2.3" body-height="2.0" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -909,7 +1127,9 @@
          <pad name="7" x="1.4" y="0.25" width="1.25" height="0.3" rotation="0.0" mark="false" roundness="40.0"/>
          <pad name="8" x="1.4" y="0.75" width="1.25" height="0.3" rotation="0.0" mark="false" roundness="40.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="VSSOP-8_3x3_P0.65" description="NwcPcbLibrary:VSSOP-8_3x3_P0.65" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="3.0" body-height="3.0" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -922,7 +1142,10 @@
          <pad name="7" x="2.2" y="0.325" width="1.5" height="0.45" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="8" x="2.2" y="0.975" width="1.5" height="0.45" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="WSON-12-1EP_3x3_P0.5_EP1.5x2.5" description="NwcPcbLibrary:WSON-12-1EP_3x3_P0.5_EP1.5x2.5" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="3.0" body-height="3.0" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -940,7 +1163,10 @@
          <pad name="12" x="1.4375" y="1.25" width="0.875" height="0.25" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="13" x="0.0" y="0.0" width="1.5" height="2.5" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>NT1</string>
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="XCVR_WIZFI360-PA2" description="NwcPcbLibrary:XCVR_WIZFI360-PA2" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="17.7" body-height="24.0" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
@@ -968,6 +1194,8 @@
          <pad name="22" x="7.6" y="3.5" width="2.0" height="1.2" rotation="0.0" mark="false" roundness="0.0"/>
          <pad name="23" x="1.0" y="-4.5" width="4.5" height="4.5" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
-      <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
+      <compatible-nozzle-tip-ids class="java.util.ArrayList">
+         <string>TIP16f0412ed2d50009</string>
+      </compatible-nozzle-tip-ids>
    </package>
 </openpnp-packages>
