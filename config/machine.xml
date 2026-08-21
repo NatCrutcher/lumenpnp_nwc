@@ -272,8 +272,8 @@
                      <string>TIP16f0412fef58a913</string>
                      <string>TIP16b1a61b09e0c660</string>
                   </compatible-nozzle-tip-ids>
-                  <head-offsets units="Millimeters" x="-24.765274614181646" y="-62.912372160708365" z="0.0" rotation="0.0"/>
-                  <manual-nozzle-tip-change-location units="Millimeters" x="168.97072538581835" y="18.49962783929164" z="31.5" rotation="0.0"/>
+                  <head-offsets units="Millimeters" x="-24.59" y="-62.9" z="0.0" rotation="0.0"/>
+                  <manual-nozzle-tip-change-location units="Millimeters" x="169.14600000000002" y="18.512000000000008" z="31.5" rotation="0.0"/>
                   <vacuum-sense-actuator-name>VAC1</vacuum-sense-actuator-name>
                   <vacuum-actuator-name>VAC1</vacuum-actuator-name>
                </nozzle>
@@ -368,7 +368,7 @@
       </heads>
       <signalers/>
       <feeders>
-         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc50108e1f6fec" name="9LED_1_01_a07" enabled="true" part-id="a07" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="1" max-feed-count="0">
+         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc50108e1f6fec" name="9LED_1_01_a07" enabled="true" part-id="a07" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="3" max-feed-count="0">
             <location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="-90.0"/>
             <reference-hole-location units="Millimeters" x="15.759143962173233" y="209.7231876610184" z="4.0" rotation="0.0"/>
             <last-hole-location units="Millimeters" x="15.745625680737728" y="205.69950842243045" z="0.0" rotation="0.0"/>
@@ -391,7 +391,7 @@
             <parallax-diameter value="0.0" units="Millimeters"/>
             <parallax-angle>0.0</parallax-angle>
          </feeder>
-         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc518083d08aee" name="9LED_1_02_a09" enabled="true" part-id="a09" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="0" max-feed-count="0">
+         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc518083d08aee" name="9LED_1_02_a09" enabled="true" part-id="a09" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="1" max-feed-count="0">
             <location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="-90.0"/>
             <reference-hole-location units="Millimeters" x="26.438" y="207.818" z="4.0" rotation="0.0"/>
             <last-hole-location units="Millimeters" x="26.438" y="203.818" z="0.0" rotation="0.0"/>
@@ -437,7 +437,7 @@
             <parallax-diameter value="0.0" units="Millimeters"/>
             <parallax-angle>0.0</parallax-angle>
          </feeder>
-         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc523218976734" name="9LED_1_04_a14" enabled="true" part-id="a14" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="0" max-feed-count="0">
+         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc523218976734" name="9LED_1_04_a14" enabled="true" part-id="a14" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="2" max-feed-count="0">
             <location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="-90.0"/>
             <reference-hole-location units="Millimeters" x="47.818" y="208.868" z="4.0" rotation="0.0"/>
             <last-hole-location units="Millimeters" x="47.818" y="204.868" z="0.0" rotation="0.0"/>
@@ -483,8 +483,8 @@
             <parallax-diameter value="0.0" units="Millimeters"/>
             <parallax-angle>0.0</parallax-angle>
          </feeder>
-         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc526ed5073877" name="9LED_1_06_d04" enabled="true" part-id="d04" retry-count="3" feed-retry-count="3" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="1" max-feed-count="0">
-            <location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="0.0"/>
+         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc526ed5073877" name="9LED_1_06_d04" enabled="true" part-id="d04" retry-count="3" feed-retry-count="3" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="6" max-feed-count="0">
+            <location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="-90.0"/>
             <reference-hole-location units="Millimeters" x="69.388" y="207.518" z="4.0" rotation="0.0"/>
             <last-hole-location units="Millimeters" x="69.388" y="203.518" z="0.0" rotation="0.0"/>
             <part-pitch value="2.0" units="Millimeters"/>
@@ -517,9 +517,9 @@
                   <cv-stage class="org.openpnp.vision.pipeline.stages.ImageCapture" name="0" enabled="true" default-light="true" settle-option="Settle" count="1"/>
                   <cv-stage class="org.openpnp.vision.pipeline.stages.ImageWriteDebug" name="deb0" enabled="false" prefix="strip_" suffix=".png"/>
                   <cv-stage class="org.openpnp.vision.pipeline.stages.BlurGaussian" name="1" enabled="true" kernel-size="5" property-name="BlurGaussian"/>
-                  <cv-stage class="org.openpnp.vision.pipeline.stages.DetectCircularSymmetry" name="results" enabled="true" min-diameter="10" max-diameter="100" max-distance="100" search-width="0" search-height="0" max-target-count="10" min-symmetry="1.2" corr-symmetry="0.2" outer-margin="0.3" inner-margin="0.1" sub-sampling="8" super-sampling="1" symmetry-score="RingMedianVarianceVsRingVarianceSum" property-name="sprocketHole" diagnostics="false" heat-map="false"/>
+                  <cv-stage class="org.openpnp.vision.pipeline.stages.DetectCircularSymmetry" name="results" enabled="true" min-diameter="10" max-diameter="100" max-distance="100" search-width="0" search-height="0" max-target-count="10" min-symmetry="0.5" corr-symmetry="0.2" outer-margin="0.3" inner-margin="0.1" sub-sampling="4" super-sampling="1" symmetry-score="RingMedianVarianceVsRingVarianceSum" property-name="sprocketHole" diagnostics="false" heat-map="false"/>
                   <cv-stage class="org.openpnp.vision.pipeline.stages.ImageRecall" name="7" enabled="false" image-stage-name="0"/>
-                  <cv-stage class="org.openpnp.vision.pipeline.stages.DrawCircles" name="8" enabled="false" circles-stage-name="results" thickness="1">
+                  <cv-stage class="org.openpnp.vision.pipeline.stages.DrawCircles" name="8" enabled="true" circles-stage-name="results" thickness="2">
                      <color r="255" g="0" b="0" a="255"/>
                   </cv-stage>
                   <cv-stage class="org.openpnp.vision.pipeline.stages.ImageWriteDebug" name="deb1" enabled="false" prefix="strip_result_" suffix=".png"/>
@@ -552,7 +552,7 @@
             <parallax-diameter value="0.0" units="Millimeters"/>
             <parallax-angle>0.0</parallax-angle>
          </feeder>
-         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc52d19036a151" name="9LED_1_09_n05" enabled="true" part-id="n05" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="1" max-feed-count="0">
+         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc52d19036a151" name="9LED_1_09_n05" enabled="true" part-id="n05" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="2" max-feed-count="0">
             <location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="-90.0"/>
             <reference-hole-location units="Millimeters" x="101.528" y="207.218" z="4.0" rotation="0.0"/>
             <last-hole-location units="Millimeters" x="101.528" y="203.218" z="0.0" rotation="0.0"/>
@@ -669,7 +669,7 @@
          </feeder>
          <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc538cefd8d2a0" name="9LED_2_01_p15" enabled="true" part-id="p15" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="0" max-feed-count="0">
             <location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="90.0"/>
-            <reference-hole-location units="Millimeters" x="270.578" y="192.178" z="4.3" rotation="0.0"/>
+            <reference-hole-location units="Millimeters" x="270.578" y="192.178" z="4.1" rotation="0.0"/>
             <last-hole-location units="Millimeters" x="270.578" y="188.178" z="0.0" rotation="0.0"/>
             <part-pitch value="4.0" units="Millimeters"/>
             <tape-width value="8.0" units="Millimeters"/>
@@ -692,7 +692,7 @@
          </feeder>
          <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc53a4fb5e1940" name="9LED_2_02_p16" enabled="true" part-id="p16" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="0" max-feed-count="0">
             <location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="90.0"/>
-            <reference-hole-location units="Millimeters" x="281.278" y="192.878" z="4.3" rotation="0.0"/>
+            <reference-hole-location units="Millimeters" x="281.278" y="192.878" z="4.1" rotation="0.0"/>
             <last-hole-location units="Millimeters" x="281.278" y="188.878" z="0.0" rotation="0.0"/>
             <part-pitch value="4.0" units="Millimeters"/>
             <tape-width value="8.0" units="Millimeters"/>
@@ -713,10 +713,10 @@
             <parallax-diameter value="0.0" units="Millimeters"/>
             <parallax-angle>0.0</parallax-angle>
          </feeder>
-         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc53c34be3a233" name="9LED_2_03_p17" enabled="true" part-id="p17" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="0" max-feed-count="0">
+         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc53c34be3a233" name="9LED_2_03_p17" enabled="true" part-id="p17" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="1" max-feed-count="0">
             <location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="0.0"/>
-            <reference-hole-location units="Millimeters" x="292.378" y="192.778" z="4.2" rotation="0.0"/>
-            <last-hole-location units="Millimeters" x="292.378" y="188.778" z="0.0" rotation="0.0"/>
+            <reference-hole-location units="Millimeters" x="292.278" y="192.778" z="3.9" rotation="0.0"/>
+            <last-hole-location units="Millimeters" x="292.278" y="188.778" z="0.0" rotation="0.0"/>
             <part-pitch value="4.0" units="Millimeters"/>
             <tape-width value="8.0" units="Millimeters"/>
             <pipeline>
@@ -738,7 +738,7 @@
          </feeder>
          <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc53db4b7611c8" name="9LED_2_04_p18" enabled="true" part-id="p18" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="0" max-feed-count="0">
             <location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="0.0"/>
-            <reference-hole-location units="Millimeters" x="303.028" y="192.978" z="4.2" rotation="0.0"/>
+            <reference-hole-location units="Millimeters" x="303.028" y="192.978" z="4.0" rotation="0.0"/>
             <last-hole-location units="Millimeters" x="303.028" y="188.978" z="0.0" rotation="0.0"/>
             <part-pitch value="4.0" units="Millimeters"/>
             <tape-width value="8.0" units="Millimeters"/>
@@ -761,8 +761,8 @@
          </feeder>
          <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc53ede6a6c98a" name="9LED_2_05_p19" enabled="true" part-id="p19" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="0" max-feed-count="0">
             <location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="0.0"/>
-            <reference-hole-location units="Millimeters" x="313.628" y="193.178" z="4.1" rotation="0.0"/>
-            <last-hole-location units="Millimeters" x="313.628" y="189.178" z="0.0" rotation="0.0"/>
+            <reference-hole-location units="Millimeters" x="313.528" y="193.178" z="3.9" rotation="0.0"/>
+            <last-hole-location units="Millimeters" x="313.528" y="189.178" z="0.0" rotation="0.0"/>
             <part-pitch value="4.0" units="Millimeters"/>
             <tape-width value="8.0" units="Millimeters"/>
             <pipeline>
@@ -782,10 +782,10 @@
             <parallax-diameter value="0.0" units="Millimeters"/>
             <parallax-angle>0.0</parallax-angle>
          </feeder>
-         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc53ff1af70405" name="9LED_2_06_r0B" enabled="true" part-id="r0B" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="2" max-feed-count="0">
+         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc53ff1af70405" name="9LED_2_06_r0B" enabled="true" part-id="r0B" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="3" max-feed-count="0">
             <location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="-90.0"/>
-            <reference-hole-location units="Millimeters" x="324.228" y="192.078" z="4.2" rotation="0.0"/>
-            <last-hole-location units="Millimeters" x="324.228" y="188.078" z="0.0" rotation="0.0"/>
+            <reference-hole-location units="Millimeters" x="324.228" y="191.978" z="4.3" rotation="0.0"/>
+            <last-hole-location units="Millimeters" x="324.228" y="187.978" z="0.0" rotation="0.0"/>
             <part-pitch value="2.0" units="Millimeters"/>
             <tape-width value="8.0" units="Millimeters"/>
             <pipeline>
@@ -807,8 +807,8 @@
          </feeder>
          <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc5420d3f2dd9a" name="9LED_2_07_r14" enabled="true" part-id="r14" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="0" max-feed-count="0">
             <location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="-90.0"/>
-            <reference-hole-location units="Millimeters" x="335.148" y="192.518" z="4.3" rotation="0.0"/>
-            <last-hole-location units="Millimeters" x="335.148" y="188.518" z="0.0" rotation="0.0"/>
+            <reference-hole-location units="Millimeters" x="335.048" y="192.518" z="4.3" rotation="0.0"/>
+            <last-hole-location units="Millimeters" x="335.048" y="188.518" z="0.0" rotation="0.0"/>
             <part-pitch value="4.0" units="Millimeters"/>
             <tape-width value="8.0" units="Millimeters"/>
             <pipeline>
@@ -828,10 +828,10 @@
             <parallax-diameter value="0.0" units="Millimeters"/>
             <parallax-angle>0.0</parallax-angle>
          </feeder>
-         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc543715eb6a93" name="9LED_2_08_r1C" enabled="true" part-id="r1C" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="2" max-feed-count="0">
+         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc543715eb6a93" name="9LED_2_08_r1C" enabled="true" part-id="r1C" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="3" max-feed-count="0">
             <location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="-90.0"/>
-            <reference-hole-location units="Millimeters" x="345.848" y="194.87661704577238" z="4.3" rotation="0.0"/>
-            <last-hole-location units="Millimeters" x="345.848" y="190.877" z="0.0" rotation="0.0"/>
+            <reference-hole-location units="Millimeters" x="345.748" y="194.87661704577238" z="4.3" rotation="0.0"/>
+            <last-hole-location units="Millimeters" x="345.748" y="190.877" z="0.0" rotation="0.0"/>
             <part-pitch value="2.0" units="Millimeters"/>
             <tape-width value="8.0" units="Millimeters"/>
             <pipeline>
@@ -853,8 +853,8 @@
          </feeder>
          <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc544f9beab9c9" name="9LED_2_09_r22" enabled="true" part-id="r22" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="0" max-feed-count="0">
             <location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="-90.0"/>
-            <reference-hole-location units="Millimeters" x="356.608" y="192.788" z="4.4" rotation="0.0"/>
-            <last-hole-location units="Millimeters" x="356.608" y="188.788" z="0.0" rotation="0.0"/>
+            <reference-hole-location units="Millimeters" x="356.508" y="192.688" z="4.4" rotation="0.0"/>
+            <last-hole-location units="Millimeters" x="356.508" y="188.688" z="0.0" rotation="0.0"/>
             <part-pitch value="4.0" units="Millimeters"/>
             <tape-width value="8.0" units="Millimeters"/>
             <pipeline>
@@ -874,10 +874,10 @@
             <parallax-diameter value="0.0" units="Millimeters"/>
             <parallax-angle>0.0</parallax-angle>
          </feeder>
-         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc546c904f52bf" name="9LED_2_10_r25" enabled="true" part-id="r25" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="0" max-feed-count="0">
+         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc546c904f52bf" name="9LED_2_10_r25" enabled="true" part-id="r25" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="1" max-feed-count="0">
             <location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="-90.0"/>
-            <reference-hole-location units="Millimeters" x="367.488" y="192.928" z="4.3" rotation="0.0"/>
-            <last-hole-location units="Millimeters" x="367.488" y="188.928" z="0.0" rotation="0.0"/>
+            <reference-hole-location units="Millimeters" x="367.288" y="192.828" z="4.3" rotation="0.0"/>
+            <last-hole-location units="Millimeters" x="367.288" y="188.828" z="0.0" rotation="0.0"/>
             <part-pitch value="4.0" units="Millimeters"/>
             <tape-width value="8.0" units="Millimeters"/>
             <pipeline>
@@ -897,10 +897,10 @@
             <parallax-diameter value="0.0" units="Millimeters"/>
             <parallax-angle>0.0</parallax-angle>
          </feeder>
-         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc547c02bb1147" name="9LED_2_11_r26" enabled="true" part-id="r26" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="0" max-feed-count="0">
+         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc547c02bb1147" name="9LED_2_11_r26" enabled="true" part-id="r26" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="2" max-feed-count="0">
             <location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="-90.0"/>
-            <reference-hole-location units="Millimeters" x="378.098" y="192.428" z="4.3" rotation="0.0"/>
-            <last-hole-location units="Millimeters" x="378.098" y="188.428" z="0.0" rotation="0.0"/>
+            <reference-hole-location units="Millimeters" x="378.0" y="192.428" z="4.3" rotation="0.0"/>
+            <last-hole-location units="Millimeters" x="378.0" y="188.428" z="0.0" rotation="0.0"/>
             <part-pitch value="4.0" units="Millimeters"/>
             <tape-width value="8.0" units="Millimeters"/>
             <pipeline>
@@ -922,8 +922,8 @@
          </feeder>
          <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc549032acd059" name="9LED_2_12_k05" enabled="true" part-id="k05" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="0" max-feed-count="0">
             <location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="-90.0"/>
-            <reference-hole-location units="Millimeters" x="388.798" y="190.928" z="4.3" rotation="0.0"/>
-            <last-hole-location units="Millimeters" x="388.798" y="186.928" z="0.0" rotation="0.0"/>
+            <reference-hole-location units="Millimeters" x="388.498" y="190.928" z="4.3" rotation="0.0"/>
+            <last-hole-location units="Millimeters" x="388.498" y="186.928" z="0.0" rotation="0.0"/>
             <part-pitch value="8.0" units="Millimeters"/>
             <tape-width value="12.0" units="Millimeters"/>
             <pipeline>
@@ -951,7 +951,7 @@
             <default-z value="61.0" units="Millimeters"/>
             <vision-provider class="org.openpnp.machine.reference.vision.OpenCvVisionProvider"/>
             <roaming-radius value="0.0" units="Millimeters"/>
-            <head-offsets units="Millimeters" x="218.1" y="152.752" z="4.20000000000001" rotation="0.0"/>
+            <head-offsets units="Millimeters" x="218.27527461418165" y="152.76437216070838" z="4.20000000000001" rotation="0.0"/>
             <safe-z value="0.0" units="Millimeters"/>
             <calibration enabled="false">
                <camera-matrix length="9">2111.355587855576, 0.0, 605.0663860340355, 0.0, 2128.668185693804, 413.20408953641106, 0.0, 0.0, 1.0</camera-matrix>
@@ -1297,8 +1297,8 @@
             <min-part-diameter value="0.5" units="Millimeters"/>
             <max-part-diameter value="6.0" units="Millimeters"/>
             <max-part-height value="2.5" units="Millimeters"/>
-            <max-pick-tolerance value="0.3" units="Millimeters"/>
-            <calibration angle-subdivisions="6" allow-misdetections="5" angle-start="-200.0" angle-stop="200.0" excenter-ratio="0.25" enabled="true" fail-homing="true" runout-compensation-algorithm="ModelCameraOffsetAffine" version="2.1" recalibration-trigger="NozzleTipChange" background-calibration-method="Brightness" background-min-hue="0" background-max-hue="255" background-tol-hue="8" background-min-saturation="0" background-max-saturation="255" background-tol-saturation="8" background-min-value="2" background-max-value="143" background-tol-value="8" background-diagnostics="&lt;html&gt;Background elements are too bright.&lt;br/&gt;Try to eliminate highlights and reflections.&lt;br/&gt;Use a shade behind the nozzle.&lt;br/&gt;Renew the blackening of dark parts of the nozzle tip.&lt;br/&gt;Clean the nozzle tip. If it is shiny, make it dull.&lt;br/&gt;Eliminate light sources that reflect on the nozzle tip.&lt;/html&gt;" min-background-mask-value="32" max-background-mask-value="128" background-worst-saturation="63" background-worst-hue-span="42" background-worst-value="127" offset-threshold="0.0" detection-threshold-margin="0.4">
+            <max-pick-tolerance value="0.35" units="Millimeters"/>
+            <calibration angle-subdivisions="6" allow-misdetections="5" angle-start="-200.0" angle-stop="200.0" excenter-ratio="0.25" enabled="true" fail-homing="true" runout-compensation-algorithm="ModelCameraOffsetAffine" version="2.1" recalibration-trigger="NozzleTipChange" background-calibration-method="Brightness" background-min-hue="0" background-max-hue="255" background-tol-hue="8" background-min-saturation="0" background-max-saturation="255" background-tol-saturation="8" background-min-value="0" background-max-value="159" background-tol-value="8" background-diagnostics="&lt;html&gt;Background elements are too bright.&lt;br/&gt;Try to eliminate highlights and reflections.&lt;br/&gt;Use a shade behind the nozzle.&lt;br/&gt;Renew the blackening of dark parts of the nozzle tip.&lt;br/&gt;Clean the nozzle tip. If it is shiny, make it dull.&lt;br/&gt;Eliminate light sources that reflect on the nozzle tip.&lt;/html&gt;" min-background-mask-value="32" max-background-mask-value="128" background-worst-saturation="63" background-worst-hue-span="42" background-worst-value="127" offset-threshold="0.0" detection-threshold-margin="0.4">
                <pipeline>
                   <stages>
                      <cv-stage class="org.openpnp.vision.pipeline.stages.ImageCapture" name="image" enabled="true" default-light="true" settle-option="Settle" count="1"/>
@@ -1310,7 +1310,7 @@
                <runout-compensation-lookup class="java.util.HashMap">
                   <entry>
                      <string>N1</string>
-                     <runout-compensation class="org.openpnp.machine.reference.ReferenceNozzleTipCalibration$ModelBasedRunoutCameraOffsetCompensation" center-x="0.017996195600059925" center-y="-0.012491679225275585" radius="0.08763963100774551" phase-shift="98.74637684958729" units="Millimeters" peak-error="0.028243913380901126" rms-error="0.016432795041601785"/>
+                     <runout-compensation class="org.openpnp.machine.reference.ReferenceNozzleTipCalibration$ModelBasedRunoutCameraOffsetCompensation" center-x="0.23967321000641836" center-y="-0.01468353165020685" radius="0.09914346334593496" phase-shift="100.52605253086038" units="Millimeters" peak-error="0.012392949019037985" rms-error="0.006323080077950881"/>
                   </entry>
                </runout-compensation-lookup>
                <minimum-detail-size value="0.2" units="Millimeters"/>
@@ -1462,12 +1462,7 @@
                      <cv-stage class="org.openpnp.vision.pipeline.stages.ConvertModelToKeyPoints" name="results" enabled="true" model-stage-name="cir"/>
                   </stages>
                </pipeline>
-               <runout-compensation-lookup class="java.util.HashMap">
-                  <entry>
-                     <string>NOZ1710829fd33a0170</string>
-                     <runout-compensation class="org.openpnp.machine.reference.ReferenceNozzleTipCalibration$ModelBasedRunoutCameraOffsetCompensation" center-x="-0.030204230609452945" center-y="-3.622270550561201E-18" radius="0.041984382225938595" phase-shift="-108.50387308192327" units="Millimeters" peak-error="0.01728337995494242" rms-error="0.012144157567489"/>
-                  </entry>
-               </runout-compensation-lookup>
+               <runout-compensation-lookup class="java.util.HashMap"/>
                <minimum-detail-size value="0.2" units="Millimeters"/>
                <offset-threshold-length value="2.0" units="Millimeters"/>
                <calibration-Z-offset value="0.0" units="Millimeters"/>

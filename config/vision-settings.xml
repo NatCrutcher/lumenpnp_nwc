@@ -99,7 +99,7 @@
             <cv-stage class="org.openpnp.vision.pipeline.stages.ConvertColor" name="4" enabled="true" conversion="Bgr2HsvFull"/>
             <cv-stage class="org.openpnp.vision.pipeline.stages.MaskHsv" name="5" enabled="true" auto="false" fraction-to-mask="0.0" hue-min="80" hue-max="150" saturation-min="64" saturation-max="255" value-min="0" value-max="225" soft-edge="16" soft-factor="0.75" invert="false" binary-mask="false" property-name="MaskHsv"/>
             <cv-stage class="org.openpnp.vision.pipeline.stages.ConvertColor" name="6" enabled="true" conversion="Hsv2BgrFull"/>
-            <cv-stage class="org.openpnp.vision.pipeline.stages.DetectRectlinearSymmetry" name="results" enabled="true" expected-angle="225.0" search-distance="100.0" search-angle="30.0" max-width="510.0" max-height="510.0" symmetric-left-right="true" symmetric-upper-lower="true" symmetric-function="FullSymmetry" asymmetric-function="OutlineSymmetryMasked" min-symmetry="10.0" sub-sampling="8" super-sampling="2" smoothing="5" gamma="2.5" threshold="128" min-feature-size="0.05" diagnostics="true" diagnostics-map="false" property-name="DetectRectlinearSymmetry"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.DetectRectlinearSymmetry" name="results" enabled="true" expected-angle="225.0" search-distance="100.0" search-angle="30.0" max-width="510.0" max-height="510.0" symmetric-left-right="true" symmetric-upper-lower="true" symmetric-function="FullSymmetry" asymmetric-function="OutlineSymmetryMasked" min-symmetry="10.0" sub-sampling="8" super-sampling="2" smoothing="5" gamma="2.5" threshold="128" min-feature-size="1.3822590626354845" diagnostics="true" diagnostics-map="false" property-name="DetectRectlinearSymmetry"/>
             <cv-stage class="org.openpnp.vision.pipeline.stages.ImageRecall" name="8" enabled="true" image-stage-name="0"/>
             <cv-stage class="org.openpnp.vision.pipeline.stages.DrawRotatedRects" name="9" enabled="true" rotated-rects-stage-name="results" thickness="2" draw-rect-center="false" rect-center-radius="20" show-orientation="true"/>
             <cv-stage class="org.openpnp.vision.pipeline.stages.ImageWriteDebug" name="deb1" enabled="true" prefix="bv_result_" suffix=".png"/>
@@ -214,6 +214,67 @@
             <object class="java.lang.Integer">99</object>
          </entry>
       </pipeline-parameter-assignments>
+      <vision-offset units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="0.0"/>
+   </vision-settings>
+   <vision-settings class="org.openpnp.model.BottomVisionSettings" id="BVS18cd95b4bd0f98f2" name="C0603 Bottom Vision" enabled="true" pre-rotate-usage="Default" check-part-size-method="Disabled" check-size-tolerance-percent="20" max-rotation="Adjust" asymmetric="false">
+      <cv-pipeline>
+         <stages>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.ParameterNumeric" name="pThreshold" enabled="true" parameter-label="Threshold" parameter-description="Set the brightness threshold that isolates the shiny contacts of a part." stage-name="threshold" property-name="threshold" effect-stage-name="threshold" preview-result="true" minimum-value="1.0" maximum-value="254.0" default-value="100.0" numeric-type="Integer"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.ParameterNumeric" name="pDetail" enabled="true" parameter-label="Min. Detail Size" parameter-description="Minimal size of a detail that should be included in the detected shape." stage-name="filterContours" property-name="minArea" effect-stage-name="contours" preview-result="true" minimum-value="0.0" maximum-value="0.25" default-value="0.01" numeric-type="SquareMillimetersToPixels"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.ImageCapture" name="0" enabled="true" default-light="true" settle-option="Settle" count="1"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.ImageRead" name="1" enabled="false" file="/home/natc/dev/lumenpnp_nwc/config/snapshots/Bottom_2026-08-20_12.08.52.805.png" color-space="Bgr" handle-as-captured="false"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.AffineWarp" name="2" enabled="false" length-unit="Millimeters" x-0="-4.0" y-0="3.0" x-1="4.0" y-1="3.0" x-2="-4.0" y-2="-3.0" scale="1.0" rectify="true" region-of-interest-property="regionOfInterest"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.ImageWriteDebug" name="deb0" enabled="true" prefix="bv_source_" suffix=".png"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.BlurGaussian" name="3" enabled="true" kernel-size="9" property-name="BlurGaussian"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.MaskCircle" name="4" enabled="true" diameter="525" property-name="MaskCircle"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.MaskCircle" name="4b" enabled="true" diameter="100" property-name="partmask"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.ConvertColor" name="5" enabled="true" conversion="Bgr2HsvFull"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.MaskHsv" name="6" enabled="true" auto="false" fraction-to-mask="0.0" hue-min="60" hue-max="130" saturation-min="32" saturation-max="255" value-min="64" value-max="255" soft-edge="0" soft-factor="1.0" invert="false" binary-mask="false" property-name="MaskHsv"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.ConvertColor" name="7" enabled="true" conversion="Hsv2BgrFull"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.ConvertColor" name="8" enabled="true" conversion="Bgr2Gray"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.Threshold" name="threshold" enabled="true" threshold="100" auto="false" invert="false"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.FindContours" name="findCountours" enabled="true" retrieval-mode="List" approximation-method="None"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.FilterContours" name="filterContours" enabled="true" contours-stage-name="findCountours" min-area="7.642591087789861" max-area="900000.0" property-name="FilterContours"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.MaskCircle" name="11" enabled="true" diameter="0" property-name=""/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.DrawContours" name="contours" enabled="true" contours-stage-name="filterContours" thickness="1" index="-1">
+               <color r="255" g="255" b="255" a="255"/>
+            </cv-stage>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.MinAreaRect" name="results" enabled="true" threshold-min="100" threshold-max="255" expected-angle="0.0" search-angle="45.0" left-edge="true" right-edge="true" top-edge="true" bottom-edge="true" diagnostics="false" property-name="MinAreaRect"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.ImageRecall" name="14" enabled="true" image-stage-name="0"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.DrawRotatedRects" name="15" enabled="true" rotated-rects-stage-name="results" thickness="2" draw-rect-center="false" rect-center-radius="20" show-orientation="false"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.ImageWriteDebug" name="deb1" enabled="true" prefix="bv_result_" suffix=".png"/>
+         </stages>
+      </cv-pipeline>
+      <vision-offset units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="0.0"/>
+   </vision-settings>
+   <vision-settings class="org.openpnp.model.BottomVisionSettings" id="BVS18cd9a2e3af7b882" name="VQFN-24 Bottom Vision" enabled="true" pre-rotate-usage="Default" check-part-size-method="Disabled" check-size-tolerance-percent="20" max-rotation="Adjust" asymmetric="false">
+      <cv-pipeline>
+         <stages>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.ParameterNumeric" name="pThreshold" enabled="true" parameter-label="Threshold" parameter-description="Set the brightness threshold that isolates the shiny contacts of a part." stage-name="threshold" property-name="threshold" effect-stage-name="threshold" preview-result="true" minimum-value="1.0" maximum-value="254.0" default-value="100.0" numeric-type="Integer"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.ParameterNumeric" name="pDetail" enabled="true" parameter-label="Min. Detail Size" parameter-description="Minimal size of a detail that should be included in the detected shape." stage-name="filterContours" property-name="minArea" effect-stage-name="contours" preview-result="true" minimum-value="0.0" maximum-value="0.25" default-value="0.01" numeric-type="SquareMillimetersToPixels"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.ImageCapture" name="0" enabled="true" default-light="true" settle-option="Settle" count="1"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.AffineWarp" name="1" enabled="false" length-unit="Millimeters" x-0="-4.0" y-0="4.0" x-1="4.0" y-1="4.0" x-2="-4.0" y-2="-4.0" scale="1.0" rectify="true" region-of-interest-property="regionOfInterest"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.ImageWriteDebug" name="deb0" enabled="true" prefix="bv_source_" suffix=".png"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.BlurGaussian" name="3" enabled="true" kernel-size="9" property-name="BlurGaussian"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.MaskCircle" name="4" enabled="true" diameter="525" property-name="MaskCircle"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.MaskCircle" name="4b" enabled="true" diameter="200" property-name="partmask"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.ConvertColor" name="5" enabled="true" conversion="Bgr2HsvFull"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.MaskHsv" name="6" enabled="true" auto="false" fraction-to-mask="0.0" hue-min="60" hue-max="130" saturation-min="32" saturation-max="255" value-min="40" value-max="100" soft-edge="0" soft-factor="1.0" invert="false" binary-mask="false" property-name="MaskHsv"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.ConvertColor" name="7" enabled="true" conversion="Hsv2BgrFull"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.ConvertColor" name="8" enabled="true" conversion="Bgr2Gray"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.Threshold" name="threshold" enabled="true" threshold="100" auto="false" invert="false"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.FindContours" name="findCountours" enabled="true" retrieval-mode="List" approximation-method="None"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.FilterContours" name="filterContours" enabled="true" contours-stage-name="findCountours" min-area="7.642591087789861" max-area="900000.0" property-name="FilterContours"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.MaskCircle" name="11" enabled="true" diameter="0" property-name=""/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.DrawContours" name="contours" enabled="true" contours-stage-name="filterContours" thickness="1" index="-1">
+               <color r="255" g="255" b="255" a="255"/>
+            </cv-stage>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.MinAreaRect" name="results" enabled="true" threshold-min="100" threshold-max="255" expected-angle="0.0" search-angle="45.0" left-edge="true" right-edge="true" top-edge="true" bottom-edge="true" diagnostics="false" property-name="MinAreaRect"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.ImageRecall" name="14" enabled="true" image-stage-name="0"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.DrawRotatedRects" name="15" enabled="true" rotated-rects-stage-name="results" thickness="2" draw-rect-center="false" rect-center-radius="20" show-orientation="true"/>
+            <cv-stage class="org.openpnp.vision.pipeline.stages.ImageWriteDebug" name="deb1" enabled="true" prefix="bv_result_" suffix=".png"/>
+         </stages>
+      </cv-pipeline>
       <vision-offset units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="0.0"/>
    </vision-settings>
 </openpnp-vision-settings>
