@@ -28,10 +28,18 @@ Per Claude's recommendations, I used the .tar.gz download approach to simplify m
 
 * Try bottom camera auto-focus for part height detection.
 
+## Issues and Fixes
+
+- Y-axis hits the front during homing.
+
 ## Enhancements
 
 1. Aluminum build plate - 6mm thick, 600x300mm, tapped 3mm holes. 15X stiffer
 1. 15 mm high second fiducial  - nozzle N1 could not reach the Opulo supported second fiducial (5 mm).
+1. Bottom camera with smaller field of view.
+1. Camera LEDs with higher CRI and good white balance ~4000°K.
+1. Silent vacuum pump with reservoir.
+1. Blow-off support.
 
 ## Feeders
 
