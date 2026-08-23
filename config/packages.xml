@@ -1213,10 +1213,13 @@
          <string>TIP16f0412ed2d50009</string>
       </compatible-nozzle-tip-ids>
    </package>
-   <package version="1.1" id="Fiducial_0402_Pad" description="NwcPcbLibrary:Fiducial_0402_Pad" pick-vacuum-level="0.0" place-blow-off-level="0.0">
+   <package version="1.1" fiducial-vision-id="FVS18ce4c129f8a5080" id="Fiducial_0402_Pad" description="NwcPcbLibrary:Fiducial_0402_Pad" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="0.6" body-height="0.6" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="0.0" y="0.0" width="0.6" height="0.6" rotation="0.0" mark="true" roundness="100.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
    </package>
    <package version="1.1" id="Fiducial_1mm_Mask2mm" description="Fiducial:Fiducial_1mm_Mask2mm" pick-vacuum-level="0.0" place-blow-off-level="0.0">
