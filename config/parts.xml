@@ -186,4 +186,6 @@
    <part id="x02" name="NTMFS5C612 8-PowerTDFN Onsemi" height-units="Millimeters" height="1.75" through-board-depth-units="Millimeters" through-board-depth="0.0" package-id="PowerPAK_SO-8_A" speed="1.0" pick-retry-count="0"/>
    <part id="z00" name="Micro TP Keystone 5015 SMT Keystone Electronics" height-units="Millimeters" height="0.0" through-board-depth-units="Millimeters" through-board-depth="0.0" package-id="TestPoint_Keystone_5015_Micro" speed="1.0" pick-retry-count="0"/>
    <part id="z01" name="8.000 MHz SMD-4 2.5x2mm ECS Inc." height-units="Millimeters" height="0.8" through-board-depth-units="Millimeters" through-board-depth="0.0" package-id="Oscillator_SMD_ECS_2520MV-4Pin_2.5x2.0" speed="1.0" pick-retry-count="0"/>
+   <part id="z06" name="1mm dot, 2mm mask Fid 1mm" height-units="Millimeters" height="0.0" through-board-depth-units="Millimeters" through-board-depth="0.0" package-id="Fiducial_1mm_Mask2mm" speed="1.0" pick-retry-count="0"/>
+   <part id="z07" name="0.6mm dot Fid 0.6mm" height-units="Millimeters" height="0.0" through-board-depth-units="Millimeters" through-board-depth="0.0" package-id="Fiducial_0402_Pad" speed="1.0" pick-retry-count="0"/>
 </openpnp-parts>
