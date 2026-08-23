@@ -30,16 +30,23 @@ Per Claude's recommendations, I used the .tar.gz download approach to simplify m
 
 ## Issues and Fixes
 
-- Y-axis hits the front during homing.
+- Y-axis hits the front during homing: try adjusting the stop; try slower speed
+- Test slower speeds and accelerations to see if that affects placement accuracy
+- Try to always place and do camera bottom vision with the head/nozzle in the same limited range of rotation to eliminate a variable
+- Try a more telephoto bottom camera lens
+- Check for head looseness
+- Test my 9LED fiducials that use 0402 pads
+- Check the 9LED PCB height at 2-3 corners
 
 ## Enhancements
 
 1. Aluminum build plate - 6mm thick, 600x300mm, tapped 3mm holes. 15X stiffer
 1. 15 mm high second fiducial  - nozzle N1 could not reach the Opulo supported second fiducial (5 mm).
-1. Bottom camera with smaller field of view.
+1. Bottom camera (or lens) with smaller field of view. 
+    - Arducam M12 Lens Set for USB Camera(1/2.7” 1/2.8″ 1/2.9″) https://a.co/d/05E6vtVK 
 1. Camera LEDs with higher CRI and good white balance ~4000°K.
-1. Silent vacuum pump with reservoir.
-1. Blow-off support.
+1. Silent vacuum pump with reservoir - see Pengpu pump (bidirectional) https://www.aliexpress.us/item/3256802114777768.html
+1. Blow-off support - see pump above
 
 ## Feeders
 
@@ -100,4 +107,17 @@ These are simple strip holders with covers that can slide back to expose parts.
 * [https://github.com/openpnp/openpnp/wiki/Visual-Homing](https://github.com/openpnp/openpnp/wiki/Visual-Homing)   
 * [https://github.com/openpnp/openpnp/wiki/Vision-Solutions](https://github.com/openpnp/openpnp/wiki/Vision-Solutions#calibration-secondary-fiducial)   
 * “Hence these primary and secondary fiducials are not to be confused with the homing fiducial. Technically you can reuse the primary calibration fiducial as a homing fiducial if it is permanently fixed on the machine, and at PCB surface Z. But that's not the recommended way.”  
-* 
+
+## Notes from Discord
+
+### Z Leveling
+
+*Is there a multi Z touch calibration process?*
+
+octorian [HA],  — 2026-08-18 8:59 AM
+There isn't, and I really wish there was.
+In my case, the staging plates weren't all perfectly level with the nozzle tip.  So I added a lot of "creative shims" (made out of various kinds of tape) to my PCB supports to make it level enough.
+But what I failed to realize was that one of the board hold-down clamps didn't have a shim on it, and it was thus pulling down the board slightly in one middle spot.
+Though based on that experience, I'm now 95% convinced that all of my chronic placement issues were the direct result of imperfect board flatness/leveling.
+Before my next real job, I'm planning to put a lot of very deliberate work into making sure the staging plate is completely level with the nozzle across that entire half of the machine.  This may require fiddling with the machine feet, fiddling with the camera and staging plate supports, and possibly even sticking a bunch of <=0.01mm shims all over the place if I have to.
+(I also 3D printed a whole bunch of "10mm high thingies" that I can stick in the staging plate to give me test points to check nozzle contract, since there's no real high-accuracy Z-probe mechanism built into the head.)
