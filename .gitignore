@@ -8,4 +8,5 @@ config/org.openpnp.machine.reference.ReferenceNozzleTipCalibration/
 config/snapshots/
 config/*.tmp
 config/*.bak
+config/*.xml.bak*
 config/*.lck

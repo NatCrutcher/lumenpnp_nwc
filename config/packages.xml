@@ -79,7 +79,7 @@
          <string>TIP16f0412ed2d50009</string>
       </compatible-nozzle-tip-ids>
    </package>
-   <package version="1.1" id="C_0402_1005Metric_HD" description="NwcPcbLibrary:C_0402_1005Metric_HD" pick-vacuum-level="0.0" place-blow-off-level="0.0">
+   <package version="1.1" bottom-vision-id="BVS_0402" id="C_0402_1005Metric_HD" description="NwcPcbLibrary:C_0402_1005Metric_HD" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="1.0" body-height="0.5" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-0.48" y="0.0" width="0.5" height="0.5" rotation="0.0" mark="true" roundness="30.0"/>
          <pad name="2" x="0.48" y="0.0" width="0.5" height="0.5" rotation="0.0" mark="false" roundness="30.0"/>
@@ -633,7 +633,7 @@
          <string>TIP16f0412ed2d50009</string>
       </compatible-nozzle-tip-ids>
    </package>
-   <package version="1.1" id="R_0402_1005Metric_HD" description="NwcPcbLibrary:R_0402_1005Metric_HD" pick-vacuum-level="0.0" place-blow-off-level="0.0">
+   <package version="1.1" bottom-vision-id="BVS_0402" id="R_0402_1005Metric_HD" description="NwcPcbLibrary:R_0402_1005Metric_HD" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="1.0" body-height="0.5" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-0.48" y="0.0" width="0.5" height="0.5" rotation="0.0" mark="true" roundness="30.0"/>
          <pad name="2" x="0.48" y="0.0" width="0.5" height="0.5" rotation="0.0" mark="false" roundness="30.0"/>
