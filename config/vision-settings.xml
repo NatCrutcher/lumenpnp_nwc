@@ -337,20 +337,28 @@
             <object class="java.lang.Integer">1</object>
          </entry>
          <entry>
-            <string>MaskHsv.valueMax</string>
-            <object class="java.lang.Integer">255</object>
-         </entry>
-         <entry>
-            <string>MaskHsv.saturationMin</string>
-            <object class="java.lang.Integer">40</object>
-         </entry>
-         <entry>
             <string>MaskHsv.hueMin</string>
             <object class="java.lang.Integer">100</object>
          </entry>
          <entry>
             <string>MaskHsv.hueMax</string>
             <object class="java.lang.Integer">165</object>
+         </entry>
+         <entry>
+            <string>MaskHsv.saturationMin</string>
+            <object class="java.lang.Integer">40</object>
+         </entry>
+         <entry>
+            <string>MaskHsv.valueMax</string>
+            <object class="java.lang.Integer">255</object>
+         </entry>
+         <entry>
+            <string>DetectRectlinearSymmetry.maxWidth</string>
+            <object class="org.openpnp.model.Length" value="1.7" units="Millimeters"/>
+         </entry>
+         <entry>
+            <string>DetectRectlinearSymmetry.maxHeight</string>
+            <object class="org.openpnp.model.Length" value="0.8" units="Millimeters"/>
          </entry>
       </pipeline-parameter-assignments>
       <vision-offset units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="0.0"/>
