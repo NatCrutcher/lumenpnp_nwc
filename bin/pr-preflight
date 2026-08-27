@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+# Pre-PR check for OpenPnP feature branches. Run from ~/dev/openpnp_src on the
+# feature branch you intend to submit. Verifies the branch is clean of personal
+# content, based on upstream/test, and reminds of the upstream checklist.
+#
+# Usage: pr-preflight [--test]     (--test also runs mvn test)
+set -euo pipefail
+
+OPENPNP_DIR="${OPENPNP_DIR:-$HOME/dev/openpnp_src}"
+cd "$OPENPNP_DIR"
+
+fail=0
+warn() { echo "WARN: $*"; }
+err()  { echo "FAIL: $*"; fail=1; }
+
+branch=$(git symbolic-ref --short -q HEAD || true)
+[ -n "$branch" ] || { echo "FAIL: detached HEAD — check out your feature branch"; exit 1; }
+case "$branch" in
+    main|test) err "on '$branch' — PRs come from feature/* or fix/* branches, never main/test";;
+    feature/*|fix/*) ;;
+    *) warn "branch '$branch' doesn't follow feature/<topic> or fix/<topic> naming";;
+esac
+
+git fetch -q upstream
+base="upstream/test"
+git merge-base --is-ancestor "$base" HEAD \
+    || err "branch is not based on current $base — rebase first: git rebase $base"
+
+changed=$(git diff --name-only "$base"...HEAD)
+[ -n "$changed" ] || err "no changes relative to $base"
+
+# Personal-content firewall: none of these may appear in a PR.
+blocked=$(echo "$changed" | grep -E '(^|/)(CLAUDE\.md|\.claude(/|$)|notes/)|\.plan\.md$' || true)
+if [ -n "$blocked" ]; then
+    err "personal content in branch diff:"
+    echo "$blocked" | sed 's/^/    /'
+fi
+
+echo "$changed" | grep -qx 'CHANGES.md' \
+    || warn "no CHANGES.md entry in this branch (upstream pre-commit hook requires one)"
+
+n=$(echo "$changed" | grep -c . || true)
+echo "Files changed vs $base ($n):"
+echo "$changed" | sed 's/^/    /'
+
+if echo "$changed" | grep -qE '^src/main/java/org/openpnp/(spi|model)/'; then
+    warn "touches org.openpnp.spi or org.openpnp.model — needs extra justification and Google Group pre-discussion"
+fi
+echo "$changed" | grep -q '^src/test/' \
+    || warn "no test changes — upstream: 'untested code will not be accepted'"
+
+if [ "${1:-}" = "--test" ]; then
+    echo "Running mvn test..."
+    mvn -q -B test || err "mvn test failed"
+else
+    echo "NOTE: run with --test (or 'mvn test') before submitting — it must pass."
+fi
+
+cat <<'EOF'
+
+Manual checklist (see docs/openpnp-dev/OpenPnP_Dev_Guidelines.md):
+  [ ] One concern only; issue referenced
+  [ ] Formatter applied to touched code only; braces everywhere; no unrelated reformatting
+  [ ] PR template filled: Description, Justification, Instructions for Use, Implementation Details
+  [ ] PR targets the upstream 'test' branch
+EOF
+
+if [ "$fail" -ne 0 ]; then
+    echo; echo "RESULT: FAILED — fix the items above before opening a PR."
+    exit 1
+fi
+echo; echo "RESULT: OK (heed any warnings above)."

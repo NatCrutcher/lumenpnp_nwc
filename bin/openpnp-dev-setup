@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# Set up the OpenPnP fork working tree for development on this PC.
+# Symlinks personal files (CLAUDE.md, notes/) from lumenpnp_nwc into openpnp_src
+# and excludes them from git so they can never enter a commit or PR.
+# Safe to re-run. Run once per PC after cloning both repos.
+set -euo pipefail
+
+NWC_DIR="${NWC_DIR:-$HOME/dev/lumenpnp_nwc}"
+OPENPNP_DIR="${OPENPNP_DIR:-$HOME/dev/openpnp_src}"
+DEVDOCS="$NWC_DIR/docs/openpnp-dev"
+
+[ -d "$OPENPNP_DIR/.git" ] || { echo "error: $OPENPNP_DIR is not a git repo" >&2; exit 1; }
+[ -d "$DEVDOCS" ] || { echo "error: $DEVDOCS not found" >&2; exit 1; }
+
+# Symlink personal files into the OpenPnP tree (canonical copies stay in lumenpnp_nwc,
+# which is synced to GitHub).
+ln -sfn "$DEVDOCS/CLAUDE.md" "$OPENPNP_DIR/CLAUDE.md"
+mkdir -p "$DEVDOCS/notes"
+ln -sfn "$DEVDOCS/notes" "$OPENPNP_DIR/notes"
+
+# Keep them out of git without touching the tracked .gitignore.
+EXCLUDE="$OPENPNP_DIR/.git/info/exclude"
+# '/notes' without a trailing slash: the entry is a symlink, which git sees as a file.
+for pattern in '/CLAUDE.md' '/.claude/' '/notes' '*.plan.md'; do
+    grep -qxF "$pattern" "$EXCLUDE" 2>/dev/null || echo "$pattern" >> "$EXCLUDE"
+done
+
+# Install the upstream pre-commit hook (STOPSHIP + CHANGES.md checks).
+if [ -f "$OPENPNP_DIR/git-hooks/pre-commit" ]; then
+    cp "$OPENPNP_DIR/git-hooks/pre-commit" "$OPENPNP_DIR/.git/hooks/pre-commit"
+    chmod +x "$OPENPNP_DIR/.git/hooks/pre-commit"
+fi
+
+echo "OK: CLAUDE.md and notes/ linked into $OPENPNP_DIR, excluded from git, pre-commit hook installed."
+git -C "$OPENPNP_DIR" status --short --untracked-files=normal || true
