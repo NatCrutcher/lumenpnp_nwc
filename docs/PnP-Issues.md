@@ -28,6 +28,11 @@
 - Figure out a parameter or process to track the target part placement Z height relative to the PCB. It's hard to adjust if I don't have a number I can refer to and compare from run to run. For critical parts, like fine-pitch ICs and LEDs, measure some to confirm the exact thickness, since some datasheets only provide the maximum height.
 - Consider if we want the Python script to make the board.xml file to exclude parts with a blank NccId.
 - Check if the camera power line frequency is set correctly for 60 Hz (2 I think).
+- Try Non-Squareness Compensation: [https://github.com/openpnp/openpnp/wiki/Linear-Transformed-Axes\#use-case--non-squareness-compensation](https://github.com/openpnp/openpnp/wiki/Linear-Transformed-Axes#use-case--non-squareness-compensation) *I cannot remember if I already did this.*
+- Try second fiducial calibration: [https://github.com/openpnp/openpnp/wiki/Vision-Solutions\#calibration-secondary-fiducial](https://github.com/openpnp/openpnp/wiki/Vision-Solutions#calibration-secondary-fiducial) *I think this is complete.*
+- Try bottom camera auto-focus for part height detection. *Wait for the new bottom camera lens.*
+- **Camera Roaming Radius**, Claude thinks: "Setting a real roaming-radius on the bottom camera (~3 mm) would fix the oversized window properly and machine-wide — every package would get footprint-sized shots, which is how vision compositing is meant to work. But it changes bottom-vision behavior for all parts, so I'd treat it as its own experiment after the lens swap settles, not bundle it in now."
+  * Interestingly, the OpenPnP docs don't mention this. Start a new chat session for a second opinion or experiment more with this, perhaps with other parts.
 
 ## Tuning
 

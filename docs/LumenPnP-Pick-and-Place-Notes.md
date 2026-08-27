@@ -21,21 +21,10 @@ Per Claude's recommendations, I used the .tar.gz download approach to simplify m
 - Primary Fiducial N2 Nozzle Position: X:218.268   Y:196.761   Z:4.270     C:0.000    
 - Bottom camera N1 position after offset adjust: X:218.111   Y:152.835   Z:4.200     C:0.000    
 
-## Task List
-
-* Try Non-Squareness Compensation: [https://github.com/openpnp/openpnp/wiki/Linear-Transformed-Axes\#use-case--non-squareness-compensation](https://github.com/openpnp/openpnp/wiki/Linear-Transformed-Axes#use-case--non-squareness-compensation)   
-* Try second fiducial calibration: [https://github.com/openpnp/openpnp/wiki/Vision-Solutions\#calibration-secondary-fiducial](https://github.com/openpnp/openpnp/wiki/Vision-Solutions#calibration-secondary-fiducial) 
-
-* Try bottom camera auto-focus for part height detection.
-
-## Issues and Fixes
-
-- Y-axis hits the front during homing.
-
 ## Enhancements
 
 1. Aluminum build plate - 6mm thick, 600x300mm, tapped 3mm holes. 15X stiffer
-1. 15 mm high second fiducial  - nozzle N1 could not reach the Opulo supported second fiducial (5 mm).
+1. Installed: 15 mm high second fiducial  - nozzle N1 could not reach the Opulo supported second fiducial (5 mm).
 1. Bottom camera with smaller field of view.
 1. Camera LEDs with higher CRI and good white balance ~4000°K.
 1. Silent vacuum pump with reservoir.
