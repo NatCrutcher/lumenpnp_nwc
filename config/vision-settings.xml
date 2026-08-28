@@ -125,7 +125,7 @@
       </cv-pipeline>
       <vision-offset units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="0.0"/>
    </vision-settings>
-   <vision-settings class="org.openpnp.model.FiducialVisionSettings" id="FVS17087d17ad3597ea" name="FIDUCIAL-1X2" enabled="true" parallax-angle="0.0" max-vision-passes="3">
+   <vision-settings class="org.openpnp.model.FiducialVisionSettings" id="FVS_Fid_1x2" name="FIDUCIAL-1X2" enabled="true" parallax-angle="0.0" max-vision-passes="3">
       <cv-pipeline>
          <stages>
             <cv-stage class="org.openpnp.vision.pipeline.stages.ImageCapture" name="image" enabled="true" default-light="true" settle-option="Settle" count="1"/>
@@ -137,7 +137,7 @@
       <parallax-diameter value="0.0" units="Millimeters"/>
       <max-linear-offset value="0.2" units="Millimeters"/>
    </vision-settings>
-   <vision-settings class="org.openpnp.model.BottomVisionSettings" id="BVS17df1cc8858d7583" name="R_0603_1608Metric-R_Small" enabled="true" pre-rotate-usage="Default" check-part-size-method="Disabled" check-size-tolerance-percent="300" max-rotation="Adjust" asymmetric="false">
+   <vision-settings class="org.openpnp.model.BottomVisionSettings" id="BVS_0603_R_Small" name="R_0603_1608Metric-R_Small" enabled="true" pre-rotate-usage="Default" check-part-size-method="Disabled" check-size-tolerance-percent="300" max-rotation="Adjust" asymmetric="false">
       <cv-pipeline>
          <stages>
             <cv-stage class="org.openpnp.vision.pipeline.stages.ImageCapture" name="CaptureImage" enabled="true" default-light="true" settle-option="Settle" count="1"/>
@@ -180,7 +180,7 @@
       </cv-pipeline>
       <vision-offset units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="0.0"/>
    </vision-settings>
-   <vision-settings class="org.openpnp.model.BottomVisionSettings" id="BVS18cd680c2e4c2bf5" name="OSRAM Pure 1414 LED Vision" enabled="true" pre-rotate-usage="Default" check-part-size-method="Disabled" check-size-tolerance-percent="20" max-rotation="Adjust" asymmetric="false">
+   <vision-settings class="org.openpnp.model.BottomVisionSettings" id="BVS_OSRAM1414" name="OSRAM Pure 1414 LED Vision" enabled="true" pre-rotate-usage="Default" check-part-size-method="Disabled" check-size-tolerance-percent="20" max-rotation="Adjust" asymmetric="false">
       <cv-pipeline>
          <stages>
             <cv-stage class="org.openpnp.vision.pipeline.stages.ParameterNumeric" name="pThreshold" enabled="true" parameter-label="Threshold" parameter-description="Set the brightness threshold that isolates the shiny contacts of a part." stage-name="threshold" property-name="threshold" effect-stage-name="threshold" preview-result="true" minimum-value="1.0" maximum-value="254.0" default-value="100.0" numeric-type="Integer"/>
@@ -216,7 +216,7 @@
       </pipeline-parameter-assignments>
       <vision-offset units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="0.0"/>
    </vision-settings>
-   <vision-settings class="org.openpnp.model.BottomVisionSettings" id="BVS18cd95b4bd0f98f2" name="C0603 Bottom Vision" enabled="true" pre-rotate-usage="Default" check-part-size-method="Disabled" check-size-tolerance-percent="20" max-rotation="Adjust" asymmetric="false">
+   <vision-settings class="org.openpnp.model.BottomVisionSettings" id="BVS_0603_C" name="C0603 Bottom Vision" enabled="true" pre-rotate-usage="Default" check-part-size-method="Disabled" check-size-tolerance-percent="20" max-rotation="Adjust" asymmetric="false">
       <cv-pipeline>
          <stages>
             <cv-stage class="org.openpnp.vision.pipeline.stages.ParameterNumeric" name="pThreshold" enabled="true" parameter-label="Threshold" parameter-description="Set the brightness threshold that isolates the shiny contacts of a part." stage-name="threshold" property-name="threshold" effect-stage-name="threshold" preview-result="true" minimum-value="1.0" maximum-value="254.0" default-value="100.0" numeric-type="Integer"/>
@@ -247,7 +247,7 @@
       </cv-pipeline>
       <vision-offset units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="0.0"/>
    </vision-settings>
-   <vision-settings class="org.openpnp.model.BottomVisionSettings" id="BVS18cd9a2e3af7b882" name="VQFN-24 Bottom Vision" enabled="true" pre-rotate-usage="Default" check-part-size-method="Disabled" check-size-tolerance-percent="20" max-rotation="Adjust" asymmetric="false">
+   <vision-settings class="org.openpnp.model.BottomVisionSettings" id="BVS_VQFN24" name="VQFN-24 Bottom Vision" enabled="true" pre-rotate-usage="Default" check-part-size-method="Disabled" check-size-tolerance-percent="20" max-rotation="Adjust" asymmetric="false">
       <cv-pipeline>
          <stages>
             <cv-stage class="org.openpnp.vision.pipeline.stages.ParameterNumeric" name="pThreshold" enabled="true" parameter-label="Threshold" parameter-description="Set the brightness threshold that isolates the shiny contacts of a part." stage-name="threshold" property-name="threshold" effect-stage-name="threshold" preview-result="true" minimum-value="1.0" maximum-value="254.0" default-value="100.0" numeric-type="Integer"/>
@@ -277,7 +277,7 @@
       </cv-pipeline>
       <vision-offset units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="0.0"/>
    </vision-settings>
-   <vision-settings class="org.openpnp.model.FiducialVisionSettings" id="FVS18ce4c129f8a5080" name="Fiducial_0402_Pad" enabled="true" parallax-angle="0.0" max-vision-passes="3">
+   <vision-settings class="org.openpnp.model.FiducialVisionSettings" id="FVS_0402_Pad" name="Fiducial_0402_Pad" enabled="true" parallax-angle="0.0" max-vision-passes="3">
       <cv-pipeline>
          <stages>
             <cv-stage class="org.openpnp.vision.pipeline.stages.ImageCapture" name="image" enabled="true" default-light="true" settle-option="Settle" count="1"/>
@@ -341,7 +341,7 @@
       </pipeline-parameter-assignments>
       <vision-offset units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="0.0"/>
    </vision-settings>
-   <vision-settings class="org.openpnp.model.BottomVisionSettings" id="BVS18ceef1e05e05f78" name="L_1210_3225Metric" enabled="true" pre-rotate-usage="Default" check-part-size-method="Disabled" check-size-tolerance-percent="20" max-rotation="Adjust" asymmetric="false">
+   <vision-settings class="org.openpnp.model.BottomVisionSettings" id="BVS_L1210" name="L_1210_3225Metric" enabled="true" pre-rotate-usage="Default" check-part-size-method="Disabled" check-size-tolerance-percent="20" max-rotation="Adjust" asymmetric="false">
       <cv-pipeline>
          <stages>
             <cv-stage class="org.openpnp.vision.pipeline.stages.ParameterNumeric" name="pThreshold" enabled="true" parameter-label="Threshold" parameter-description="Set the brightness threshold that isolates the shiny contacts of a part." stage-name="threshold" property-name="threshold" effect-stage-name="threshold" preview-result="true" minimum-value="1.0" maximum-value="254.0" default-value="100.0" numeric-type="Integer"/>

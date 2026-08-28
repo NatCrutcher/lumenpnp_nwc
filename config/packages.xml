@@ -91,7 +91,7 @@
          <string>NT1</string>
       </compatible-nozzle-tip-ids>
    </package>
-   <package version="1.1" bottom-vision-id="BVS18cd95b4bd0f98f2" id="C_0603_1608Metric_HD" description="NwcPcbLibrary:C_0603_1608Metric_HD" pick-vacuum-level="0.0" place-blow-off-level="0.0">
+   <package version="1.1" bottom-vision-id="BVS_0603_C" id="C_0603_1608Metric_HD" description="NwcPcbLibrary:C_0603_1608Metric_HD" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="1.6" body-height="0.8" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-0.725" y="0.0" width="0.7" height="0.85" rotation="0.0" mark="true" roundness="30.0"/>
          <pad name="2" x="0.725" y="0.0" width="0.7" height="0.85" rotation="0.0" mark="false" roundness="30.0"/>
@@ -437,7 +437,7 @@
          <string>NT1</string>
       </compatible-nozzle-tip-ids>
    </package>
-   <package version="1.1" bottom-vision-id="BVS18ceef1e05e05f78" id="L_1210_3225Metric" description="Inductor_SMD:L_1210_3225Metric" pick-vacuum-level="0.0" place-blow-off-level="0.0">
+   <package version="1.1" bottom-vision-id="BVS_L1210" id="L_1210_3225Metric" description="Inductor_SMD:L_1210_3225Metric" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="3.2" body-height="2.5" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-1.4" y="0.0" width="1.25" height="2.65" rotation="0.0" mark="true" roundness="40.0"/>
          <pad name="2" x="1.4" y="0.0" width="1.25" height="2.65" rotation="0.0" mark="false" roundness="40.0"/>
@@ -498,7 +498,7 @@
          <string>NT1</string>
       </compatible-nozzle-tip-ids>
    </package>
-   <package version="1.1" bottom-vision-id="BVS18cd680c2e4c2bf5" id="OSRAM-OSLON-Pure-1414" description="NwcPcbLibrary:OSRAM-OSLON-Pure-1414" pick-vacuum-level="0.0" place-blow-off-level="0.0">
+   <package version="1.1" bottom-vision-id="BVS_OSRAM1414" id="OSRAM-OSLON-Pure-1414" description="NwcPcbLibrary:OSRAM-OSLON-Pure-1414" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="1.6" body-height="1.6" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="A" x="-0.385" y="0.0" width="0.52" height="1.29" rotation="0.0" mark="false" roundness="0.0"/>
          <pad name="K" x="0.385" y="0.0" width="0.2" height="1.29" rotation="0.0" mark="false" roundness="0.0"/>
@@ -1216,7 +1216,7 @@
          <string>TIP16f0412ed2d50009</string>
       </compatible-nozzle-tip-ids>
    </package>
-   <package version="1.1" fiducial-vision-id="FVS18ce4c129f8a5080" id="Fiducial_0402_Pad" description="NwcPcbLibrary:Fiducial_0402_Pad" pick-vacuum-level="0.0" place-blow-off-level="0.0">
+   <package version="1.1" fiducial-vision-id="FVS_0402_Pad" id="Fiducial_0402_Pad" description="NwcPcbLibrary:Fiducial_0402_Pad" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="0.6" body-height="0.6" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="0.0" y="0.0" width="0.6" height="0.6" rotation="0.0" mark="true" roundness="100.0"/>
       </footprint>
