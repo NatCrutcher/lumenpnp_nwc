@@ -2,16 +2,17 @@
 
 > **Migrating to [GitHub Issues](https://github.com/NatCrutcher/lumenpnp_nwc/issues)** — see
 > [Issue-Tracking.md](Issue-Tracking.md). One item per session: discuss/expand it, create the
-> issue with labels, then replace the bullet here with `- Migrated: #NN — title`. No bulk
-> migration. This file retires when every item is migrated.
+> issue with labels, then replace the bullet here with `- Migrated: #NN — title`. No bulk migration. This file retires when every item is migrated.
+>
+> Prompt: I would like your help making a GitHub issue (see @docs/Issue-Tracking.md) for the following:
 
 ## Tasks
 
 - DONE: Download source
 - Add a discard bin so it stops dropping parts off the front of the machine. I think the best option is a shallow tray mounted just to the left of my secondary fiducial using one plate screw. Enhancement: make it a two-part magnetic design for easier removal and emptying. Configure OpenPnP to use it and make sure the nozzle won't crash into the second fiducial support, which is near the discard bin.
-- Reprint blue feeders in green to reduce feeder hole not found problems.
+- DONE: Reprint blue feeders in green to reduce feeder hole not found problems.
 - Check if the N045 nozzle or the servo head one are bent from the collision. When calibrating the N045, it seems more eccentric, while the N24 on head two has no visible runout. I may want to order a spare nozzle servo with associated parts.
-- Figure out how to fork, track issues, make local changes, conform to OpenPnP coding guidelines, keep changes isolated so I can submit pull requests.
+- DONE: Figure out how to fork, track issues, make local changes, conform to OpenPnP coding guidelines, keep changes isolated so I can submit pull requests.
 - Start a blog/document on LumenPnP lessons, tuning, improvements.
 - Fix the LumenPnP y-axis homing. The stop is positioned so that the switch is triggered at almost exactly the same time the axis mechanically collides. Adjust the gold screw out to prevent the collision but check how much I'll need to recalibrate afterwards.
 - Recheck my nozzle z-heights.
@@ -23,7 +24,7 @@
   - Include the compatible nozzle tips for each package
 - Install more telephoto bottom camera lens. I'm conflicted on when to do this. It would help with some of the vision issues, but it also means my system would be non-standard, so my tuning and recommendations would drift from what most people could do. I think I want to separate my improvements into those requiring little or no hardware mods, and those requiring more extensive mods.
 - Assign bottom vision for all packages. 
-- Create a Markdown document with two sections. The first section lists all bottom vision pipelines with a description and recommendations. The second section lists all packages, which vision pipeline is used, and notes, including test information.
+- Migrated: #1 — Document bottom vision pipelines and per-package pipeline assignments
 - Test the bottom vision for 1-3 representative parts from each package type in use on the current project. Keep the bright overhead lights on so we can confirm the mask is small enough to prevent problems.
 - Figure out a parameter or process to track the target part placement Z height relative to the PCB. It's hard to adjust if I don't have a number I can refer to and compare from run to run. For critical parts, like fine-pitch ICs and LEDs, measure some to confirm the exact thickness, since some datasheets only provide the maximum height.
 - Consider if we want the Python script to make the board.xml file to exclude parts with a blank NccId.
