@@ -16,8 +16,8 @@ Resolution is **part → package → machine default**, first hit wins
 2. `<package … bottom-vision-id="…">` in `config/packages.xml`
 3. `config/machine.xml:1011` — `<part-alignment … bottom-vision-id="BVS_Default" …>`
 
-A part or package with no attribute inherits; it does not "have no pipeline". Today 7 of 76
-packages carry an explicit assignment and the other 69 land on `BVS_Default`.
+A part or package with no attribute inherits; it does not "have no pipeline". Today 8 of 76
+packages carry an explicit assignment and the other 68 land on `BVS_Default`.
 
 ## Hardware baseline
 
@@ -70,7 +70,7 @@ after open/close OpenPnP").
 
 ### `BVS_Default` — *- Default Machine Bottom Vision -* (11 stages)
 
-The machine-wide fallback at `machine.xml:1011`; **69 of 76 packages resolve to it**.
+The machine-wide fallback at `machine.xml:1011`; **68 of 76 packages resolve to it**.
 
 Threshold/contour pipeline: `ImageCapture → MaskCircle(250 px ≈ 9.0 mm) → ConvertColor(gray) →
 BlurGaussian → Threshold(240) → BlurGaussian → MinAreaRect`. Simpler than `BVS_Stock` — no HSV
@@ -84,7 +84,7 @@ but also why a bright overhead light lands squarely in its pass band.
 Its `check-size-tolerance-percent` is **300** (vs 20 on the stock settings), i.e. part-size
 checking is effectively wide open even if enabled.
 
-> **Recommendation [stock]: keep, but stop relying on it.** It is doing the work for 69 packages
+> **Recommendation [stock]: keep, but stop relying on it.** It is doing the work for 68 packages
 > by accident rather than by choice, and its 9 mm mask is fixed rather than part-sized — far too
 > wide for an 0402, and combined with a 240 threshold it is the configuration most exposed to the
 > overhead-light problem. The fix is not to tune this one — it is to give the
@@ -255,33 +255,37 @@ The `value-max = 100` change is the interesting one: it inverts the usual strate
 dark package body rather than the bright terminations. Sensible for a QFN, whose pads are on the
 underside and barely visible.
 
-> **Recommendation [stock]: keep, and promote it to the package.** It is referenced by exactly one
-> **part** (`k05`) and by **no package**, so the other parts of
-> `Texas_RGE0024H_VQFN-24-1EP_4x4_P0.5_EP2.7x2.7_ThVias` would silently fall through to
-> `BVS_Default`. Moving the assignment up to the package is the same cleanup `984fec7` already did
-> for five other packages. The 7.2 mm mask on a 4 × 4 mm body (diagonal 5.7 mm) is a reasonable
-> ~1.3× margin.
+> **Recommendation [stock]: keep. Promoted to the package in `e839f37`.** It used to be referenced
+> by exactly one **part** (`k05`) and by **no package**, so any future part of
+> `Texas_RGE0024H_VQFN-24-1EP_4x4_P0.5_EP2.7x2.7_ThVias` would have silently fallen through to
+> `BVS_Default`. The assignment now lives on the package and the redundant part-level attribute is
+> gone — the same cleanup `984fec7` did for five other packages. `k05` still resolves to
+> `BVS_VQFN24`, now by inheritance. The 7.2 mm mask on a 4 × 4 mm body (diagonal 5.7 mm) is a
+> reasonable ~1.3× margin.
 
-### `BVS_0603_R_Small` — *R_0603_1608Metric-R_Small* — base: `BVS_Default`
+## Removed
 
-**An exact duplicate of `BVS_Default`.** Stage-for-stage, attribute-for-attribute, including
-`check-size-tolerance-percent="300"` — the comparison finds zero differences.
+### `BVS_0603_R_Small` — *R_0603_1608Metric-R_Small* — deleted in `e839f37`
 
-It arrived with Opulo's LumenPnP 4.1 config (`b1d7a78`), not from my tuning, and it is named after
+Recorded here so the deletion is not re-litigated. It was an **exact duplicate of `BVS_Default`** —
+stage-for-stage, attribute-for-attribute, including `check-size-tolerance-percent="300"`; the
+comparison found zero differences.
+
+It arrived with Opulo's LumenPnP 4.1 config (`b1d7a78`), not from my tuning, and was named after
 part id `R_0603_1608Metric-R_Small`, which exists only in `jobs/func_test_pcb/ftp.board.xml` and
-not in `parts.xml`. The part was renamed away; the pipeline was left behind.
+never in `parts.xml`. The part was renamed away; the pipeline was left behind. Nothing referenced
+it, and it was not protected — its id did not contain `Stock`, so a stray press of **Specialize**
+on the Vision Settings tab with nothing selected would have run `optimizeVisionSettings()` and
+deleted it silently anyway.
 
-> **Recommendation [stock]: delete it.** It adds a name to every pipeline dropdown while being
-> byte-equivalent to the default. Nothing references it. Note it is *not* protected — its id no
-> longer contains `Stock`, so a stray press of **Specialize** on the Vision Settings tab with
-> nothing selected runs `optimizeVisionSettings()` and will delete it anyway, silently. Better to
-> do it deliberately.
+**Lesson for the future:** a pipeline named after a part id is only as durable as that part id.
+Name pipelines after the *package* or the part *geometry*, which is what the current ids do.
 
 ## Summary
 
 | Pipeline | Base | Real change | Assigned to | Verdict |
 |---|---|---|---|---|
-| `BVS_Default` | — | — | 69 packages (inherited) | keep; assign packages deliberately |
+| `BVS_Default` | — | — | 68 packages (inherited) | keep; assign packages deliberately |
 | `BVS_Stock` | — | — | `Cree_XE-G` + 32 parts | keep as fork base |
 | `BVS_Stock_R` | — | — | `SOT-23-6` | keep; best base for small chips |
 | `BVS_Stock_B` | — | — | nothing | keep; untried, worth trying |
@@ -289,8 +293,7 @@ not in `parts.xml`. The part was renamed away; the pipeline was left behind.
 | `BVS_0603_C` | `BVS_Stock` | partmask → 100 px (3.6 mm) | 1 package + part `n07` | keep; drop disabled debug stages |
 | `BVS_L1210` | `BVS_Stock` | partmask → 400 px (14.5 mm) | 1 package, 1 part | keep; tighten mask to 150–200 px |
 | `BVS_OSRAM1414` | `BVS_Stock` | MaskHsv **off**, threshold 99, no mask | 1 package, 6 parts | **retune — add mask, re-enable HSV** |
-| `BVS_VQFN24` | `BVS_Stock` | partmask → 200 px (7.2 mm), HSV value 40–100 (dark body) | 1 **part** only | keep; **promote to package** |
-| `BVS_0603_R_Small` | `BVS_Default` | **none — exact duplicate** | nothing | **delete** |
+| `BVS_VQFN24` | `BVS_Stock` | partmask → 200 px (7.2 mm), HSV value 40–100 (dark body) | `Texas_RGE0024H_VQFN-24…` package | keep — promoted `e839f37` |
 
 ---
 
@@ -304,7 +307,8 @@ The **Notes / test** column is deliberately empty. It gets filled by the separat
 bright overhead lights on"). Record the date, the part tested, and pass/fail per attempt — an
 untested pipeline and a passing one should never look alike in this table.
 
-## A. Explicit package assignment (7)
+## A. Explicit package assignment (8)
+
 | Package | Pipeline | Body (mm) | Nozzle tips | Parts | Notes / test |
 |---|---|---|---|---|---|
 | `C_0402_1005Metric_HD` | `BVS_0402` | 1.0×0.5 | N045 | 4 | |
@@ -314,13 +318,14 @@ untested pipeline and a passing one should never look alike in this table.
 | `OSRAM-OSLON-Pure-1414` | `BVS_OSRAM1414` | 1.6×1.6 | N045 | 6 | |
 | `R_0402_1005Metric_HD` | `BVS_0402` | 1.0×0.5 | N045 | 16 | |
 | `SOT-23-6` | `BVS_Stock_R` | 1.6×2.9 | N045 | 4 | |
+| `Texas_RGE0024H_VQFN-24-1EP_4x4_P0.5_EP2.7x2.7_ThVias` | `BVS_VQFN24` | 4.0×4.0 | N24 | 1 | |
 
-## B. Inherits `BVS_Default`, but has part-level overrides (6)
+## B. Inherits `BVS_Default`, but has part-level overrides (5)
 
 These are the inconsistent ones: the package says nothing, so some parts get a
 specialised pipeline and their siblings quietly get the machine default. Commit
-`984fec7` migrated five packages from part-level to package-level assignment; these are
-what is left.
+`984fec7` migrated five packages from part-level to package-level assignment and
+`e839f37` did the VQFN-24; these are what is left.
 
 | Package | Effective pipeline | Part-level overrides | Body (mm) | Nozzle tips | Parts | Notes / test |
 |---|---|---|---|---|---|---|
@@ -329,13 +334,13 @@ what is left.
 | `R_0603_1608Metric_HD` | `BVS_Default` | `BVS_0603_C` ×1, `BVS_Stock` ×25 | 1.6×0.8 | N045 | 34 | |
 | `R_0805_2012Metric_HD` | `BVS_Default` | `BVS_Stock` ×3 | 2.0×1.2 | N045 | 5 | |
 | `R_Array_Convex_4x0612_2` | `BVS_Default` | `BVS_Stock` ×1 | 1.6×3.2 | N045, N24 | 1 | |
-| `Texas_RGE0024H_VQFN-24-1EP_4x4_P0.5_EP2.7x2.7_ThVias` | `BVS_Default` | `BVS_VQFN24` ×1 | 4.0×4.0 | N24 | 1 | |
 
 ## C. Plain `BVS_Default` inheritance (63)
 
 No assignment anywhere — package or part. These reach `BVS_Default` by omission rather than by
-decision, which means a fixed 9 mm mask and a 240 threshold regardless of part size. This is the worklist for the "assign bottom
-vision for all packages" task; the ones that appear in a real job should be triaged first.
+decision, which means a fixed 9 mm mask and a 240 threshold regardless of part size. This is the
+worklist for the "assign bottom vision for all packages" task; the ones that appear in a real job
+should be triaged first.
 
 | Package | Body (mm) | Nozzle tips | Parts | Notes / test |
 |---|---|---|---|---|
