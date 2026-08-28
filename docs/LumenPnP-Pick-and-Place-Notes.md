@@ -36,16 +36,6 @@ Set the nozzle Rotation Mode for both nozzles: Machine Setup → Nozzle → Rota
 
 * Try bottom camera auto-focus for part height detection.
 
-## Issues and Fixes
-
-- Y-axis hits the front during homing: try adjusting the stop; try slower speed
-- Test slower speeds and accelerations to see if that affects placement accuracy
-- Try to always place and do camera bottom vision with the head/nozzle in the same limited range of rotation to eliminate a variable
-- Try a more telephoto bottom camera lens
-- Check for head looseness
-- Test my 9LED fiducials that use 0402 pads
-- Check the 9LED PCB height at 2-3 corners
-
 ## Enhancements
 
 1. Aluminum build plate - 6mm thick, 600x300mm, tapped 3mm holes. 15X stiffer

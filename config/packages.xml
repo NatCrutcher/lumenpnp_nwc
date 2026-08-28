@@ -91,7 +91,7 @@
          <string>NT1</string>
       </compatible-nozzle-tip-ids>
    </package>
-   <package version="1.1" id="C_0603_1608Metric_HD" description="NwcPcbLibrary:C_0603_1608Metric_HD" pick-vacuum-level="0.0" place-blow-off-level="0.0">
+   <package version="1.1" bottom-vision-id="BVS18cd95b4bd0f98f2" id="C_0603_1608Metric_HD" description="NwcPcbLibrary:C_0603_1608Metric_HD" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="1.6" body-height="0.8" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-0.725" y="0.0" width="0.7" height="0.85" rotation="0.0" mark="true" roundness="30.0"/>
          <pad name="2" x="0.725" y="0.0" width="0.7" height="0.85" rotation="0.0" mark="false" roundness="30.0"/>
@@ -153,7 +153,7 @@
          <string>TIP16f0412ed2d50009</string>
       </compatible-nozzle-tip-ids>
    </package>
-   <package version="1.1" id="Cree_XE-G" description="NwcPcbLibrary:Cree_XE-G" pick-vacuum-level="0.0" place-blow-off-level="0.0">
+   <package version="1.1" bottom-vision-id="BVS_Stock" id="Cree_XE-G" description="NwcPcbLibrary:Cree_XE-G" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="1.6" body-height="2.05" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="A" x="-0.425" y="0.955" width="0.56" height="0.33" rotation="0.0" mark="false" roundness="20.0"/>
          <pad name="K" x="0.425" y="0.955" width="0.56" height="0.33" rotation="0.0" mark="false" roundness="20.0"/>
@@ -437,7 +437,7 @@
          <string>NT1</string>
       </compatible-nozzle-tip-ids>
    </package>
-   <package version="1.1" id="L_1210_3225Metric" description="Inductor_SMD:L_1210_3225Metric" pick-vacuum-level="0.0" place-blow-off-level="0.0">
+   <package version="1.1" bottom-vision-id="BVS18ceef1e05e05f78" id="L_1210_3225Metric" description="Inductor_SMD:L_1210_3225Metric" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="3.2" body-height="2.5" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-1.4" y="0.0" width="1.25" height="2.65" rotation="0.0" mark="true" roundness="40.0"/>
          <pad name="2" x="1.4" y="0.0" width="1.25" height="2.65" rotation="0.0" mark="false" roundness="40.0"/>
@@ -446,8 +446,8 @@
          <max-pick-tolerance value="0.0" units="Millimeters"/>
       </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
-         <string>NT1</string>
          <string>TIP16f0412ed2d50009</string>
+         <string>NT1</string>
       </compatible-nozzle-tip-ids>
    </package>
    <package version="1.1" id="Luxeon_CZ_LED_AK" description="NwcPcbLibrary:Luxeon_CZ_LED_AK" pick-vacuum-level="0.0" place-blow-off-level="0.0">
@@ -491,11 +491,14 @@
          <pad name="1" x="-1.4" y="0.0" width="1.2" height="1.2" rotation="0.0" mark="true" roundness="0.0"/>
          <pad name="2" x="1.4" y="0.0" width="1.2" height="1.2" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
       </compatible-nozzle-tip-ids>
    </package>
-   <package version="1.1" id="OSRAM-OSLON-Pure-1414" description="NwcPcbLibrary:OSRAM-OSLON-Pure-1414" pick-vacuum-level="0.0" place-blow-off-level="0.0">
+   <package version="1.1" bottom-vision-id="BVS18cd680c2e4c2bf5" id="OSRAM-OSLON-Pure-1414" description="NwcPcbLibrary:OSRAM-OSLON-Pure-1414" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="1.6" body-height="1.6" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="A" x="-0.385" y="0.0" width="0.52" height="1.29" rotation="0.0" mark="false" roundness="0.0"/>
          <pad name="K" x="0.385" y="0.0" width="0.2" height="1.29" rotation="0.0" mark="false" roundness="0.0"/>
@@ -746,7 +749,7 @@
          <string>NT1</string>
       </compatible-nozzle-tip-ids>
    </package>
-   <package version="1.1" id="SOT-23-6" description="Package_TO_SOT_SMD:SOT-23-6" pick-vacuum-level="0.0" place-blow-off-level="0.0">
+   <package version="1.1" bottom-vision-id="BVS_Stock_R" id="SOT-23-6" description="Package_TO_SOT_SMD:SOT-23-6" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="1.6" body-height="2.9" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="-1.1375" y="0.95" width="1.325" height="0.6" rotation="0.0" mark="true" roundness="50.0"/>
          <pad name="2" x="-1.1375" y="0.0" width="1.325" height="0.6" rotation="0.0" mark="false" roundness="50.0"/>
