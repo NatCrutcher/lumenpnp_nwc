@@ -61,8 +61,7 @@ capture within a bottom-vision operation: the capture itself plus the geometry a
 subject size, and the smallest and largest mask radii that are safe to apply to it. Small
 parts get a single centered shot; only advanced compositing plans several. The shot geometry
 that drives `MaskCircle.diameter` and the `DetectRectlinearSymmetry` window comes from
-`VisionCompositing.Composite` (`VisionCompositing.java:820–965`), and it is easy to
-over-credit. Three cases:
+`VisionCompositing.Composite` (`VisionCompositing.java:820–965`). Three cases:
 
 1. **Fallback: one classic centered capture** — taken when the package has **no footprint
    pads**, the vision settings carry vision offsets, or the camera's **roaming radius is
@@ -81,7 +80,7 @@ over-credit. Three cases:
    `partmask.diameter`/`partmask.center` properties set at all
    (`ReferenceBottomVision.java:539`, gated on `compositingSolution.isAdvanced()`).
 
-**On this machine the fallback case always applies**, because the bottom camera's
+**On a LumenPnP V4.1 with default settings the fallback case always applies**, because the bottom camera's
 `roaming-radius` is 0.0 (`machine.xml:953`) — every run reports `NoCameraRoaming` and takes
 case 1. The auto mask diameter is therefore set per nozzle tip:
 
@@ -120,6 +119,11 @@ implication for [issue #4](https://github.com/NatCrutcher/lumenpnp_nwc/issues/4)
 real camera roaming radius is the gateway that turns on footprint-based captures and the
 part-derived `partmask` — the "camera roaming radius experiment" in PnP-Issues.md and a
 part-sized default mask are the same project.
+
+Why the roaming radius gates footprint sizing *at all* for small parts that need no roaming is
+questionable — a single centered capture involves no camera or nozzle roaming, yet the gate
+runs before the footprint is ever consulted. Tracked as
+[issue #7](https://github.com/NatCrutcher/lumenpnp_nwc/issues/7), an upstream candidate.
 
 ### Layer 3 — `pipeline-parameter-assignments` (highest priority)
 
