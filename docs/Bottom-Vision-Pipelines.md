@@ -167,10 +167,14 @@ The `maxWidth`/`maxHeight` pair is what made `50e30dd` a *speed* commit: droppin
 1 is expensive, and shrinking the search window from 18.5 mm to 1.7 × 0.8 mm paid for it. The two
 settings must be tuned together.
 
-Note the pipeline also runs with **`superSampling = 2`**. That is `BVS_Stock_R`'s stage default,
-not a parameter override, so it never shows in the diff table — but combined with
-`subSampling = 1` it gives sub-pixel search resolution and is part of why this pipeline works on
-a ~28 × 14 px part. Carry it forward deliberately when copying (see issue #4).
+Note the pipeline also carries **`superSampling = 2`** (`BVS_Stock_R`'s stage default, not a
+parameter override, so it never shows in the diff table). Supersampling applies only in the
+innermost pass of the coarse-to-fine search, once effective subsampling reaches 1, and is
+further clamped by `min(maxDiagonal/100, superSampling)`
+(`DetectRectlinearSymmetry.java:542`) — it only engages when the search window's diagonal is
+≥ 200 px. With this pipeline's 1.7 × 0.8 mm (≈ 47 × 22 px) window it is therefore **inert**;
+the accuracy comes from `subSampling = 1` alone. Keep it when copying (see issue #4) — it is
+harmless here and becomes active on windows larger than ~7 mm diagonal.
 
 Assigned to `C_0402_1005Metric_HD` and `R_0402_1005Metric_HD` (20 parts).
 
