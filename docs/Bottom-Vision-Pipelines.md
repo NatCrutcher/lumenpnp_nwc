@@ -3,7 +3,9 @@
 What each bottom vision pipeline in my config does, which stock pipeline it descends from and
 how it differs, and which pipeline every package ends up using.
 
-Companion to [NozzleSetup.md](NozzleSetup.md) and [ReferenceStripFeeder.md](ReferenceStripFeeder.md).
+Companion to [OpenPnP-Vision-Concepts.md](OpenPnP-Vision-Concepts.md) (general vision
+mechanisms and stage reference), [NozzleSetup.md](NozzleSetup.md) and
+[ReferenceStripFeeder.md](ReferenceStripFeeder.md).
 Tracked as [issue #1](https://github.com/NatCrutcher/lumenpnp_nwc/issues/1).
 Fiducial vision (`FVS_*`) is out of scope.
 
