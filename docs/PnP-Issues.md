@@ -8,11 +8,22 @@
 
 ## Tasks
 
-- DONE: Download source
+### Bottom Vision
+
+- Migrated: #2 — Retune BVS_OSRAM1414: add part-sized mask, re-enable MaskHsv
+- Migrated: #3 — Pipeline hygiene: tighten BVS_L1210 mask (also covers deleting the disabled debug stages)
+- Migrated: #4 — Resolve the R_0603_1608Metric_HD pipeline split (folded into the pipeline-family issue)
+- Migrated: #3 — Delete the disabled ImageRead/AffineWarp debug stages in BVS_0603_C and BVS_OSRAM1414
+- Migrated: #4 — Develop an improved default bottom vision pipeline (BVS_LumenPnP_Default)
+- Migrated: #4 — Specialized small-rect pipeline (BVS_Small_Rect) to replace BVS_0402 and BVS_0603_C
+- Migrated: #4 — Consider a larger-part rectilinear variant
+- Migrated: #5 — Assign bottom vision deliberately for every package
+- Migrated: #6 — Test bottom vision per package with overhead lights on
+
+### General
+
 - Add a discard bin so it stops dropping parts off the front of the machine. I think the best option is a shallow tray mounted just to the left of my secondary fiducial using one plate screw. Enhancement: make it a two-part magnetic design for easier removal and emptying. Configure OpenPnP to use it and make sure the nozzle won't crash into the second fiducial support, which is near the discard bin.
-- DONE: Reprint blue feeders in green to reduce feeder hole not found problems.
 - Check if the N045 nozzle or the servo head one are bent from the collision. When calibrating the N045, it seems more eccentric, while the N24 on head two has no visible runout. I may want to order a spare nozzle servo with associated parts.
-- DONE: Figure out how to fork, track issues, make local changes, conform to OpenPnP coding guidelines, keep changes isolated so I can submit pull requests.
 - Start a blog/document on LumenPnP lessons, tuning, improvements.
 - Fix the LumenPnP y-axis homing. The stop is positioned so that the switch is triggered at almost exactly the same time the axis mechanically collides. Adjust the gold screw out to prevent the collision but check how much I'll need to recalibrate afterwards.
 - Recheck my nozzle z-heights.
@@ -23,13 +34,7 @@
 - Update my Python code that generates the parts.xml and packages.xml to:
   - Include the compatible nozzle tips for each package
 - Install more telephoto bottom camera lens. I'm conflicted on when to do this. It would help with some of the vision issues, but it also means my system would be non-standard, so my tuning and recommendations would drift from what most people could do. I think I want to separate my improvements into those requiring little or no hardware mods, and those requiring more extensive mods.
-- Assign bottom vision for all packages. 
 - Migrated: #1 — Document bottom vision pipelines and per-package pipeline assignments
-- Test the bottom vision for 1-3 representative parts from each package type in use on the current project. Keep the bright overhead lights on so we can confirm the mask is small enough to prevent problems.
-- Retune the BVS_OSRAM1414 bottom vision pipeline. It has MaskHsv disabled and no part-sized mask, so it looks at the full 19mm field with no color discrimination, which is exactly the white-LED-vs-overhead-light failure mode. Suggested order: set MaskCircle "4b" to about 120px (4.3mm) for the 1.6x1.6mm body and re-test, then re-enable MaskHsv and retune the hue range against the current LED ring color balance. Six parts on the 9LED project use it. See Bottom-Vision-Pipelines.md.
-- Tighten the BVS_L1210 mask. It is 400px (14.5mm) around a 3.2x2.5mm body, roughly 3.5x the part, where the 0603 pipeline uses about 2x. Try 150-200px (5.4-7.2mm). Only one part uses it, so it is a cheap experiment.
-- Resolve the R_0603_1608Metric_HD pipeline split. Its 34 parts are spread across three pipelines: 25 on a BVS_Stock part-level override, 1 on BVS_0603_C, and 8 inheriting BVS_Default. Decide which is right and move the assignment up to the package, the way commits 984fec7 and e839f37 did for the other packages.
-- Delete the disabled ImageRead and AffineWarp debug stages left in BVS_0603_C and BVS_OSRAM1414. They do nothing at run time, but the ImageRead stages hard-code absolute snapshot paths under my home directory and would substitute a saved image for the live capture if anyone toggled one on while debugging.
 - Figure out a parameter or process to track the target part placement Z height relative to the PCB. It's hard to adjust if I don't have a number I can refer to and compare from run to run. For critical parts, like fine-pitch ICs and LEDs, measure some to confirm the exact thickness, since some datasheets only provide the maximum height.
 - Consider if we want the Python script to make the board.xml file to exclude parts with a blank NccId.
 - Check if the camera power line frequency is set correctly for 60 Hz (2 I think).

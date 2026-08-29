@@ -9,8 +9,7 @@ Fiducial vision (`FVS_*`) is out of scope.
 
 ## How a pipeline gets selected
 
-Resolution is **part → package → machine default**, first hit wins
-(`AbstractPartAlignment.getInheritedVisionSettings`):
+Resolution is **part → package → machine default**, first hit wins:
 
 1. `<part … bottom-vision-id="…">` in `config/parts.xml`
 2. `<package … bottom-vision-id="…">` in `config/packages.xml`
@@ -47,12 +46,7 @@ the lens swap, along with the camera roaming-radius experiment.
 
 ## Reading this section
 
-Each custom pipeline is described as *"stock ancestor + the changes"*. Lineage was established by
-comparing the ordered stage list (name + class) of each pipeline against the four stock/default
-pipelines; every custom one matched a single ancestor at 0.95–1.00 while scoring ≤ 0.78 against
-all others, so the ancestry is unambiguous.
-
-**Two "differences" are not real edits.** Several pipelines show
+Each custom pipeline is described as *"stock ancestor + the changes"*. **Two "differences" are not real edits.** Several pipelines show
 `FilterContours.min-area = 7.642591087789861` and `DetectRectlinearSymmetry.min-feature-size =
 1.3822590626354845` where stock has `0.01` and `0.05`. Those are the stock defaults converted to
 **pixels** for this camera and written back on save:
@@ -88,8 +82,7 @@ checking is effectively wide open even if enabled.
 > by accident rather than by choice, and its 9 mm mask is fixed rather than part-sized — far too
 > wide for an 0402, and combined with a 240 threshold it is the configuration most exposed to the
 > overhead-light problem. The fix is not to tune this one — it is to give the
-> packages that actually get placed a deliberate assignment (see §2 and the "assign bottom vision
-> for all packages" task).
+> packages that actually get placed a deliberate assignment (see §2 and issue #5).
 
 ### `BVS_Stock` — *- Stock Bottom Vision Settings -* (20 stages)
 
@@ -173,6 +166,11 @@ All the tuning lives in `pipeline-parameter-assignments`:
 The `maxWidth`/`maxHeight` pair is what made `50e30dd` a *speed* commit: dropping `subSampling` to
 1 is expensive, and shrinking the search window from 18.5 mm to 1.7 × 0.8 mm paid for it. The two
 settings must be tuned together.
+
+Note the pipeline also runs with **`superSampling = 2`**. That is `BVS_Stock_R`'s stage default,
+not a parameter override, so it never shows in the diff table — but combined with
+`subSampling = 1` it gives sub-pixel search resolution and is part of why this pipeline works on
+a ~28 × 14 px part. Carry it forward deliberately when copying (see issue #4).
 
 Assigned to `C_0402_1005Metric_HD` and `R_0402_1005Metric_HD` (20 parts).
 
@@ -303,8 +301,8 @@ All 76 packages, grouped by how they get their pipeline. "Parts" is the number o
 `parts.xml` assigned to that package.
 
 The **Notes / test** column is deliberately empty. It gets filled by the separate testing task
-("test the bottom vision for 1–3 representative parts from each package type in use, with the
-bright overhead lights on"). Record the date, the part tested, and pass/fail per attempt — an
+(issue #6: test the bottom vision for 1–3 representative parts from each package type in use,
+with the bright overhead lights on). Record the date, the part tested, and pass/fail per attempt — an
 untested pipeline and a passing one should never look alike in this table.
 
 ## A. Explicit package assignment (8)
@@ -339,7 +337,7 @@ specialised pipeline and their siblings quietly get the machine default. Commit
 
 No assignment anywhere — package or part. These reach `BVS_Default` by omission rather than by
 decision, which means a fixed 9 mm mask and a 240 threshold regardless of part size. This is the
-worklist for the "assign bottom vision for all packages" task; the ones that appear in a real job
+worklist for issue #5 (assign bottom vision for all packages); the ones that appear in a real job
 should be triaged first.
 
 | Package | Body (mm) | Nozzle tips | Parts | Notes / test |
@@ -432,7 +430,15 @@ To re-derive §1's lineage claims:
 
 - [Issue #1](https://github.com/NatCrutcher/lumenpnp_nwc/issues/1) — this document, plus the
   readable-id rename and the rules for renaming pipeline ids by hand.
-- [PnP-Issues.md](PnP-Issues.md) — open tasks: assign bottom vision for all packages; test 1–3
-  parts per package; part-size-based crop; automatic subsampling; a description field for
-  pipelines in the editor (upstream candidate).
+- [Issue #2](https://github.com/NatCrutcher/lumenpnp_nwc/issues/2) — retune `BVS_OSRAM1414`.
+- [Issue #3](https://github.com/NatCrutcher/lumenpnp_nwc/issues/3) — pipeline hygiene: tighten
+  `BVS_L1210` mask, delete the disabled debug stages.
+- [Issue #4](https://github.com/NatCrutcher/lumenpnp_nwc/issues/4) — `BVS_LumenPnP_Default`
+  pipeline family (default + small-rect + large-rect); resolves the `R_0603_1608Metric_HD` split.
+- [Issue #5](https://github.com/NatCrutcher/lumenpnp_nwc/issues/5) — assign bottom vision
+  deliberately for every package (the §2C worklist).
+- [Issue #6](https://github.com/NatCrutcher/lumenpnp_nwc/issues/6) — per-package testing with
+  overhead lights on; fills the §2 **Notes / test** column.
+- [PnP-Issues.md](PnP-Issues.md) — remaining unmigrated tasks: part-size-based crop; automatic
+  subsampling; a description field for pipelines in the editor (upstream candidate).
 - [Issue-Tracking.md](Issue-Tracking.md) — how these items are tracked.
