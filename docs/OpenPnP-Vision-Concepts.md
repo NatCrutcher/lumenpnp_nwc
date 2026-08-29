@@ -36,15 +36,83 @@ before processing. Notable ones:
 | `camera`, `footprint`, `footprint.rotation/offsets/maxWidth/maxHeight` | camera, package footprint, vision compositing shot |
 | `MinAreaRect.center`, `.expectedAngle`; `DetectRectlinearSymmetry.center`, `.expectedAngle` | wanted part location/rotation |
 | `DetectRectlinearSymmetry.searchDistance` | nozzle tip **max pick tolerance × 1.2** |
-| `MaskCircle.diameter` | compositing shot max mask radius |
+| `MaskCircle.diameter` | compositing shot **max mask radius** — see §1.1; on this machine, nozzle-tip-derived, not part-derived |
 | `MaskHsv.hueMin/hueMax/saturationMin/valueMax` | nozzle tip **background calibration** (if calibrated) |
 | `BlurGaussian.kernelSize`, `DetectRectlinearSymmetry.subSampling` | sampling size: background-calibration min detail × 0.5, else 0.1 mm; floored at 2 px (≈ 3 px on the stock camera) |
-| `DetectRectlinearSymmetry.maxWidth`, `.maxHeight` | compositing **shot size + 2 × sampling size** margin |
+| `DetectRectlinearSymmetry.maxWidth`, `.maxHeight` | compositing **shot size + 2 × sampling size** margin — see §1.1; on this machine, nozzle-tip-derived |
 | `partmask.diameter`, `partmask.center` (advanced compositing only) | pad radius + pick tolerance |
 
-So OpenPnP already tries to size the symmetry search window to the part and pick a sane
-subsampling — *when* the package footprint and nozzle-tip background calibration provide good
-inputs. A stage attribute like `max-width="510"` in the XML is typically dead at run time.
+These properties are pushed for **every** bottom-vision pipeline — `BVS_Default` and
+`BVS_Stock` included; there is nothing rectilinear-specific about the mechanism. Whether a
+property has any effect depends solely on whether some stage **listens** for it: a property
+lands only on a stage whose `property-name` matches its prefix. `MinAreaRect.*` matters to the
+contour pipelines, `DetectRectlinearSymmetry.*` to the symmetry ones, and `MaskCircle.diameter`
+to *any* `MaskCircle` whose `property-name="MaskCircle"` — which includes the outer masks of
+`BVS_Stock` (525 px), `BVS_Stock_R` (900 px), and `BVS_Stock_B`, making those XML diameters
+dead at run time. The notable exception: **`BVS_Default`'s `MaskCircle` has
+`property-name=""`**, so it listens to nothing and really does run at its fixed 250 px ≈ 9.0 mm
+in every context.
+
+### §1.1 What the auto-derived sizes actually are
+
+The shot that drives `MaskCircle.diameter` and the `DetectRectlinearSymmetry` window comes
+from `VisionCompositing.Composite` (`VisionCompositing.java:820–965`), and it is easy to
+over-credit. Three cases:
+
+1. **Fallback single shot** — taken when the package has **no footprint pads**, the vision
+   settings carry vision offsets, or the camera's **roaming radius is unset**
+   (`VisionCompositing.java:839`; `Length.isInitialized()` is literally `value != 0.0`,
+   `Length.java:347`). Shot size and max mask radius are the **nozzle tip's**
+   `max-part-diameter` plus 2 × `max-pick-tolerance` — the part plays no role.
+2. **Footprint fits in one view** (roaming radius set, footprint present, small part): one
+   shot whose *min* mask radius is part-sized (footprint diagonal/2 + tolerance) but whose
+   **max** mask radius is `cameraViewRadius = min(tip max-part-diameter, camera view)/2` —
+   and `preparePipeline` sends `getMaxMaskRadius()`. The auto mask is the *largest safe* mask
+   (never clips the part at worst-case pick offset), **not** the tightest.
+3. **Advanced compositing** (roaming radius set + footprint + part larger than view): corner
+   shots with genuinely geometry-limited mask radii, and only here are the part-derived
+   `partmask.diameter`/`partmask.center` properties set at all
+   (`ReferenceBottomVision.java:539`, gated on `compositingSolution.isAdvanced()`).
+
+**On this machine the fallback case always applies**, because the bottom camera's
+`roaming-radius` is 0.0 (`machine.xml:953`) — every run reports `NoCameraRoaming` and takes
+case 1. The auto mask diameter is therefore set per nozzle tip:
+
+| Tip | max-part-diameter + 2 × pick tol | Auto `MaskCircle.diameter` |
+|---|---|---|
+| N045 | 6.0 + 0.7 mm | **6.7 mm** (~185 px) |
+| N08 | 8.0 + 1.0 mm | 9.0 mm |
+| N14 | 14.0 + 2.0 mm | 16.0 mm |
+| N24 | 20.0 + 2.0 mm | **22.0 mm** |
+| N40 | 30.0 + 2.0 mm | 32.0 mm |
+
+### §1.2 So why does the vision see the overhead lights?
+
+Combining the above, the overhead-light exposure documented in
+[Bottom-Vision-Pipelines.md](Bottom-Vision-Pipelines.md) has three distinct causes, not one:
+
+1. **`BVS_Default` is immune to the auto mask** (`property-name=""`): 68 packages run a fixed
+   9.0 mm mask with `Threshold(240)` — near-white glare passes, on every tip.
+2. **For listening pipelines the auto mask is tip-sized, not part-sized.** On N045 the 6.7 mm
+   auto mask lands well inside the black nozzle disc — those runs should be protected
+   regardless of the huge XML diameters. But on **N14/N24/N40 the 16–32 mm auto mask reaches
+   past the disc**, and nothing part-derived tightens it: the part-sized `partmask` hook is
+   only fed by advanced compositing (case 3 above), which this machine never enters. That is
+   why the manual `partmask` diameters in `BVS_0603_C`/`BVS_L1210`/`BVS_VQFN24` do real work.
+3. **The standalone pipeline editor shows the raw stage attributes.** Only the editor opened
+   from a vision-settings wizard runs `preparePipeline`
+   (`BottomVisionSettingsConfigurationWizard.java:553`); judged from other editor contexts,
+   the 19–32.6 mm XML masks are what you see, which can make the run-time behavior look worse
+   than it is on N045.
+
+Caveat: the per-tip numbers in §1.1 are derived from source + config, not yet verified on the
+machine. A quick check is to enable `diagnostics` or an `ImageWriteDebug` stage and confirm
+the masked diameter in a saved frame for one N045 and one N24 part (worth folding into
+[issue #6](https://github.com/NatCrutcher/lumenpnp_nwc/issues/6)'s protocol). The larger
+implication for [issue #4](https://github.com/NatCrutcher/lumenpnp_nwc/issues/4): setting a
+real camera roaming radius is the gateway that turns on footprint-based shots and the
+part-derived `partmask` — the "camera roaming radius experiment" in PnP-Issues.md and a
+part-sized default mask are the same project.
 
 ### Layer 3 — `pipeline-parameter-assignments` (highest priority)
 
