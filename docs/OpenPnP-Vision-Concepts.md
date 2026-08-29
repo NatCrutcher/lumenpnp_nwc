@@ -33,13 +33,13 @@ before processing. Notable ones:
 
 | Property | Derived from |
 |---|---|
-| `camera`, `footprint`, `footprint.rotation/offsets/maxWidth/maxHeight` | camera, package footprint, vision compositing shot |
+| `camera`, `footprint`, `footprint.rotation/offsets/maxWidth/maxHeight` | camera, package footprint, vision-compositing shot (planned capture, see §1.1) |
 | `MinAreaRect.center`, `.expectedAngle`; `DetectRectlinearSymmetry.center`, `.expectedAngle` | wanted part location/rotation |
 | `DetectRectlinearSymmetry.searchDistance` | nozzle tip **max pick tolerance × 1.2** |
-| `MaskCircle.diameter` | compositing shot **max mask radius** — see §1.1; on this machine, nozzle-tip-derived, not part-derived |
+| `MaskCircle.diameter` | the planned capture's **max mask radius** — see §1.1; on this machine, nozzle-tip-derived, not part-derived |
 | `MaskHsv.hueMin/hueMax/saturationMin/valueMax` | nozzle tip **background calibration** (if calibrated) |
 | `BlurGaussian.kernelSize`, `DetectRectlinearSymmetry.subSampling` | sampling size: background-calibration min detail × 0.5, else 0.1 mm; floored at 2 px (≈ 3 px on the stock camera) |
-| `DetectRectlinearSymmetry.maxWidth`, `.maxHeight` | compositing **shot size + 2 × sampling size** margin — see §1.1; on this machine, nozzle-tip-derived |
+| `DetectRectlinearSymmetry.maxWidth`, `.maxHeight` | the planned capture's **expected subject size + 2 × sampling size** margin — see §1.1; on this machine, nozzle-tip-derived |
 | `partmask.diameter`, `partmask.center` (advanced compositing only) | pad radius + pick tolerance |
 
 These properties are pushed for **every** bottom-vision pipeline — `BVS_Default` and
@@ -55,22 +55,29 @@ in every context.
 
 ### §1.1 What the auto-derived sizes actually are
 
-The shot that drives `MaskCircle.diameter` and the `DetectRectlinearSymmetry` window comes
-from `VisionCompositing.Composite` (`VisionCompositing.java:820–965`), and it is easy to
+A **shot** is OpenPnP's term (class `VisionCompositing.Shot`) for one planned camera
+capture within a bottom-vision operation: the capture itself plus the geometry attached to it
+— its X/Y offset from the part center (for large parts imaged corner by corner), its expected
+subject size, and the smallest and largest mask radii that are safe to apply to it. Small
+parts get a single centered shot; only advanced compositing plans several. The shot geometry
+that drives `MaskCircle.diameter` and the `DetectRectlinearSymmetry` window comes from
+`VisionCompositing.Composite` (`VisionCompositing.java:820–965`), and it is easy to
 over-credit. Three cases:
 
-1. **Fallback single shot** — taken when the package has **no footprint pads**, the vision
-   settings carry vision offsets, or the camera's **roaming radius is unset**
-   (`VisionCompositing.java:839`; `Length.isInitialized()` is literally `value != 0.0`,
-   `Length.java:347`). Shot size and max mask radius are the **nozzle tip's**
-   `max-part-diameter` plus 2 × `max-pick-tolerance` — the part plays no role.
+1. **Fallback: one classic centered capture** — taken when the package has **no footprint
+   pads**, the vision settings carry vision offsets, or the camera's **roaming radius is
+   unset** (`VisionCompositing.java:839`; `Length.isInitialized()` is literally
+   `value != 0.0`, `Length.java:347`). The expected subject size and max mask radius are the
+   **nozzle tip's** `max-part-diameter` plus 2 × `max-pick-tolerance` — the part plays no
+   role.
 2. **Footprint fits in one view** (roaming radius set, footprint present, small part): one
-   shot whose *min* mask radius is part-sized (footprint diagonal/2 + tolerance) but whose
+   centered capture whose *min* mask radius is part-sized (footprint diagonal/2 + tolerance) but whose
    **max** mask radius is `cameraViewRadius = min(tip max-part-diameter, camera view)/2` —
    and `preparePipeline` sends `getMaxMaskRadius()`. The auto mask is the *largest safe* mask
    (never clips the part at worst-case pick offset), **not** the tightest.
-3. **Advanced compositing** (roaming radius set + footprint + part larger than view): corner
-   shots with genuinely geometry-limited mask radii, and only here are the part-derived
+3. **Advanced compositing** (roaming radius set + footprint + part larger than view):
+   multiple captures aimed at individual part corners, each with genuinely geometry-limited
+   mask radii; only here are the part-derived
    `partmask.diameter`/`partmask.center` properties set at all
    (`ReferenceBottomVision.java:539`, gated on `compositingSolution.isAdvanced()`).
 
@@ -110,7 +117,7 @@ machine. A quick check is to enable `diagnostics` or an `ImageWriteDebug` stage 
 the masked diameter in a saved frame for one N045 and one N24 part (worth folding into
 [issue #6](https://github.com/NatCrutcher/lumenpnp_nwc/issues/6)'s protocol). The larger
 implication for [issue #4](https://github.com/NatCrutcher/lumenpnp_nwc/issues/4): setting a
-real camera roaming radius is the gateway that turns on footprint-based shots and the
+real camera roaming radius is the gateway that turns on footprint-based captures and the
 part-derived `partmask` — the "camera roaming radius experiment" in PnP-Issues.md and a
 part-sized default mask are the same project.
 
