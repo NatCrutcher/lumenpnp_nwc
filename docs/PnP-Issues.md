@@ -22,6 +22,7 @@
 
 ### General
 
+- Help tune nozzle parameters for more efficient vision and reasonable part allowances.
 - Add a discard bin so it stops dropping parts off the front of the machine. I think the best option is a shallow tray mounted just to the left of my secondary fiducial using one plate screw. Enhancement: make it a two-part magnetic design for easier removal and emptying. Configure OpenPnP to use it and make sure the nozzle won't crash into the second fiducial support, which is near the discard bin.
 - Check if the N045 nozzle or the servo head one are bent from the collision. When calibrating the N045, it seems more eccentric, while the N24 on head two has no visible runout. I may want to order a spare nozzle servo with associated parts.
 - Start a blog/document on LumenPnP lessons, tuning, improvements.
@@ -41,8 +42,7 @@
 - Try Non-Squareness Compensation: [https://github.com/openpnp/openpnp/wiki/Linear-Transformed-Axes\#use-case--non-squareness-compensation](https://github.com/openpnp/openpnp/wiki/Linear-Transformed-Axes#use-case--non-squareness-compensation) *I cannot remember if I already did this.*
 - Try second fiducial calibration: [https://github.com/openpnp/openpnp/wiki/Vision-Solutions\#calibration-secondary-fiducial](https://github.com/openpnp/openpnp/wiki/Vision-Solutions#calibration-secondary-fiducial) *I think this is complete.*
 - Try bottom camera auto-focus for part height detection. *Wait for the new bottom camera lens.*
-- **Camera Roaming Radius**, Claude thinks: "Setting a real roaming-radius on the bottom camera (~3 mm) would fix the oversized window properly and machine-wide — every package would get footprint-sized shots, which is how vision compositing is meant to work. But it changes bottom-vision behavior for all parts, so I'd treat it as its own experiment after the lens swap settles, not bundle it in now."
-  * Interestingly, the OpenPnP docs don't mention this. Start a new chat session for a second opinion or experiment more with this, perhaps with other parts.
+- Migrated: #8 — Compute, configure, and test a non-zero bottom-camera roaming radius (was: Camera Roaming Radius experiment; the roaming-radius gate question itself is #7)
 
 ## Tuning
 
