@@ -6,6 +6,10 @@
 >
 > Prompt: I would like your help making a GitHub issue (see @docs/Issue-Tracking.md) for the following:
 
+## Links
+
+* https://github.com/openpnp/openpnp/pull/1914 - Photon Feeder improvements to OpenPnP
+
 ## Tasks
 
 ### Bottom Vision
@@ -49,6 +53,8 @@
 ### 9LED PCB
 
 - Relative to my first test, slightly lower the part placements. 
+- Check the 9LED PCB height at 2-3 corners
+
 
 ## Bugs and Problems
 
