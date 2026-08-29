@@ -12,34 +12,35 @@ camera (0.036173 mm/px geometric mean).
 
 ---
 
-## §1 — How a stage property gets its value
+## Property Layering
 
-A stage property like `DetectRectlinearSymmetry.subSampling` can be set in **three layers**,
+How a stage property gets its value: a property like
+`DetectRectlinearSymmetry.subSampling` can be set in **three layers**,
 and the layers explain the confusing pipeline-editor behavior where a field shows **grayed out
 and empty** even though the XML has a value.
 
-### Layer 1 — stage attributes (lowest priority)
+### Stage Attributes
 
-The values stored on the `<cv-stage …>` element in the XML and shown as editable fields in the
+Layer 1, the lowest priority: the values stored on the `<cv-stage …>` element in the XML and shown as editable fields in the
 pipeline editor. These are only the *fallback*: any pipeline **property** with the matching
 name silently replaces them at evaluation time.
 
-### Layer 2 — properties set by the vision operation
+### Vision Operation Properties
 
-When a real alignment runs (and also when the pipeline editor is opened from the vision
+Layer 2. When a real alignment runs (and also when the pipeline editor is opened from the vision
 settings wizard), `ReferenceBottomVision.preparePipeline()`
 (`ReferenceBottomVision.java:464`) computes and sets a standard family of pipeline properties
 before processing. Notable ones:
 
 | Property | Derived from |
 |---|---|
-| `camera`, `footprint`, `footprint.rotation/offsets/maxWidth/maxHeight` | camera, package footprint, vision-compositing shot (planned capture, see §1.1) |
+| `camera`, `footprint`, `footprint.rotation/offsets/maxWidth/maxHeight` | camera, package footprint, vision-compositing shot (planned capture, see [Auto-Derived Sizes](#auto-derived-sizes)) |
 | `MinAreaRect.center`, `.expectedAngle`; `DetectRectlinearSymmetry.center`, `.expectedAngle` | wanted part location/rotation |
 | `DetectRectlinearSymmetry.searchDistance` | nozzle tip **max pick tolerance × 1.2** |
-| `MaskCircle.diameter` | the planned capture's **max mask radius** — see §1.1; on this machine, nozzle-tip-derived, not part-derived |
+| `MaskCircle.diameter` | the planned capture's **max mask radius** — see [Auto-Derived Sizes](#auto-derived-sizes); on this machine, nozzle-tip-derived, not part-derived |
 | `MaskHsv.hueMin/hueMax/saturationMin/valueMax` | nozzle tip **background calibration** (if calibrated) |
 | `BlurGaussian.kernelSize`, `DetectRectlinearSymmetry.subSampling` | sampling size: background-calibration min detail × 0.5, else 0.1 mm; floored at 2 px (≈ 3 px on the stock camera) |
-| `DetectRectlinearSymmetry.maxWidth`, `.maxHeight` | the planned capture's **expected subject size + 2 × sampling size** margin — see §1.1; on this machine, nozzle-tip-derived |
+| `DetectRectlinearSymmetry.maxWidth`, `.maxHeight` | the planned capture's **expected subject size + 2 × sampling size** margin — see [Auto-Derived Sizes](#auto-derived-sizes); on this machine, nozzle-tip-derived |
 | `partmask.diameter`, `partmask.center` (advanced compositing only) | pad radius + pick tolerance |
 
 These properties are pushed for **every** bottom-vision pipeline — `BVS_Default` and
@@ -53,9 +54,9 @@ dead at run time. The notable exception: **`BVS_Default`'s `MaskCircle` has
 `property-name=""`**, so it listens to nothing and really does run at its fixed 250 px ≈ 9.0 mm
 in every context.
 
-### §1.1 What the auto-derived sizes actually are
+### Auto-Derived Sizes
 
-A **shot** is OpenPnP's term (class `VisionCompositing.Shot`) for one planned camera
+What the sizes pushed by the vision operation actually are. A **shot** is OpenPnP's term (class `VisionCompositing.Shot`) for one planned camera
 capture within a bottom-vision operation: the capture itself plus the geometry attached to it
 — its X/Y offset from the part center (for large parts imaged corner by corner), its expected
 subject size, and the smallest and largest mask radii that are safe to apply to it. Small
@@ -92,9 +93,9 @@ case 1. The auto mask diameter is therefore set per nozzle tip:
 | N24 | 20.0 + 2.0 mm | **22.0 mm** |
 | N40 | 30.0 + 2.0 mm | 32.0 mm |
 
-### §1.2 So why does the vision see the overhead lights?
+### Overhead Light Exposure
 
-Combining the above, the overhead-light exposure documented in
+So why does the vision still see the overhead lights? Combining the above, the overhead-light exposure documented in
 [Bottom-Vision-Pipelines.md](Bottom-Vision-Pipelines.md) has three distinct causes, not one:
 
 1. **`BVS_Default` is immune to the auto mask** (`property-name=""`): 68 packages run a fixed
@@ -111,7 +112,7 @@ Combining the above, the overhead-light exposure documented in
    the 19–32.6 mm XML masks are what you see, which can make the run-time behavior look worse
    than it is on N045.
 
-Caveat: the per-tip numbers in §1.1 are derived from source + config, not yet verified on the
+Caveat: the per-tip numbers above are derived from source + config, not yet verified on the
 machine. A quick check is to enable `diagnostics` or an `ImageWriteDebug` stage and confirm
 the masked diameter in a saved frame for one N045 and one N24 part (worth folding into
 [issue #6](https://github.com/NatCrutcher/lumenpnp_nwc/issues/6)'s protocol). The larger
@@ -125,9 +126,9 @@ questionable — a single centered capture involves no camera or nozzle roaming,
 runs before the footprint is ever consulted. Tracked as
 [issue #7](https://github.com/NatCrutcher/lumenpnp_nwc/issues/7), an upstream candidate.
 
-### Layer 3 — `pipeline-parameter-assignments` (highest priority)
+### Parameter Assignments
 
-Each vision-settings object (`AbstractVisionSettings.java:45`) carries an optional
+Layer 3, the highest priority: `pipeline-parameter-assignments`. Each vision-settings object (`AbstractVisionSettings.java:45`) carries an optional
 `<pipeline-parameter-assignments>` map of `"Stage.property" → value` entries.
 `preparePipeline()` applies it **last** (`pipeline.addProperties(...)`,
 `ReferenceBottomVision.java:550`, a plain map `putAll`), so an assignment overrides both the
@@ -140,9 +141,9 @@ units="Millimeters"/>`) are converted to pixels at use via the camera's units-pe
 (`CvStage.getConvertedPipelineProperty`, `CvStage.java:515`), so they stay correct across
 cameras and lenses.
 
-### Why the editor field is grayed out AND empty
+### Grayed-Out Fields
 
-When a stage consumes an override, it records it (`recordPropertyOverride`,
+Why an overridden editor field shows grayed out *and empty*: when a stage consumes an override, it records it (`recordPropertyOverride`,
 `CvStage.java:507`). The stage's BeanInfo then **nulls the getter and setter** of that
 property descriptor (`CvStage.java:194–210`): no getter means the property sheet cannot even
 display a value — hence grayed *and blank*. The actual value is in the tooltip: hover the
@@ -151,7 +152,7 @@ field and it shows, in red, **"Controlled by pipeline caller: subSampling=1"**.
 Note this happens for *any* override, not just parameter assignments — `expectedAngle`,
 `searchDistance`, `maxWidth` etc. gray out too because Layer 2 sets them.
 
-### Where can these be edited?
+### Where to Edit
 
 - **GUI sliders/controls** in the vision settings wizard exist **only for exposed parameters** —
   `ParameterNumeric`/`ParameterBool` stages inside the pipeline (`PipelineControls.java:230`
@@ -166,7 +167,7 @@ Note this happens for *any* override, not just parameter assignments — `expect
 
 ---
 
-## §2 — DetectRectlinearSymmetry
+## DetectRectlinearSymmetry
 
 Source: `org/openpnp/vision/pipeline/stages/DetectRectlinearSymmetry.java`. Finds the subject
 and angle with maximum rectilinear symmetry and returns a `RotatedRect` (center, size, angle).
@@ -213,10 +214,11 @@ Defaults below are the stage's Java defaults; stock pipelines may ship different
 | `diagnostics`, `diagnosticsMap` | false | Cross-hair/bounds overlay; angular-contrast heat map. Invaluable when tuning — turn on in the editor, off for production speed. |
 | `propertyName` | DetectRectlinearSymmetry | The Layer-2/3 property prefix this stage listens on. |
 
-### The superSampling clamp: sub-pixel precision is disabled where it is needed most
+### The superSampling Clamp
 
-Two lines of code decide the stage's final precision, and their interaction is surprising
-enough to deserve its own note.
+Sub-pixel precision is disabled exactly where it is needed most. Two lines of code decide
+the stage's final precision, and their interaction is surprising enough to deserve its own
+note.
 
 First, `superSampling` only ever takes effect in the innermost coarse-to-fine pass, and even
 then it is clamped by the window size (`DetectRectlinearSymmetry.java:542`):
@@ -255,7 +257,7 @@ proposed there: **parabolic (3-point quadratic) interpolation of the score peak*
 yields sub-bin precision at any window size with no finer-than-pixel binning — no aliasing
 exposure — and would likely make `superSampling` and its clamp unnecessary altogether.
 
-### Symmetry functions
+### Symmetry Functions
 
 | Function | Looks at | Use for |
 |---|---|---|
@@ -265,9 +267,10 @@ exposure — and would likely make `superSampling` and its clamp unnecessary alt
 | `OutlineEdgeSymmetry` | outline edges only | As above, with differing shades/features |
 | `OutlineSymmetryMasked` | thresholded outline mask only | Quite asymmetric subjects; needs `threshold` (+ `minFeatureSize`) |
 
-### Tuning recipe for small parts (the `BVS_0402` lessons)
+### Small-Part Tuning
 
-An 0402 on the stock LumenPnP camera is ~28 × 14 px. The stage's defaults are hostile to that:
+The recipe distilled from the `BVS_0402` work. An 0402 on the stock LumenPnP camera is
+~28 × 14 px. The stage's defaults are hostile to that:
 
 1. **Shrink the window to the part**: `maxWidth`/`maxHeight` ≈ part body + a few × sampling
    margin (1.7 × 0.8 mm for an 0402). This is also what keeps overhead-light glare outside the
@@ -275,8 +278,9 @@ An 0402 on the stock LumenPnP camera is ~28 × 14 px. The stage's defaults are h
 2. **`subSampling = 1`** — subsampling by 8 leaves ~3 × 2 samples of an 0402. Expensive, but
    step 1 pays for it; tune the two together, never separately.
 3. Expect no help from `superSampling` at this scale — it is clamped off below a 200 px
-   window diagonal, leaving small-part precision at 1 px; see "The superSampling clamp"
-   above and [issue #9](https://github.com/NatCrutcher/lumenpnp_nwc/issues/9).
+   window diagonal, leaving small-part precision at 1 px; see
+   [The superSampling Clamp](#the-supersampling-clamp) and
+   [issue #9](https://github.com/NatCrutcher/lumenpnp_nwc/issues/9).
 4. Retune `MaskHsv` upstream if lighting/color balance changed — the stage sees only what the
    masks pass.
 5. A tighter `searchAngle` (default sweep ± 30–45°) is a free speed win once feeders present
