@@ -233,7 +233,10 @@ An 0402 on the stock LumenPnP camera is ~28 × 14 px. The stage's defaults are h
 2. **`subSampling = 1`** — subsampling by 8 leaves ~3 × 2 samples of an 0402. Expensive, but
    step 1 pays for it; tune the two together, never separately.
 3. Expect no help from `superSampling` at this scale (clamped off below 200 px window
-   diagonal); sub-pixel precision must come from `subSampling = 1` itself.
+   diagonal); the center is quantized to one cross-section bin — the peak search is a plain
+   argmax with no interpolation — so small-part precision is 1 px. Tracked upstream as
+   [issue #9](https://github.com/NatCrutcher/lumenpnp_nwc/issues/9), whose preferred fix is
+   parabolic interpolation of the score peak.
 4. Retune `MaskHsv` upstream if lighting/color balance changed — the stage sees only what the
    masks pass.
 5. A tighter `searchAngle` (default sweep ± 30–45°) is a free speed win once feeders present
