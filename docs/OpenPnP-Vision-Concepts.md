@@ -201,7 +201,7 @@ Defaults below are the stage's Java defaults; stock pipelines may ship different
 | `searchDistance` | 100 | Position search range around center, px. Auto-set from nozzle pick tolerance × 1.2. |
 | `maxWidth`, `maxHeight` | 100 | The search window, px (mm via Length assignment). **The** speed/robustness knob: size to part + margin. Auto-derived from footprint at run time; assignments override. |
 | `subSampling` | 8 | Starting sample grid. Auto-reduced internally to `min(maxDiagonal/16, searchDistance/2)`, floored at 1. For tiny parts set 1 — but shrink the window in the same move or it is slow (this pairing is `BVS_0402`'s whole trick). Use `BlurGaussian` before the stage if subsampling causes moiré. |
-| `superSampling` | 1 | Sub-pixel finish: samples binned into an N× finer cross-section, **only in the innermost pass** (`superSamplingEff = 1` unless subsampling has reached 1, line 542) **and** only when the window diagonal ≥ 200 px (`min(maxDiagonal/100, superSampling)` clamp — inert for small windows like `BVS_0402`'s 1.7 × 0.8 mm). Source comment: only reliable at 2. **Negative values are an early-stop**: −2 halts refinement at 2-px resolution (speed over precision). |
+| `superSampling` | 1 | Sub-pixel finish: samples binned into an N× finer cross-section — but only in the innermost pass, and clamped off for small windows; see the note below the table. Source comment: only reliable at 2. **Negative values are an early-stop**: −2 halts refinement at 2-px resolution (speed over precision). |
 | `symmetricLeftRight`, `symmetricUpperLower` | true | Per-axis: is the subject symmetric (as seen at 0°)? Selects `symmetricFunction` or `asymmetricFunction` per axis. Exposed as `pSymmetricLeftRight`/`pSymmetricUpperLower` in stock pipelines. |
 | `symmetricFunction` | FullSymmetry | How the cross-section is scored for symmetric axes. See functions table. |
 | `asymmetricFunction` | OutlineSymmetryMasked | Ditto for asymmetric axes. |
@@ -212,6 +212,48 @@ Defaults below are the stage's Java defaults; stock pipelines may ship different
 | `smoothing` | 5 | Gaussian kernel on the cross-sections; suppresses pixel-grid interference at 45° multiples. |
 | `diagnostics`, `diagnosticsMap` | false | Cross-hair/bounds overlay; angular-contrast heat map. Invaluable when tuning — turn on in the editor, off for production speed. |
 | `propertyName` | DetectRectlinearSymmetry | The Layer-2/3 property prefix this stage listens on. |
+
+### The superSampling clamp: sub-pixel precision is disabled where it is needed most
+
+Two lines of code decide the stage's final precision, and their interaction is surprising
+enough to deserve its own note.
+
+First, `superSampling` only ever takes effect in the innermost coarse-to-fine pass, and even
+then it is clamped by the window size (`DetectRectlinearSymmetry.java:542`):
+
+```java
+// Super sampling seems to only work reliably with 2. Sampling vs. pixel grid interference seems to be a big problem.
+final int superSamplingEff = (subSamplingEff == 1 ? Math.max(1, Math.min(maxDiagonal/100, superSampling)) : 1);
+```
+
+The integer division makes a hard cliff at a **200 px window diagonal** (≈ 7.2 mm on the stock
+camera): below it, the configured `superSampling` is silently ignored — no diagnostic, no
+documentation, no opt-out. `BVS_0402`'s inherited `superSampling = 2` is inert for exactly
+this reason (window ≈ 52 px diagonal).
+
+Second, the cost is real because the symmetry peak search is a plain **argmax over integer bin
+positions with no interpolation** (`findCrossSectionSymmetry`,
+`DetectRectlinearSymmetry.java:1086–1092`). The detected center is therefore quantized to one
+cross-section bin = `subSampling/superSampling` px:
+
+- small subjects (window < 200 px diagonal): **1 px** quantization ≈ 36 µm on the stock camera
+  — a meaningful fraction of an 0402/0603 placement budget;
+- large subjects (≥ 200 px): 0.5 px, where a full pixel would hardly have mattered.
+
+Exactly backwards from the need. The charitable reading of the clamp: supersampled bins are
+finer than the pixel grid, so at most sweep angles they receive systematically alternating
+sample counts (aliasing/moiré). A large subject averages hundreds of pixels per bin and the
+aliasing washes out; a small subject has only a handful per bin, so alias noise can rival the
+signal and produce false peaks. The clamp is an empirical "enough samples per bin" guard —
+but it keys off the diagonal rather than the perpendicular extent that actually sets the
+per-bin count, and disabling is not the only tool available (the stage already scales its
+cross-section smoothing with `superSamplingEff` to fight the same interference).
+
+Tracked upstream as [issue #9](https://github.com/NatCrutcher/lumenpnp_nwc/issues/9)
+(companion to [#7](https://github.com/NatCrutcher/lumenpnp_nwc/issues/7)). The preferred fix
+proposed there: **parabolic (3-point quadratic) interpolation of the score peak**, which
+yields sub-bin precision at any window size with no finer-than-pixel binning — no aliasing
+exposure — and would likely make `superSampling` and its clamp unnecessary altogether.
 
 ### Symmetry functions
 
@@ -232,11 +274,9 @@ An 0402 on the stock LumenPnP camera is ~28 × 14 px. The stage's defaults are h
    search — the window constrains instead of a `MaskCircle`.
 2. **`subSampling = 1`** — subsampling by 8 leaves ~3 × 2 samples of an 0402. Expensive, but
    step 1 pays for it; tune the two together, never separately.
-3. Expect no help from `superSampling` at this scale (clamped off below 200 px window
-   diagonal); the center is quantized to one cross-section bin — the peak search is a plain
-   argmax with no interpolation — so small-part precision is 1 px. Tracked upstream as
-   [issue #9](https://github.com/NatCrutcher/lumenpnp_nwc/issues/9), whose preferred fix is
-   parabolic interpolation of the score peak.
+3. Expect no help from `superSampling` at this scale — it is clamped off below a 200 px
+   window diagonal, leaving small-part precision at 1 px; see "The superSampling clamp"
+   above and [issue #9](https://github.com/NatCrutcher/lumenpnp_nwc/issues/9).
 4. Retune `MaskHsv` upstream if lighting/color balance changed — the stage sees only what the
    masks pass.
 5. A tighter `searchAngle` (default sweep ± 30–45°) is a free speed win once feeders present
