@@ -78,6 +78,15 @@ mvn package              # build the distributable jar (target/openpnp-gui-*.jar
 - **Never commit to local `main` or `test`.** They exist only to track upstream.
 - One PR-sized concern per branch. If work grows, split the branch.
 - Rebase onto `upstream/test` before submitting; keep history clean (squash fixups).
+- **Back up finished feature branches to the fork** so they survive a dead PC:
+  ```bash
+  git push origin feature/short-topic
+  ```
+  Pushing a branch to the fork does *not* open a PR or notify upstream — it just stores
+  it on NatCrutcher/openpnp (ignore the "Create a pull request" hint GitHub prints).
+  After a rebase, re-push with `git push --force-with-lease origin feature/short-topic`.
+  `local-test` stays local-only; run `bin/pr-preflight` before the first push of a branch
+  so nothing firewalled leaves the machine.
 - To run my changes on the machine, merge feature branches into `local-test` (see below).
   That branch is never pushed and never becomes a PR.
 - Note: the tag `2.6` (`5bd404c`) matches the stock v2.6 install and is what I read when
