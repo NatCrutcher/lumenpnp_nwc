@@ -81,9 +81,29 @@ that drives `MaskCircle.diameter` and the `DetectRectlinearSymmetry` window come
    `partmask.diameter`/`partmask.center` properties set at all
    (`ReferenceBottomVision.java:539`, gated on `compositingSolution.isAdvanced()`).
 
-**On a LumenPnP V4.1 with default settings the fallback case always applies**, because the bottom camera's
-`roaming-radius` is 0.0 (`machine.xml:953`) — every run reports `NoCameraRoaming` and takes
-case 1. The auto mask diameter is therefore set per nozzle tip:
+**On a stock LumenPnP V4.1 the fallback case always applies**, because the shipped bottom-camera
+`roaming-radius` is 0.0 — every run reports `NoCameraRoaming` and takes case 1. On this machine
+that ended 2026-08-30 (`f15f459`, [issue #8](https://github.com/NatCrutcher/lumenpnp_nwc/issues/8)):
+the bottom camera now has `roaming-radius` 21.0 mm (`machine.xml:953`), computed from the
+measured clearance — 45.0 mm build-plate opening (22.5 mm radius, the binding constraint;
+fiducial supports at 30 mm; the 19.5 mm light-ring diffuser ID sits below the part plane and
+only matters optically) minus 1.0 mm N24 pick tolerance minus 0.5 mm margin. See the
+[clearance diagram](img/roaming-radius-clearance.svg). Packages with a
+footprint that fits the view now take case 2 (`Small`, verified on `C_0402_1005Metric_HD` and
+`C_0603_1608Metric_HD`); packages with no pads still take case 1 (`NoFootprint`, verified on a
+dummy package). Two more diagnostics classes showed up in practice, both **falling back to a
+single centered shot that is footprint-sized, not tip-sized** (`VisionCompositing.java:956–970`),
+so alignment still works unless the compositing method is an enforced one:
+
+- `RestrictedCameraRoaming` — parts whose hull cannot fit a corner capture inside 21 mm
+  (`BatteryHolder_Keystone_1060`, `XCVR_WIZFI360-PA2`). Corner captures of a 32.6 mm-diagonal
+  part would need roughly its full diagonal as roaming radius; the physical opening caps this
+  machine at 22.5 mm, so advanced compositing (case 3) is permanently out of reach here.
+- `Invalid` ("Cannot isolate corners with compositable X and Y symmetries") — packages with
+  asymmetric pads, e.g. `Cree_XE-G`; worth a per-package footprint review someday, harmless
+  meanwhile (`p17` aligned at Δ ≤ 0.065 mm).
+
+The fallback (case 1) auto mask diameter is set per nozzle tip:
 
 | Tip | max-part-diameter + 2 × pick tol | Auto `MaskCircle.diameter` |
 |---|---|---|
@@ -103,23 +123,30 @@ So why does the vision still see the overhead lights? Combining the above, the o
 2. **For listening pipelines the auto mask is tip-sized, not part-sized.** On N045 the 6.7 mm
    auto mask lands well inside the black nozzle disc — those runs should be protected
    regardless of the huge XML diameters. But on **N14/N24/N40 the 16–32 mm auto mask reaches
-   past the disc**, and nothing part-derived tightens it: the part-sized `partmask` hook is
-   only fed by advanced compositing (case 3 above), which this machine never enters. That is
-   why the manual `partmask` diameters in `BVS_0603_C`/`BVS_L1210`/`BVS_VQFN24` do real work.
+   past the disc**, and nothing part-derived tightens it: even in case 2 `preparePipeline`
+   pushes `getMaxMaskRadius()` (tip-bounded), and the part-sized `partmask` hook is only fed by
+   advanced compositing (case 3 above), which this machine physically cannot enter (see
+   `RestrictedCameraRoaming` above). **Verified 2026-08-30 with the roaming radius set**: the
+   grayed `MaskCircle.diameter` for `n07` (C0603 on N045) still reads 185 px = 6.7 mm — the tip
+   envelope, unchanged from case 1. Opening the gate did not shrink any mask; that needs the
+   upstream `minMaskRadius` change tracked in
+   [issue #7](https://github.com/NatCrutcher/lumenpnp_nwc/issues/7). The manual `partmask`
+   diameters in `BVS_0603_C`/`BVS_L1210`/`BVS_VQFN24` keep doing all the real work.
 3. **The standalone pipeline editor shows the raw stage attributes.** Only the editor opened
    from a vision-settings wizard runs `preparePipeline`
    (`BottomVisionSettingsConfigurationWizard.java:553`); judged from other editor contexts,
    the 19–32.6 mm XML masks are what you see, which can make the run-time behavior look worse
    than it is on N045.
 
-Caveat: the per-tip numbers above are derived from source + config, not yet verified on the
-machine. A quick check is to enable `diagnostics` or an `ImageWriteDebug` stage and confirm
-the masked diameter in a saved frame for one N045 and one N24 part (worth folding into
-[issue #6](https://github.com/NatCrutcher/lumenpnp_nwc/issues/6)'s protocol). The larger
-implication for [issue #4](https://github.com/NatCrutcher/lumenpnp_nwc/issues/4): setting a
-real camera roaming radius is the gateway that turns on footprint-based captures and the
-part-derived `partmask` — the "camera roaming radius experiment" in PnP-Issues.md and a
-part-sized default mask are the same project.
+Bench-verified 2026-08-30 (issue #8, with `roaming-radius` = 21.0 mm): the N045 mask tooltip
+reads 185 px = 6.7 mm as tabulated; `0402 Bottom Vision`'s parameter assignments still override
+the auto values (maxWidth/maxHeight/subSampling read 1.70 mm / 0.80 mm / 1); and the win that
+did land is the **`DetectRectlinearSymmetry` search window**, now shot-derived
+(footprint + 2 × sampling margin) instead of tip-derived — regression runs on `a14`, `n07`,
+`k16`, `p17` all passed at Δ ≤ 0.24 mm with no `check-part-size` rejections, and fiducial
+vision (top camera, radius still 0) is unaffected. The remaining implication for
+[issue #4](https://github.com/NatCrutcher/lumenpnp_nwc/issues/4): part-sized *masks* still
+require either manual `partmask` stages or the upstream change in issue #7.
 
 Why the roaming radius gates footprint sizing *at all* for small parts that need no roaming is
 questionable — a single centered capture involves no camera or nozzle roaming, yet the gate

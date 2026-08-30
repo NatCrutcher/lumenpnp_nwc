@@ -40,7 +40,9 @@ custom pipeline below is, in one way or another, a response to that.
 Recommendations are tagged **[stock]** where they work on an unmodified machine and **[hw-mod]**
 where they assume the telephoto lens swap. Everything currently recommended here is **[stock]** —
 deliberately, so the findings stay useful to anyone running an unmodified LumenPnP. Revisit after
-the lens swap, along with the camera roaming-radius experiment.
+the lens swap. (The camera roaming-radius experiment completed 2026-08-30 — 21.0 mm, issue #8;
+it opened footprint-derived search windows but left auto masks tip-sized, see
+[OpenPnP-Vision-Concepts.md](OpenPnP-Vision-Concepts.md#auto-derived-sizes).)
 
 ---
 
@@ -315,13 +317,13 @@ untested pipeline and a passing one should never look alike in this table.
 
 | Package | Pipeline | Body (mm) | Nozzle tips | Parts | Notes / test |
 |---|---|---|---|---|---|
-| `C_0402_1005Metric_HD` | `BVS_0402` | 1.0×0.5 | N045 | 4 | |
+| `C_0402_1005Metric_HD` | `BVS_0402` | 1.0×0.5 | N045 | 4 | 2026-08-30 `a14` 3× pass, Δ ≤ 0.042 mm (#8 roaming-radius regression) |
 | `C_0603_1608Metric_HD` | `BVS_0603_C` | 1.6×0.8 | N045 | 11 | |
-| `Cree_XE-G` | `BVS_Stock` | 1.6×2.05 | N045 | 7 | |
+| `Cree_XE-G` | `BVS_Stock` | 1.6×2.05 | N045 | 7 | 2026-08-30 `p17` 3× pass, Δ ≤ 0.065 mm (#8; compositing `Invalid` — asymmetric pads — falls back cleanly) |
 | `L_1210_3225Metric` | `BVS_L1210` | 3.2×2.5 | N24, N045 | 1 | |
 | `OSRAM-OSLON-Pure-1414` | `BVS_OSRAM1414` | 1.6×1.6 | N045 | 6 | |
 | `R_0402_1005Metric_HD` | `BVS_0402` | 1.0×0.5 | N045 | 16 | |
-| `SOT-23-6` | `BVS_Stock_R` | 1.6×2.9 | N045 | 4 | |
+| `SOT-23-6` | `BVS_Stock_R` | 1.6×2.9 | N045 | 4 | 2026-08-30 `k16` 3× pass, Δ ≤ 0.243 mm (#8; first live user of the footprint-derived search window) |
 | `Texas_RGE0024H_VQFN-24-1EP_4x4_P0.5_EP2.7x2.7_ThVias` | `BVS_VQFN24` | 4.0×4.0 | N24 | 1 | |
 
 ## B. Inherits `BVS_Default`, but has part-level overrides (5)
@@ -335,7 +337,7 @@ specialised pipeline and their siblings quietly get the machine default. Commit
 |---|---|---|---|---|---|---|
 | `C_0805_2012Metric` | `BVS_Default` | `BVS_Stock` ×2 | 2.0×1.25 | N045 | 5 | |
 | `D_SOD-123F` | `BVS_Default` | `BVS_Stock` ×1 | 2.8×1.8 | N045 | 1 | |
-| `R_0603_1608Metric_HD` | `BVS_Default` | `BVS_0603_C` ×1, `BVS_Stock` ×25 | 1.6×0.8 | N045 | 34 | |
+| `R_0603_1608Metric_HD` | `BVS_Default` | `BVS_0603_C` ×1, `BVS_Stock` ×25 | 1.6×0.8 | N045 | 34 | 2026-08-30 `n07` (`BVS_0603_C`) 3× pass, Δ ≤ 0.065 mm (#8 roaming-radius regression) |
 | `R_0805_2012Metric_HD` | `BVS_Default` | `BVS_Stock` ×3 | 2.0×1.2 | N045 | 5 | |
 | `R_Array_Convex_4x0612_2` | `BVS_Default` | `BVS_Stock` ×1 | 1.6×3.2 | N045, N24 | 1 | |
 
