@@ -378,6 +378,9 @@
          <pad name="MP" x="-4.8" y="1.2" width="1.4" height="2.0" rotation="0.0" mark="false" roundness="41.6666"/>
          <pad name="MP" x="4.8" y="1.2" width="1.4" height="2.0" rotation="0.0" mark="false" roundness="41.6666"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>TIP16f0412ed2d50009</string>
       </compatible-nozzle-tip-ids>
@@ -390,6 +393,9 @@
          <pad name="MP" x="-2.3" y="-1.875" width="1.2" height="1.8" rotation="0.0" mark="false" roundness="41.6666"/>
          <pad name="MP" x="2.3" y="-1.875" width="1.2" height="1.8" rotation="0.0" mark="false" roundness="41.6666"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>TIP16f0412ed2d50009</string>
       </compatible-nozzle-tip-ids>
@@ -403,6 +409,9 @@
          <pad name="MP" x="-2.8" y="-1.875" width="1.2" height="1.8" rotation="0.0" mark="false" roundness="41.6666"/>
          <pad name="MP" x="2.8" y="-1.875" width="1.2" height="1.8" rotation="0.0" mark="false" roundness="41.6666"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>TIP16f0412ed2d50009</string>
       </compatible-nozzle-tip-ids>
@@ -418,6 +427,9 @@
          <pad name="MP" x="-3.8" y="-1.875" width="1.2" height="1.8" rotation="0.0" mark="false" roundness="41.6666"/>
          <pad name="MP" x="3.8" y="-1.875" width="1.2" height="1.8" rotation="0.0" mark="false" roundness="41.6666"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>TIP16f0412ed2d50009</string>
       </compatible-nozzle-tip-ids>
@@ -427,6 +439,9 @@
          <pad name="A" x="0.7875" y="0.0" width="0.875" height="0.95" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="K" x="-0.7875" y="0.0" width="0.875" height="0.95" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
       </compatible-nozzle-tip-ids>
@@ -436,6 +451,9 @@
          <pad name="1" x="-1.075" y="0.0" width="1.25" height="2.2" rotation="0.0" mark="true" roundness="40.0"/>
          <pad name="2" x="1.075" y="0.0" width="1.25" height="2.2" rotation="0.0" mark="false" roundness="40.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
       </compatible-nozzle-tip-ids>
@@ -459,6 +477,9 @@
          <pad name="K" x="0.75" y="0.0" width="0.3" height="2.0" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="TP" x="0.0" y="0.0" width="0.2" height="0.2" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
       </compatible-nozzle-tip-ids>
@@ -469,6 +490,9 @@
          <pad name="K" x="0.75" y="0.0" width="0.3" height="2.0" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="TP" x="0.0" y="0.0" width="0.2" height="0.2" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
       </compatible-nozzle-tip-ids>
@@ -485,6 +509,9 @@
          <pad name="8" x="1.6" y="-1.75" width="1.1" height="0.98" rotation="0.0" mark="false" roundness="20.0"/>
          <pad name="9" x="0.0" y="0.0" width="1.1" height="4.48" rotation="0.0" mark="false" roundness="20.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>TIP16f0412ed2d50009</string>
       </compatible-nozzle-tip-ids>
@@ -520,6 +547,9 @@
          <pad name="3" x="0.725" y="-0.925" width="0.8" height="0.9" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="4" x="0.725" y="0.925" width="0.8" height="0.9" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
       </compatible-nozzle-tip-ids>
@@ -538,6 +568,9 @@
          <pad name="5" x="2.795" y="-0.635" width="1.02" height="0.61" rotation="0.0" mark="false" roundness="0.0"/>
          <pad name="5" x="2.795" y="-1.905" width="1.02" height="0.61" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>TIP16f0412ed2d50009</string>
       </compatible-nozzle-tip-ids>
@@ -549,6 +582,9 @@
          <pad name="3" x="1.6" y="-0.9" width="1.2" height="0.9" rotation="0.0" mark="false" roundness="0.0"/>
          <pad name="4" x="-1.6" y="-0.9" width="1.2" height="0.9" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
          <string>TIP16f0412ed2d50009</string>
@@ -559,6 +595,9 @@
          <pad name="1" x="0.0" y="4.75" width="3.5" height="4.0" rotation="90.0" mark="true" roundness="29.4118"/>
          <pad name="2" x="0.0" y="-4.75" width="3.5" height="4.0" rotation="90.0" mark="false" roundness="29.4118"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>TIP16f0412ed2d50009</string>
       </compatible-nozzle-tip-ids>
@@ -594,6 +633,9 @@
          <pad name="27" x="-1.0" y="1.9375" width="0.25" height="0.875" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="28" x="-1.5" y="1.9975" width="0.1369" height="0.1369" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
          <string>TIP16f0412ed2d50009</string>
@@ -635,6 +677,9 @@
          <pad name="32" x="-1.75" y="2.4375" width="0.25" height="0.875" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="33" x="0.0" y="0.0" width="3.45" height="3.45" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>TIP16f0412ed2d50009</string>
       </compatible-nozzle-tip-ids>
@@ -656,6 +701,9 @@
          <pad name="1" x="-0.825" y="0.0" width="0.8" height="0.95" rotation="0.0" mark="true" roundness="50.0"/>
          <pad name="2" x="0.825" y="0.0" width="0.8" height="0.95" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
       </compatible-nozzle-tip-ids>
@@ -677,6 +725,9 @@
          <pad name="1" x="-0.9" y="0.0" width="1.2" height="3.7" rotation="0.0" mark="true" roundness="50.0"/>
          <pad name="2" x="0.9" y="0.0" width="1.2" height="3.7" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
          <string>TIP16f0412ed2d50009</string>
@@ -687,6 +738,9 @@
          <pad name="1" x="-0.9" y="0.0" width="1.0" height="1.3" rotation="0.0" mark="true" roundness="20.0"/>
          <pad name="2" x="0.9" y="0.0" width="1.0" height="1.3" rotation="0.0" mark="false" roundness="20.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
       </compatible-nozzle-tip-ids>
@@ -696,6 +750,9 @@
          <pad name="1" x="-1.0" y="0.0" width="1.2" height="1.4" rotation="0.0" mark="true" roundness="41.6666"/>
          <pad name="2" x="1.0" y="0.0" width="1.2" height="1.4" rotation="0.0" mark="false" roundness="41.6666"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
       </compatible-nozzle-tip-ids>
@@ -711,6 +768,9 @@
          <pad name="7" x="0.7" y="0.4" width="0.7" height="0.5" rotation="0.0" mark="false" roundness="0.0"/>
          <pad name="8" x="0.7" y="1.27" width="0.7" height="0.64" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
          <string>TIP16f0412ed2d50009</string>
@@ -721,6 +781,9 @@
          <pad name="1" x="-1.65" y="0.0" width="0.9" height="1.2" rotation="0.0" mark="true" roundness="50.0"/>
          <pad name="2" x="1.65" y="0.0" width="0.9" height="1.2" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
       </compatible-nozzle-tip-ids>
@@ -736,6 +799,9 @@
          <pad name="7" x="2.475" y="0.635" width="1.95" height="0.6" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="8" x="2.475" y="1.905" width="1.95" height="0.6" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>TIP16f0412ed2d50009</string>
       </compatible-nozzle-tip-ids>
@@ -748,6 +814,9 @@
          <pad name="4" x="1.1375" y="-0.95" width="1.325" height="0.6" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="5" x="1.1375" y="0.95" width="1.325" height="0.6" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
       </compatible-nozzle-tip-ids>
@@ -774,6 +843,9 @@
          <pad name="2" x="-0.9375" y="-0.95" width="1.475" height="0.6" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="3" x="0.9375" y="0.0" width="1.475" height="0.6" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
       </compatible-nozzle-tip-ids>
@@ -789,6 +861,9 @@
          <pad name="7" x="0.74" y="0.25" width="0.67" height="0.3" rotation="0.0" mark="false" roundness="33.3333"/>
          <pad name="8" x="0.74" y="0.75" width="0.67" height="0.3" rotation="0.0" mark="false" roundness="33.3333"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
       </compatible-nozzle-tip-ids>
@@ -806,6 +881,9 @@
          <pad name="9" x="0.725" y="0.5" width="0.85" height="0.25" rotation="0.0" mark="false" roundness="0.0"/>
          <pad name="10" x="0.725" y="1.0" width="0.85" height="0.25" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
       </compatible-nozzle-tip-ids>
@@ -838,6 +916,9 @@
          <pad name="10" x="0.0" y="-1.77" width="0.5" height="0.5" rotation="0.0" mark="false" roundness="100.0"/>
          <pad name="11" x="-0.5" y="2.06" width="0.35" height="0.9" rotation="0.0" mark="false" roundness="60.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>TIP16f0412ed2d50009</string>
       </compatible-nozzle-tip-ids>
@@ -866,6 +947,9 @@
          <pad name="20" x="-1.54" y="1.4" width="0.6" height="0.25" rotation="90.0" mark="false" roundness="0.0"/>
          <pad name="21" x="-2.04" y="1.375" width="0.25" height="0.65" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>TIP16f0412ed2d50009</string>
       </compatible-nozzle-tip-ids>
@@ -898,6 +982,9 @@
          <pad name="20" x="-1.2125" y="1.4125" width="0.575" height="0.175" rotation="90.0" mark="false" roundness="57.1429"/>
          <pad name="21" x="0.0" y="0.0" width="1.4" height="1.4" rotation="0.0" mark="false" roundness="7.1429"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
          <string>TIP16f0412ed2d50009</string>
@@ -910,6 +997,9 @@
          <pad name="3" x="3.075" y="-1.27" width="1.2" height="1.0" rotation="0.0" mark="false" roundness="25.0"/>
          <pad name="4" x="3.075" y="1.27" width="1.2" height="1.0" rotation="0.0" mark="false" roundness="25.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>TIP16f0412ed2d50009</string>
       </compatible-nozzle-tip-ids>
@@ -931,6 +1021,9 @@
          <pad name="13" x="2.8625" y="1.3" width="1.475" height="0.4" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="14" x="2.8625" y="1.95" width="1.475" height="0.4" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>TIP16f0412ed2d50009</string>
       </compatible-nozzle-tip-ids>
@@ -954,6 +1047,9 @@
          <pad name="15" x="2.8625" y="1.625" width="1.475" height="0.4" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="16" x="2.8625" y="2.275" width="1.475" height="0.4" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>TIP16f0412ed2d50009</string>
       </compatible-nozzle-tip-ids>
@@ -989,6 +1085,9 @@
          <pad name="27" x="2.8625" y="3.575" width="1.475" height="0.4" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="28" x="2.8625" y="4.225" width="1.475" height="0.4" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>TIP16f0412ed2d50009</string>
       </compatible-nozzle-tip-ids>
@@ -997,6 +1096,9 @@
       <footprint units="Millimeters" body-width="2.7" body-height="1.0" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="0.0" y="0.0" width="3.4" height="1.8" rotation="0.0" mark="true" roundness="27.7778"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
       </compatible-nozzle-tip-ids>
@@ -1015,6 +1117,9 @@
          <pad name="9" x="0.0" y="0.0" width="0.9" height="1.6" rotation="0.0" mark="false" roundness="0.0"/>
          <pad name="9" x="0.0" y="-0.55" width="0.5" height="0.5" rotation="0.0" mark="false" roundness="100.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
       </compatible-nozzle-tip-ids>
@@ -1092,6 +1197,9 @@
          <pad name="P1" x="0.0" y="0.625" width="2.7" height="1.45" rotation="0.0" mark="false" roundness="6.8966"/>
          <pad name="P2" x="0.0" y="-0.925" width="2.7" height="0.85" rotation="0.0" mark="false" roundness="6.8966"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
          <string>TIP16f0412ed2d50009</string>
@@ -1116,6 +1224,9 @@
          <pad name="15" x="-0.2" y="1.25" width="0.2" height="0.8" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="16" x="-0.6" y="1.25" width="0.2" height="0.8" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
       </compatible-nozzle-tip-ids>
@@ -1132,6 +1243,9 @@
          <pad name="8" x="1.4375" y="0.975" width="0.75" height="0.3" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="9" x="0.0" y="0.0" width="1.6" height="2.4" rotation="0.0" mark="false" roundness="12.5"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
          <string>TIP16f0412ed2d50009</string>
@@ -1148,6 +1262,9 @@
          <pad name="7" x="1.4" y="0.25" width="1.25" height="0.3" rotation="0.0" mark="false" roundness="40.0"/>
          <pad name="8" x="1.4" y="0.75" width="1.25" height="0.3" rotation="0.0" mark="false" roundness="40.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
       </compatible-nozzle-tip-ids>
@@ -1163,6 +1280,9 @@
          <pad name="7" x="2.2" y="0.325" width="1.5" height="0.45" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="8" x="2.2" y="0.975" width="1.5" height="0.45" rotation="0.0" mark="false" roundness="50.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
          <string>TIP16f0412ed2d50009</string>
@@ -1184,6 +1304,9 @@
          <pad name="12" x="1.4375" y="1.25" width="0.875" height="0.25" rotation="0.0" mark="false" roundness="50.0"/>
          <pad name="13" x="0.0" y="0.0" width="1.5" height="2.5" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>NT1</string>
          <string>TIP16f0412ed2d50009</string>
@@ -1215,6 +1338,9 @@
          <pad name="22" x="7.6" y="3.5" width="2.0" height="1.2" rotation="0.0" mark="false" roundness="0.0"/>
          <pad name="23" x="1.0" y="-4.5" width="4.5" height="4.5" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList">
          <string>TIP16f0412ed2d50009</string>
       </compatible-nozzle-tip-ids>
@@ -1232,6 +1358,9 @@
       <footprint units="Millimeters" body-width="2.0" body-height="2.0" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="1" x="0.0" y="0.0" width="1.0" height="1.0" rotation="0.0" mark="true" roundness="100.0"/>
       </footprint>
+      <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
+         <max-pick-tolerance value="0.0" units="Millimeters"/>
+      </vision-compositing>
       <compatible-nozzle-tip-ids class="java.util.ArrayList"/>
    </package>
 </openpnp-packages>
