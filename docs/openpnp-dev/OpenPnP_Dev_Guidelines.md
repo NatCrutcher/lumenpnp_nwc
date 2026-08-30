@@ -48,10 +48,15 @@ Upstream sources (authoritative — reread before submitting anything):
 ### Build and test
 ```bash
 mvn test                 # full test suite — must pass before any PR
-mvn package              # build the distributable jar
+mvn package              # build the distributable jar (target/openpnp-gui-*.jar + target/lib/)
 ```
+- No system Maven: use `~/opt/maven/bin/mvn` (Maven 3.9.16, symlink → `~/opt/apache-maven-3.9.16`).
 - CI runs `mvn -q -B test` across a Java version matrix. The wiki recommends JDK 8+; I build
-  with JDK 17/21 (installed per LumenPnP-Pick-and-Place-Notes.md).
+  with the system JDK 21 (installed per LumenPnP-Pick-and-Place-Notes.md).
+- Running a built jar directly needs the stock launcher's module flags on JDK 9+, or startup
+  fails in `Main.monkeyPatchBeansBinding` with `InaccessibleObjectException`:
+  `--add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.desktop/java.awt=ALL-UNNAMED
+  --add-opens=java.desktop/java.awt.color=ALL-UNNAMED` (`bin/pnptest` supplies them).
 - Manual testing against a clean config: run with `-DoverrideUserConfig=true` and the sample
   `pnp-test.job.xml` rather than my live machine config.
 - My live machine config lives in `~/dev/lumenpnp_nwc/config` — never point a development
@@ -69,10 +74,41 @@ mvn package              # build the distributable jar
 - **Never commit to local `main` or `test`.** They exist only to track upstream.
 - One PR-sized concern per branch. If work grows, split the branch.
 - Rebase onto `upstream/test` before submitting; keep history clean (squash fixups).
-- To run several of my changes together on the machine, merge feature branches into a
-  throwaway `local-integration` branch. That branch is never pushed and never becomes a PR.
-- Note: the tag `2.6` (`5bd404c`) matches my installed jar and is what I read when studying
-  behavior of the running machine; **development happens against `test`**, which may differ.
+- To run my changes on the machine, merge feature branches into `local-test` (see below).
+  That branch is never pushed and never becomes a PR.
+- Note: the tag `2.6` (`5bd404c`) matches the stock v2.6 install and is what I read when
+  studying 2.6 runtime behavior; **development happens against `test`**, which may differ.
+
+### Local test install
+
+My daily-driver OpenPnP is a self-built version: a reviewed `upstream/test` base plus my
+feature branches. Set up 2026-08-30 after bench-verifying the zoom/pan build.
+
+- **Branch `local-test`** — pinned to a reviewed `upstream/test` commit, with feature
+  branches merged in via `git merge --no-ff feature/<topic>`. Never pushed, never a PR.
+  Like `main`/`test`, never commit work directly to it — only merges land there.
+- **Worktree `~/dev/openpnp_local-test`** — permanent checkout of `local-test`
+  (`git worktree add`), so `~/dev/openpnp_src` stays free for feature-branch work without
+  ever touching what the machine runs.
+- **Deployed install `~/openpnp/local-test/`** — jar + `lib/` + `BUILD.txt` copied out of
+  the worktree by `bin/openpnp-deploy` (refuses a dirty or wrong-branch worktree, runs the
+  full `mvn package` with tests). Rebuilds in either checkout can't disturb it; it changes
+  only on deliberate redeploy.
+- **Launchers** (both use the live config `~/dev/lumenpnp_nwc/config`):
+  - `bin/pnptest` — the deployed local-test build (prints `BUILD.txt` on start; passes the
+    `--add-opens` flags the stock launcher uses, required on JDK 9+).
+  - `bin/pnp26` — the stock v2.6 install at `~/openpnp/v2.6`, kept as fallback.
+- **Advancing the upstream base** is deliberate, never automatic:
+  ```bash
+  git fetch upstream
+  bin/openpnp-changes 2.6 upstream/test   # review what would come in
+  cd ~/dev/openpnp_local-test && git merge upstream/test && openpnp-deploy
+  ```
+- **`bin/openpnp-changes [FROM] [TO]`** (default `2.6..local-test`) — concise review list:
+  the CHANGES.md bullets added between the refs, then the `--first-parent` one-line commit
+  list (one line per merged PR).
+- Rollback is `pnp26`; a bad deploy is fixed by `git -C ~/dev/openpnp_local-test reset
+  --hard <good-merge>` and redeploying.
 
 ### Personal-content firewall
 These must never appear in a feature branch or PR:

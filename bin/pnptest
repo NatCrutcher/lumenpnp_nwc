@@ -1,0 +1,20 @@
+#!/bin/sh
+# Run the deployed local-test build of OpenPnP against the live machine config.
+# Deployed by bin/openpnp-deploy from the local-test branch (~/dev/openpnp_local-test).
+# The --add-opens flags match the stock OpenPnP launcher; without them startup fails
+# on JDK 9+ with InaccessibleObjectException (Main monkey-patches BeansBinding).
+OPENPNP_CFG="$HOME/dev/lumenpnp_nwc/config"
+DEPLOY="$HOME/openpnp/local-test"
+
+if [ ! -f "$DEPLOY/openpnp-gui.jar" ]; then
+    echo "No deployed build at $DEPLOY - run openpnp-deploy first." >&2
+    exit 1
+fi
+[ -f "$DEPLOY/BUILD.txt" ] && cat "$DEPLOY/BUILD.txt"
+
+exec java \
+    --add-opens=java.base/java.lang=ALL-UNNAMED \
+    --add-opens=java.desktop/java.awt=ALL-UNNAMED \
+    --add-opens=java.desktop/java.awt.color=ALL-UNNAMED \
+    -DconfigDir="$OPENPNP_CFG" \
+    -jar "$DEPLOY/openpnp-gui.jar" "$@"

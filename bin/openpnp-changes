@@ -1,0 +1,23 @@
+#!/bin/sh
+# Concise list of what changed between two OpenPnP refs.
+#   openpnp-changes            # 2.6 -> local-test (what my running build adds)
+#   openpnp-changes 2.6 upstream/test   # review before advancing local-test's base
+# Section 1 is the curated CHANGES.md bullets added between the refs; section 2 is the
+# first-parent commit list (one line per PR merge / direct commit).
+set -e
+
+SRC="$HOME/dev/openpnp_src"
+FROM="${1:-2.6}"
+TO="${2:-local-test}"
+
+echo "== CHANGES.md entries added: $FROM..$TO =="
+# Keep added bullets, and only those headers that have added bullets beneath them.
+git -C "$SRC" diff "$FROM".."$TO" -- CHANGES.md \
+    | grep -E '^\+([*#]| {4}\*)' | sed 's/^+//' \
+    | awk '/^## / { h2 = $0; next }
+           /^# /  { h1 = $0; h2 = ""; next }
+           { if (h1 != "") { print h1; h1 = "" } if (h2 != "") { print h2; h2 = "" } print }' \
+    || echo "(none)"
+echo
+echo "== Commits (first-parent): $FROM..$TO =="
+git -C "$SRC" log --oneline --first-parent "$FROM".."$TO"

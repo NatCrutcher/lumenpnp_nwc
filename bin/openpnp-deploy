@@ -1,0 +1,40 @@
+#!/bin/sh
+# Build the local-test branch of OpenPnP and deploy it to ~/openpnp/local-test.
+# The deployed copy is what bin/pnptest runs; copying it out of the worktree means
+# later builds or branch work never disturb the running version.
+set -e
+
+WORKTREE="$HOME/dev/openpnp_local-test"
+DEPLOY="$HOME/openpnp/local-test"
+MVN="$HOME/opt/maven/bin/mvn"
+
+branch=$(git -C "$WORKTREE" branch --show-current)
+if [ "$branch" != "local-test" ]; then
+    echo "ERROR: $WORKTREE is on '$branch', expected 'local-test'." >&2
+    exit 1
+fi
+if [ -n "$(git -C "$WORKTREE" status --porcelain)" ]; then
+    echo "ERROR: $WORKTREE has uncommitted changes - commit or stash them first." >&2
+    exit 1
+fi
+
+echo "Building local-test ($(git -C "$WORKTREE" rev-parse --short HEAD))..."
+(cd "$WORKTREE" && "$MVN" -q -B package)
+
+jar=$(ls "$WORKTREE"/target/openpnp-gui-*.jar)
+mkdir -p "$DEPLOY"
+rm -rf "$DEPLOY/lib" "$DEPLOY/openpnp-gui.jar"
+cp "$jar" "$DEPLOY/openpnp-gui.jar"
+cp -r "$WORKTREE/target/lib" "$DEPLOY/lib"
+
+{
+    echo "OpenPnP local-test build, deployed $(date -Is)"
+    echo "commit: $(git -C "$WORKTREE" rev-parse HEAD)"
+    echo "merged branches on top of upstream base:"
+    git -C "$WORKTREE" log --oneline --first-parent --merges \
+        "$(git -C "$WORKTREE" merge-base local-test upstream/test)..local-test" \
+        | sed 's/^/    /'
+} > "$DEPLOY/BUILD.txt"
+
+echo "Deployed to $DEPLOY:"
+cat "$DEPLOY/BUILD.txt"
