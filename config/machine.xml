@@ -996,7 +996,7 @@
             <camera-primary-z value="5.7" units="Millimeters"/>
             <default-z value="61.0" units="Millimeters"/>
             <vision-provider class="org.openpnp.machine.reference.vision.OpenCvVisionProvider"/>
-            <roaming-radius value="21.0" units="Millimeters"/>
+            <roaming-radius value="28.5" units="Millimeters"/>
             <head-offsets units="Millimeters" x="218.27527461418165" y="152.76437216070838" z="4.20000000000001" rotation="0.0"/>
             <safe-z value="0.0" units="Millimeters"/>
             <calibration enabled="false">
