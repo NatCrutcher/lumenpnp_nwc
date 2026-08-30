@@ -40,7 +40,7 @@ custom pipeline below is, in one way or another, a response to that.
 Recommendations are tagged **[stock]** where they work on an unmodified machine and **[hw-mod]**
 where they assume the telephoto lens swap. Everything currently recommended here is **[stock]** —
 deliberately, so the findings stay useful to anyone running an unmodified LumenPnP. Revisit after
-the lens swap. (The camera roaming-radius experiment completed 2026-08-30 — 21.0 mm, issue #8;
+the lens swap. (The camera roaming-radius experiment completed 2026-08-30 — 28.5 mm, issue #8;
 it opened footprint-derived search windows but left auto masks tip-sized, see
 [OpenPnP-Vision-Concepts.md](OpenPnP-Vision-Concepts.md#auto-derived-sizes).)
 

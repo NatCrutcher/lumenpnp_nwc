@@ -84,10 +84,12 @@ that drives `MaskCircle.diameter` and the `DetectRectlinearSymmetry` window come
 **On a stock LumenPnP V4.1 the fallback case always applies**, because the shipped bottom-camera
 `roaming-radius` is 0.0 — every run reports `NoCameraRoaming` and takes case 1. On this machine
 that ended 2026-08-30 (`f15f459`, [issue #8](https://github.com/NatCrutcher/lumenpnp_nwc/issues/8)):
-the bottom camera now has `roaming-radius` 21.0 mm (`machine.xml:953`), computed from the
-measured clearance — 45.0 mm build-plate opening (22.5 mm radius, the binding constraint;
-fiducial supports at 30 mm; the 19.5 mm light-ring diffuser ID sits below the part plane and
-only matters optically) minus 1.0 mm N24 pick tolerance minus 0.5 mm margin. See the
+the bottom camera now has `roaming-radius` 28.5 mm (`machine.xml:953`), computed from the
+measured clearance. The part-bottom / camera-focus plane sits **10 mm above the build plate**,
+so neither the 45.0 mm plate opening nor the 19.5 mm light-ring diffuser ID constrains motion
+(both are below the part travel plane; the diffuser matters optically at most). The nearest
+obstruction at camera Z is the **fiducial supports at 30 mm** from the camera axis:
+30.0 − 1.0 mm N24 pick tolerance − 0.5 mm margin = 28.5 mm. See the
 [clearance diagram](img/roaming-radius-clearance.svg). Packages with a
 footprint that fits the view now take case 2 (`Small`, verified on `C_0402_1005Metric_HD` and
 `C_0603_1608Metric_HD`); packages with no pads still take case 1 (`NoFootprint`, verified on a
@@ -95,10 +97,11 @@ dummy package). Two more diagnostics classes showed up in practice, both **falli
 single centered shot that is footprint-sized, not tip-sized** (`VisionCompositing.java:956–970`),
 so alignment still works unless the compositing method is an enforced one:
 
-- `RestrictedCameraRoaming` — parts whose hull cannot fit a corner capture inside 21 mm
-  (`BatteryHolder_Keystone_1060`, `XCVR_WIZFI360-PA2`). Corner captures of a 32.6 mm-diagonal
-  part would need roughly its full diagonal as roaming radius; the physical opening caps this
-  machine at 22.5 mm, so advanced compositing (case 3) is permanently out of reach here.
+- `RestrictedCameraRoaming` — parts whose hull cannot fit a corner capture inside 28.5 mm
+  (`BatteryHolder_Keystone_1060`, 32.6 mm diagonal; `XCVR_WIZFI360-PA2`, 29.8 mm — re-verified
+  at 28.5). Corner captures need roughly the part's full diagonal as roaming radius; the
+  fiducial supports cap this machine at 30 mm of physical clearance, so advanced compositing
+  (case 3) stays out of reach for parts much over ~27 mm diagonal.
 - `Invalid` ("Cannot isolate corners with compositable X and Y symmetries") — packages with
   asymmetric pads, e.g. `Cree_XE-G`; worth a per-package footprint review someday, harmless
   meanwhile (`p17` aligned at Δ ≤ 0.065 mm).
@@ -138,7 +141,9 @@ So why does the vision still see the overhead lights? Combining the above, the o
    the 19–32.6 mm XML masks are what you see, which can make the run-time behavior look worse
    than it is on N045.
 
-Bench-verified 2026-08-30 (issue #8, with `roaming-radius` = 21.0 mm): the N045 mask tooltip
+Bench-verified 2026-08-30 (issue #8; tests ran at an interim 21.0 mm radius, corrected to
+28.5 mm the same day — identical behavior for these cases, since any non-zero radius opens the
+gate and every tested part is single-shot): the N045 mask tooltip
 reads 185 px = 6.7 mm as tabulated; `0402 Bottom Vision`'s parameter assignments still override
 the auto values (maxWidth/maxHeight/subSampling read 1.70 mm / 0.80 mm / 1); and the win that
 did land is the **`DetectRectlinearSymmetry` search window**, now shot-derived
