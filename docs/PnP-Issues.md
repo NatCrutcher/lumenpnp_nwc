@@ -8,12 +8,13 @@
 
 ## Links
 
-* https://github.com/openpnp/openpnp/pull/1914 - Photon Feeder improvements to OpenPnP
+* https://github.com/openpnp/openpnp/pull/1914 - Photon Feeder improvements to OpenPnP
 
 ## Tasks
 
 ### Bottom Vision
 
+- Migrated: #1 — Document bottom vision pipelines and per-package pipeline assignments
 - Migrated: #2 — Retune BVS_OSRAM1414: add part-sized mask, re-enable MaskHsv
 - Migrated: #3 — Pipeline hygiene: tighten BVS_L1210 mask (also covers deleting the disabled debug stages)
 - Migrated: #4 — Resolve the R_0603_1608Metric_HD pipeline split (folded into the pipeline-family issue)
@@ -23,10 +24,14 @@
 - Migrated: #4 — Consider a larger-part rectilinear variant
 - Migrated: #5 — Assign bottom vision deliberately for every package
 - Migrated: #6 — Test bottom vision per package with overhead lights on
+- Migrated: #8 — Compute, configure, and test a non-zero bottom-camera roaming radius (was: Camera Roaming Radius experiment; the roaming-radius gate question itself is #7)
+- Vision pipeline diameters for stages like MaskCircle do not provide units. Document existing units in the property info text. Also consider translating to mm and showing that as a secondary unit. If I set a mask to 400, then change the camera lens, will I need to adjust the mask diameter? If we used mm, then it should scale to be lens independent. For example, if I know my part is 1.0 x 0.5 mm and I set a mask circle of 2.0 mm, I'd like it to stay at 2.0 mm regardless of the lens.
+- It looks like DetectRectlinearSymmetry defaults to a +/- 45 degree search. This is way more than we need.
 
 ### General
 
 - Help tune nozzle parameters for more efficient vision and reasonable part allowances.
+- There is a background nozzle calibration that looks at the color (HSV) of the nozzle and uses that to adjust parameters for some vision pipelines. It did not work well, I think because of the poor color balance of the LED lights, maybe because the nozzles are nearly black. Try to figure out if this is worth fixing, perhaps with new or tuned LED lighting.
 - Add a discard bin so it stops dropping parts off the front of the machine. I think the best option is a shallow tray mounted just to the left of my secondary fiducial using one plate screw. Enhancement: make it a two-part magnetic design for easier removal and emptying. Configure OpenPnP to use it and make sure the nozzle won't crash into the second fiducial support, which is near the discard bin.
 - Check if the N045 nozzle or the servo head one are bent from the collision. When calibrating the N045, it seems more eccentric, while the N24 on head two has no visible runout. I may want to order a spare nozzle servo with associated parts.
 - Start a blog/document on LumenPnP lessons, tuning, improvements.
@@ -39,14 +44,12 @@
 - Update my Python code that generates the parts.xml and packages.xml to:
   - Include the compatible nozzle tips for each package
 - Install more telephoto bottom camera lens. I'm conflicted on when to do this. It would help with some of the vision issues, but it also means my system would be non-standard, so my tuning and recommendations would drift from what most people could do. I think I want to separate my improvements into those requiring little or no hardware mods, and those requiring more extensive mods.
-- Migrated: #1 — Document bottom vision pipelines and per-package pipeline assignments
-- Figure out a parameter or process to track the target part placement Z height relative to the PCB. It's hard to adjust if I don't have a number I can refer to and compare from run to run. For critical parts, like fine-pitch ICs and LEDs, measure some to confirm the exact thickness, since some datasheets only provide the maximum height.
+- Migrated: #11 — Single placement Z offset ("paste squish") parameter; nominal part heights
 - Consider if we want the Python script to make the board.xml file to exclude parts with a blank NccId.
 - Check if the camera power line frequency is set correctly for 60 Hz (2 I think).
 - Try Non-Squareness Compensation: [https://github.com/openpnp/openpnp/wiki/Linear-Transformed-Axes\#use-case--non-squareness-compensation](https://github.com/openpnp/openpnp/wiki/Linear-Transformed-Axes#use-case--non-squareness-compensation) *I cannot remember if I already did this.*
 - Try second fiducial calibration: [https://github.com/openpnp/openpnp/wiki/Vision-Solutions\#calibration-secondary-fiducial](https://github.com/openpnp/openpnp/wiki/Vision-Solutions#calibration-secondary-fiducial) *I think this is complete.*
 - Try bottom camera auto-focus for part height detection. *Wait for the new bottom camera lens.*
-- Migrated: #8 — Compute, configure, and test a non-zero bottom-camera roaming radius (was: Camera Roaming Radius experiment; the roaming-radius gate question itself is #7)
 
 ## Tuning
 
@@ -80,7 +83,7 @@
 - If I understand correctly, the vacuum pumps also have a pressurized output nozzle. Could I connect these to a positive pressure tank with one-way valves? I'd want a pressure limit valve on the pressure tank to keep the pressure low, both to avoid too much back pressure on the pumps and to avoid too much blow-off force for SMT parts. Then, tie the pressure tank to the extra port on the vacuum solenoids, so that when the solenoid switches positions, it provides a light blow-off for the part. I see some possible issues:
   - Does the 3-way solenoid vent the unused port to free air or close it off?
   - I'll probably need one pressure tank for each pump, since the positive pressure will bleed off quickly through the open nozzles.
-- Vision Pipeline: Support zoom and pan from vision pipeline edit window OR show a zoomed in closeup in addition to the full view.
+- Migrated: #10 — Vision pipeline editor: zoom/pan or closeup view of stage results
 - Vision Pipeline: Support easier way to substitute the last snapshot for ImageCapture, perhaps a useLastSnapshot checkbox
 - Vision Pipeline: Improve documentation
 - Vision Pipeline: Show time per step
@@ -95,5 +98,5 @@
 
 ## Questions
 
-- In the vision pipeline editor, how do I adjust ParameterNumeric values? Could we add sliders?
-- In the vision pipeline editor, for MaskCircle, where do the propertyName values come from, like 'partmask' and 'MaskCircle'. Along these lines, can we auto-mask based on the part or package dimensions?
+- Migrated: #12 — ParameterNumeric tuning: editor workflow and possible sliders
+- In the vision pipeline editor, for MaskCircle, where do the propertyName values come from, like 'partmask' and 'MaskCircle'. Along these lines, can we auto-mask based on the part or package dimensions? *This is substantially answered by OpenPnP-Vision-Concepts.md and issues #7 and #8.*
