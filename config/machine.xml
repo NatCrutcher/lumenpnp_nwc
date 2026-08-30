@@ -552,7 +552,7 @@
             <parallax-diameter value="0.0" units="Millimeters"/>
             <parallax-angle>0.0</parallax-angle>
          </feeder>
-         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc52d19036a151" name="9LED_1_09_n05" enabled="true" part-id="n05" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="2" max-feed-count="0">
+         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc52d19036a151" name="9LED_1_09_n05" enabled="true" part-id="n05" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="1" max-feed-count="0">
             <location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="-90.0"/>
             <reference-hole-location units="Millimeters" x="101.528" y="207.218" z="4.0" rotation="0.0"/>
             <last-hole-location units="Millimeters" x="101.528" y="203.218" z="0.0" rotation="0.0"/>
