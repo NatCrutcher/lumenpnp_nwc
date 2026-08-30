@@ -18,7 +18,11 @@ Upstream sources (authoritative — reread before submitting anything):
 - **Base and target every PR on the `test` branch**, not `main`. (The PR template still
   mentions `develop`; that branch no longer exists — `test` is authoritative per the wiki.)
 - Fork-and-pull: work in the fork (`origin` = NatCrutcher/openpnp), PR to
-  `upstream` = openpnp/openpnp.
+  `upstream` = openpnp/openpnp. I have no write access upstream, and as a hard guard the
+  `upstream` remote's push URL is set to the invalid value `DISABLED` (2026-08-30), with
+  `remote.pushDefault = origin` — so any `git push`, bare or explicit, can only ever reach
+  the fork. (Config is shared by the local-test worktree.) Restore with
+  `git remote set-url --push upstream https://github.com/openpnp/openpnp` if ever needed.
 - **One small feature or one bug fix per PR.** Reference the related issue number.
 - Fill the mandatory PR template completely: **Description**, **Justification**,
   **Instructions for Use** (this text becomes wiki documentation — write it for end users),
