@@ -33,7 +33,7 @@
 - Quick: regenerate packages.xml
 - Every now and then, I see the OpenPnP live camera feed jump (not sure if it's both or just one) even though nothing is moving on the LumenPnP. This makes me worry that the occasional frames are getting corrupted, which might cause placement problems.
 - Help tune nozzle parameters for more efficient vision and reasonable part allowances.
-- There is a background nozzle calibration that looks at the color (HSV) of the nozzle and uses that to adjust parameters for some vision pipelines. It did not work well, I think because of the poor color balance of the LED lights, maybe because the nozzles are nearly black. Try to figure out if this is worth fixing, perhaps with new or tuned LED lighting.
+- Migrated: #13 — Nozzle-tip background calibration: Brightness mode silently erases dim parts (the cause turned out to be `Brightness` mode discarding saturation, not the LED colour balance)
 - Add a discard bin so it stops dropping parts off the front of the machine. I think the best option is a shallow tray mounted just to the left of my secondary fiducial using one plate screw. Enhancement: make it a two-part magnetic design for easier removal and emptying. Configure OpenPnP to use it and make sure the nozzle won't crash into the second fiducial support, which is near the discard bin.
 - Check if the N045 nozzle or the servo head one are bent from the collision. When calibrating the N045, it seems more eccentric, while the N24 on head two has no visible runout. I may want to order a spare nozzle servo with associated parts.
 - Start a blog/document on LumenPnP lessons, tuning, improvements.
