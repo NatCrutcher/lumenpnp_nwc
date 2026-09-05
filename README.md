@@ -19,7 +19,7 @@ contributions to OpenPnP and Opulo. I'm using AI to help.
 | `docs/` | Notes and guides (see below) |
 | `cad/` | 3D printable accessories (strip feeders, wire guide, adjustable legs) |
 | `jobs/` | My OpenPnP job files |
-| `bin/` | Helper scripts, incl. the OpenPnP fork dev-setup and PR preflight |
+| `bin/` | Helper scripts — see [Repo Tools](docs/Tools.md) |
 
 ## Docs
 
@@ -29,6 +29,7 @@ contributions to OpenPnP and Opulo. I'm using AI to help.
 - [Issue Tracking](docs/Issue-Tracking.md) — how the [Issues](https://github.com/NatCrutcher/lumenpnp_nwc/issues) here are organized (they span LumenPnP hardware, my config, and OpenPnP software)
 - [OpenPnP Dev Guidelines](docs/openpnp-dev/OpenPnP_Dev_Guidelines.md) — rules for my OpenPnP fork work and selective upstream PRs
 - [Config Tutorial Capture](docs/Config-Tutorial-Capture.md) — method for turning the config git history into a tuning tutorial
+- [Repo Tools](docs/Tools.md) — the helper scripts in `bin/`: launching OpenPnP, fork workflow, bottom-vision measurement
 
 ## License
 

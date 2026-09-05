@@ -1,0 +1,263 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.11"
+# dependencies = ["numpy", "opencv-python"]
+# ///
+"""Measure a LumenPnP bottom-camera capture, and replay the threshold pipeline on it.
+
+Bottom vision on this machine keeps failing the same way: a mask or a threshold is set by
+eye, and nothing says whether the part actually survived it. This reports what is really
+in the image -- how bright the part is, how bright the nozzle tip is, where the overhead
+lights land -- so pipeline values come from measurement instead of guesswork.
+
+Two modes:
+
+  census (default)  Radial H/S/V and grayscale statistics, plus a count of bright pixels
+                    by distance from centre at several candidate thresholds. Answers "what
+                    threshold admits the part but not the tip?".
+
+  --simulate        Replay BVS_Stock's threshold chain (blur -> MaskCircle -> partmask ->
+                    MaskHsv -> gray -> Threshold -> contours -> MinAreaRect) for candidate
+                    settings and report the fitted rectangle, so values can be compared
+                    before spending bench picks.
+
+Colour handling matches the pipeline: HSV_FULL (hue 0-255), BGR order, inclusive MaskHsv
+bounds that blacken pixels *inside* the range. See docs/OpenPnP-Vision-Concepts.md.
+
+Notes and limits:
+  - MinAreaRect here is a plain cv2.minAreaRect over the drawn contours. OpenPnP's stage
+    additionally uses expectedAngle/searchAngle and per-edge flags, so a fitted angle far
+    from expected is reported differently there. Sizes and centres are comparable.
+  - DetectRectlinearSymmetry is not simulated -- it is a large algorithm and reproducing it
+    would be its own project. Symmetry pipelines are evaluated at the bench.
+"""
+
+import argparse
+import glob
+import os
+import sys
+
+import cv2
+import numpy as np
+
+# Bottom camera, geometric mean of 0.036245 x 0.036100 (machine.xml, camera units-per-pixel).
+DEFAULT_UPP = 0.036173
+DEBUG_DIR = "config/org.openpnp.vision.pipeline.stages.ImageWriteDebug"
+# BVS_Stock stage defaults, so a bare --simulate reproduces the shipped pipeline.
+STOCK_MASK = 525
+STOCK_MIN_AREA = 7.642591087789861
+
+
+def newest_capture():
+    """Newest bv_source_*.png. Every alignment writes one, so this is usually the capture
+    from the run just performed."""
+    root = os.environ.get("NWC_DIR", os.path.expanduser("~/dev/lumenpnp_nwc"))
+    hits = glob.glob(os.path.join(root, DEBUG_DIR, "bv_source_*.png"))
+    if not hits:
+        sys.exit(f"no bv_source_*.png under {os.path.join(root, DEBUG_DIR)} -- pass an image path")
+    return max(hits, key=os.path.getmtime)
+
+
+def parse_zones(spec):
+    zones = []
+    for chunk in spec.split(","):
+        lo, _, hi = chunk.partition(":")
+        zones.append((float(lo), float(hi)))
+    return zones
+
+
+def radius_map(shape, cx, cy):
+    ys, xs = np.indices(shape[:2], dtype=np.float32)
+    return np.hypot(xs - cx, ys - cy)
+
+
+def to_gray(bgr):
+    return cv2.cvtColor(bgr, cv2.COLOR_BGR2GRAY)
+
+
+def to_hsv(bgr):
+    """HSV_FULL: hue 0-255, matching ConvertColor Bgr2HsvFull in the pipeline."""
+    return cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV_FULL)
+
+
+def blur(bgr, kernel):
+    if kernel and kernel > 1:
+        k = int(kernel) | 1  # OpenCV requires an odd kernel
+        return cv2.GaussianBlur(bgr, (k, k), 0)
+    return bgr
+
+
+def mask_circle(bgr, diameter, cx, cy):
+    """MaskCircle: keep inside the circle, blacken outside. diameter 0 blanks the image,
+    which is what stage '11' does before DrawContours (MaskCircle.java)."""
+    if diameter is None:
+        return bgr
+    if diameter == 0:
+        return np.zeros_like(bgr)
+    out = np.zeros_like(bgr)
+    m = np.zeros(bgr.shape[:2], np.uint8)
+    cv2.circle(m, (int(round(cx)), int(round(cy))), abs(int(diameter)) // 2, 255, -1)
+    if diameter < 0:
+        m = cv2.bitwise_not(m)
+    out[m > 0] = bgr[m > 0]
+    return out
+
+
+def mask_hsv(bgr, bounds):
+    """MaskHsv with invert=false: pixels *inside* the bounds are set to black. Bounds are
+    inclusive, and hueMin > hueMax wraps through 0 (MaskHsv.java)."""
+    if bounds is None:
+        return bgr
+    h0, h1, s0, s1, v0, v1 = bounds
+    hsv = to_hsv(bgr)
+    if h0 <= h1:
+        inside = cv2.inRange(hsv, (h0, s0, v0), (h1, s1, v1))
+    else:
+        inside = cv2.bitwise_or(
+            cv2.inRange(hsv, (h0, s0, v0), (255, s1, v1)),
+            cv2.inRange(hsv, (0, s0, v0), (h1, s1, v1)),
+        )
+    out = bgr.copy()
+    out[inside > 0] = 0
+    return out
+
+
+def census(bgr, cx, cy, args):
+    r = radius_map(bgr.shape, cx, cy)
+    hsv = to_hsv(bgr)
+    gray = to_gray(bgr).astype(np.float32)
+    h, s, v = hsv[:, :, 0], hsv[:, :, 1], hsv[:, :, 2]
+
+    print(f"\nRadial census (ring width {args.ring} px)")
+    print(f"  {'r_px':>10}  {'r_mm':>11}  {'n':>8}  {'H':>5} {'S':>5} {'V':>5}"
+          f"  {'gray p10':>8} {'med':>5} {'p90':>5}")
+    edge = 0.0
+    while edge < args.max_radius:
+        hi = edge + args.ring
+        sel = (r >= edge) & (r < hi)
+        n = int(sel.sum())
+        if n:
+            g = gray[sel]
+            print(f"  {edge:4.0f}-{hi:<5.0f}  {edge*args.upp:4.2f}-{hi*args.upp:<5.2f}  {n:>8}"
+                  f"  {np.median(h[sel]):>5.0f} {np.median(s[sel]):>5.0f} {np.median(v[sel]):>5.0f}"
+                  f"  {np.percentile(g,10):>8.1f} {np.median(g):>5.1f} {np.percentile(g,90):>5.1f}")
+        edge = hi
+
+    print("\nZone summary")
+    print(f"  {'zone (px)':>12}  {'zone (mm)':>12}  {'n':>8}"
+          f"  {'gray p10':>8} {'med':>6} {'p90':>6} {'max':>6}  {'H':>4} {'S':>4} {'V':>4}")
+    for lo, hi in parse_zones(args.zones):
+        sel = (r >= lo) & (r < hi)
+        n = int(sel.sum())
+        if not n:
+            print(f"  {lo:4.0f}-{hi:<7.0f}  (empty)")
+            continue
+        g = gray[sel]
+        print(f"  {lo:4.0f}-{hi:<7.0f}  {lo*args.upp:4.2f}-{hi*args.upp:<7.2f}  {n:>8}"
+              f"  {np.percentile(g,10):>8.1f} {np.median(g):>6.1f} {np.percentile(g,90):>6.1f}"
+              f" {g.max():>6.1f}"
+              f"  {np.median(h[sel]):>4.0f} {np.median(s[sel]):>4.0f} {np.median(v[sel]):>4.0f}")
+
+    bands = parse_zones(args.bands)
+    print("\nBright pixels by radius (count of gray >= threshold)")
+    header = "  ".join(f"{lo:.0f}-{hi:.0f}".rjust(9) for lo, hi in bands)
+    print(f"  {'threshold':>9}  {header}  {'beyond':>9}")
+    outer = bands[-1][1]
+    for t in [float(x) for x in args.thresholds.split(",")]:
+        bright = gray >= t
+        cells = "  ".join(f"{int((bright & (r>=lo) & (r<hi)).sum()):>9}" for lo, hi in bands)
+        print(f"  {t:>9.0f}  {cells}  {int((bright & (r>=outer)).sum()):>9}")
+
+
+def simulate(bgr, cx, cy, args):
+    hsv_bounds = None
+    if args.hsv:
+        hsv_bounds = [int(x) for x in args.hsv.split(",")]
+        if len(hsv_bounds) != 6:
+            sys.exit("--hsv wants six values: hMin,hMax,sMin,sMax,vMin,vMax")
+
+    print("\nSimulation (threshold chain)")
+    print(f"  blur {args.blur}, MaskCircle {args.mask}, partmask "
+          f"{args.partmask if args.partmask else 'off'}, "
+          f"MaskHsv {','.join(map(str, hsv_bounds)) if hsv_bounds else 'off'}, "
+          f"threshold {args.threshold}, minArea {args.min_area:.4g} px^2")
+
+    work = blur(bgr, args.blur)
+    work = mask_circle(work, args.mask, cx, cy)
+    if args.partmask:
+        work = mask_circle(work, args.partmask, cx, cy)
+    work = mask_hsv(work, hsv_bounds)
+    gray = to_gray(work)
+    _, binary = cv2.threshold(gray, args.threshold, 255, cv2.THRESH_BINARY)
+
+    contours, _ = cv2.findContours(binary, cv2.RETR_LIST, cv2.CHAIN_APPROX_NONE)
+    kept = [c for c in contours if args.min_area <= cv2.contourArea(c) <= args.max_area]
+    print(f"  contours: {len(kept)} kept of {len(contours)} found")
+    if not kept:
+        print("  no contours survived -- the part is being thresholded away")
+        return
+
+    # MaskCircle diameter 0 blanks the image, then DrawContours paints onto black.
+    canvas = np.zeros_like(gray)
+    cv2.drawContours(canvas, kept, -1, 255, 1)
+    pts = cv2.findNonZero(canvas)
+    (rx, ry), (rw, rh), angle = cv2.minAreaRect(pts)
+
+    print(f"  MinAreaRect centre ({rx:.1f}, {ry:.1f}) px"
+          f"   offset ({rx-cx:+.1f}, {ry-cy:+.1f}) px"
+          f" = ({(rx-cx)*args.upp:+.3f}, {(ry-cy)*args.upp:+.3f}) mm")
+    print(f"  {'':<18}size {rw:.1f} x {rh:.1f} px"
+          f" = {rw*args.upp:.3f} x {rh*args.upp:.3f} mm   angle {angle:.1f} deg")
+    total = sum(cv2.contourArea(c) for c in kept)
+    print(f"  contour area {total:.0f} px^2 = {total*args.upp**2:.3f} mm^2")
+
+
+def main():
+    p = argparse.ArgumentParser(
+        description="Measure a bottom-camera capture; optionally replay the threshold pipeline.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=__doc__.split("Two modes:", 1)[1])
+    p.add_argument("image", nargs="?", help="capture to analyse (default: newest bv_source_*.png)")
+    p.add_argument("--center", help="analysis centre as X,Y in px (default: image centre)")
+    p.add_argument("--upp", type=float, default=DEFAULT_UPP, help="mm per pixel")
+    p.add_argument("--blur", type=int, default=9, help="Gaussian kernel px before measuring")
+    p.add_argument("--ring", type=float, default=10, help="ring width px for the radial census")
+    p.add_argument("--max-radius", type=float, default=300, help="outer radius px for the census")
+    p.add_argument("--zones", default="0:15,15:25,30:95,120:250",
+                   help="zone summary radii lo:hi,... in px "
+                        "(default suits a 1.6 mm part on an N045 tip)")
+    p.add_argument("--bands", default="0:30,30:60,60:120,120:262",
+                   help="radius bands lo:hi,... px for the bright-pixel census")
+    p.add_argument("--thresholds", default="40,60,99",
+                   help="comma-separated gray thresholds for the bright-pixel census")
+    p.add_argument("--simulate", action="store_true", help="replay the threshold chain")
+    p.add_argument("--mask", type=int, default=STOCK_MASK, help="MaskCircle diameter px")
+    p.add_argument("--partmask", type=int, default=0, help="partmask diameter px (0 = off)")
+    p.add_argument("--threshold", type=float, default=99, help="Threshold stage value")
+    p.add_argument("--hsv", help="MaskHsv bounds hMin,hMax,sMin,sMax,vMin,vMax (blackens inside)")
+    p.add_argument("--min-area", type=float, default=STOCK_MIN_AREA, help="FilterContours min area px^2")
+    p.add_argument("--max-area", type=float, default=900000.0, help="FilterContours max area px^2")
+    args = p.parse_args()
+
+    path = args.image or newest_capture()
+    bgr = cv2.imread(path, cv2.IMREAD_COLOR)
+    if bgr is None:
+        sys.exit(f"cannot read {path}")
+    h, w = bgr.shape[:2]
+    if args.center:
+        cx, cy = (float(x) for x in args.center.split(","))
+    else:
+        cx, cy = w / 2.0, h / 2.0
+
+    print(f"image: {path}")
+    print(f"  {w} x {h} px = {w*args.upp:.1f} x {h*args.upp:.1f} mm"
+          f"   centre ({cx:.0f}, {cy:.0f})   upp {args.upp} mm/px")
+
+    if args.simulate:
+        simulate(bgr, cx, cy, args)
+    else:
+        census(blur(bgr, args.blur), cx, cy, args)
+
+
+if __name__ == "__main__":
+    main()
