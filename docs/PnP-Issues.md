@@ -48,7 +48,7 @@
 - Migrated: #14 — Bottom camera lens swap: narrower field of view, before/after retune plan (do the LED ring swap separately, after)
 - Migrated: #11 — Single placement Z offset ("paste squish") parameter; nominal part heights
 - Consider if we want the Python script to make the board.xml file to exclude parts with a blank NccId.
-- Check if the camera power line frequency is set correctly for 60 Hz (2 I think). *Both cameras are currently at 1 = 50 Hz; first thing to try under #18.*
+- Migrated to #18 — Check if the camera power line frequency is set correctly for 60 Hz (2 I think). *Both cameras were 50 Hz, now changed to 60 Hz.*
 - Try Non-Squareness Compensation: [https://github.com/openpnp/openpnp/wiki/Linear-Transformed-Axes\#use-case--non-squareness-compensation](https://github.com/openpnp/openpnp/wiki/Linear-Transformed-Axes#use-case--non-squareness-compensation) *I cannot remember if I already did this.*
 - Try second fiducial calibration: [https://github.com/openpnp/openpnp/wiki/Vision-Solutions\#calibration-secondary-fiducial](https://github.com/openpnp/openpnp/wiki/Vision-Solutions#calibration-secondary-fiducial) *I think this is complete.*
 - Try bottom camera auto-focus for part height detection. *Wait for the new bottom camera lens.*

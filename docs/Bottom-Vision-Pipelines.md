@@ -50,7 +50,7 @@ it opened footprint-derived search windows but left auto masks tip-sized, see
 
 ## Reading this section
 
-Each custom pipeline is described as *"stock ancestor + the changes"*. **Two "differences" are not real edits.** Several pipelines show
+Each custom pipeline is described as *"stock ancestor + the changes"*. **Three "differences" are not real edits.** Several pipelines show
 `FilterContours.min-area = 7.642591087789861` and `DetectRectlinearSymmetry.min-feature-size =
 1.3822590626354845` where stock has `0.01` and `0.05`. Those are the stock defaults converted to
 **pixels** for this camera and written back on save:
@@ -63,6 +63,15 @@ The `ParameterNumeric` stages that drive them are typed `SquareMillimetersToPixe
 two when reading a diff** — they carry no tuning intent, and they are why the same pipeline can
 look "modified" after an open/close with no changes (cf. commit `1745a3e`, "XML file updates
 after open/close OpenPnP").
+
+The third is any stage attribute driven by a `Parameter*` stage — most visibly
+`Threshold.threshold` in `BVS_OSRAM1414`, which reads **100** in the XML while the tuned value is
+**80**. Before serializing a pipeline, `CvPipeline.toXmlString()` calls `resetToDefaults()`, which
+writes every parameter stage's `default-value` back into its target stage so that "parameters do
+not permanently modify the pipeline" (`CvPipeline.java:342`, `CvAbstractParameterStage.java:160`).
+The live value is the `<pipeline-parameter-assignments>` entry (`pThreshold → 80`); the stage
+attribute is overwritten on every save and carries no tuning intent. **Read the assignment, not
+the stage, for any parameter-driven property.**
 
 ## Stock and default pipelines
 
