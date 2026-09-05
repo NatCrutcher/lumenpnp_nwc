@@ -943,7 +943,7 @@
             <parallax-diameter value="0.0" units="Millimeters"/>
             <parallax-angle>0.0</parallax-angle>
          </feeder>
-         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18d09f63893cc7fe" name="9LED_3_04_k16" enabled="true" part-id="k16" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="1" max-feed-count="0">
+         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18d09f63893cc7fe" name="9LED_3_04_k16" enabled="true" part-id="k16" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="1" max-feed-count="0">
             <location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="90.0"/>
             <reference-hole-location units="Millimeters" x="105.639" y="231.25" z="4.0" rotation="0.0"/>
             <last-hole-location units="Millimeters" x="105.639" y="235.25" z="0.0" rotation="0.0"/>
@@ -966,7 +966,7 @@
             <parallax-diameter value="0.0" units="Millimeters"/>
             <parallax-angle>0.0</parallax-angle>
          </feeder>
-         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18d09fce589ccac6" name="9LED_3_05_p17" enabled="true" part-id="p17" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="false" feed-count="0" max-feed-count="0">
+         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18d09fce589ccac6" name="9LED_3_05_p17" enabled="true" part-id="p17" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="false" feed-count="0" max-feed-count="0">
             <location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="0.0"/>
             <reference-hole-location units="Millimeters" x="94.702" y="231.307" z="3.7" rotation="0.0"/>
             <last-hole-location units="Millimeters" x="94.702" y="235.307" z="0.0" rotation="0.0"/>
@@ -1344,7 +1344,7 @@
             <max-part-diameter value="6.0" units="Millimeters"/>
             <max-part-height value="2.5" units="Millimeters"/>
             <max-pick-tolerance value="0.35" units="Millimeters"/>
-            <calibration angle-subdivisions="6" allow-misdetections="5" angle-start="-200.0" angle-stop="200.0" excenter-ratio="0.25" enabled="true" fail-homing="true" runout-compensation-algorithm="ModelCameraOffsetAffine" version="2.1" recalibration-trigger="NozzleTipChange" background-calibration-method="Brightness" background-min-hue="0" background-max-hue="255" background-tol-hue="8" background-min-saturation="0" background-max-saturation="255" background-tol-saturation="8" background-min-value="2" background-max-value="136" background-tol-value="8" background-diagnostics="&lt;html&gt;Background elements are too bright.&lt;br/&gt;Try to eliminate highlights and reflections.&lt;br/&gt;Use a shade behind the nozzle.&lt;br/&gt;Renew the blackening of dark parts of the nozzle tip.&lt;br/&gt;Clean the nozzle tip. If it is shiny, make it dull.&lt;br/&gt;Eliminate light sources that reflect on the nozzle tip.&lt;/html&gt;" min-background-mask-value="32" max-background-mask-value="128" background-worst-saturation="63" background-worst-hue-span="42" background-worst-value="127" offset-threshold="0.0" detection-threshold-margin="0.4">
+            <calibration angle-subdivisions="6" allow-misdetections="5" angle-start="-200.0" angle-stop="200.0" excenter-ratio="0.25" enabled="true" fail-homing="true" runout-compensation-algorithm="ModelCameraOffsetAffine" version="2.1" recalibration-trigger="NozzleTipChange" background-calibration-method="Brightness" background-min-hue="0" background-max-hue="255" background-tol-hue="8" background-min-saturation="0" background-max-saturation="255" background-tol-saturation="8" background-min-value="3" background-max-value="148" background-tol-value="8" background-diagnostics="&lt;html&gt;Background elements are too bright.&lt;br/&gt;Try to eliminate highlights and reflections.&lt;br/&gt;Use a shade behind the nozzle.&lt;br/&gt;Renew the blackening of dark parts of the nozzle tip.&lt;br/&gt;Clean the nozzle tip. If it is shiny, make it dull.&lt;br/&gt;Eliminate light sources that reflect on the nozzle tip.&lt;/html&gt;" min-background-mask-value="32" max-background-mask-value="128" background-worst-saturation="63" background-worst-hue-span="42" background-worst-value="127" offset-threshold="0.0" detection-threshold-margin="0.4">
                <pipeline>
                   <stages>
                      <cv-stage class="org.openpnp.vision.pipeline.stages.ImageCapture" name="image" enabled="true" default-light="true" settle-option="Settle" count="1"/>
@@ -1356,7 +1356,7 @@
                <runout-compensation-lookup class="java.util.HashMap">
                   <entry>
                      <string>N1</string>
-                     <runout-compensation class="org.openpnp.machine.reference.ReferenceNozzleTipCalibration$ModelBasedRunoutCameraOffsetCompensation" center-x="0.16718305654373128" center-y="-0.03147480298534483" radius="0.10110336735915156" phase-shift="-100.3947629782165" units="Millimeters" peak-error="0.027532729330232267" rms-error="0.014493195920662836"/>
+                     <runout-compensation class="org.openpnp.machine.reference.ReferenceNozzleTipCalibration$ModelBasedRunoutCameraOffsetCompensation" center-x="0.1992215792567776" center-y="-0.0250932035501803" radius="0.0979422542296478" phase-shift="-97.25753584271256" units="Millimeters" peak-error="0.026834666860962655" rms-error="0.01578914095952804"/>
                   </entry>
                </runout-compensation-lookup>
                <minimum-detail-size value="0.2" units="Millimeters"/>
@@ -1511,7 +1511,7 @@
                <runout-compensation-lookup class="java.util.HashMap">
                   <entry>
                      <string>NOZ1710829fd33a0170</string>
-                     <runout-compensation class="org.openpnp.machine.reference.ReferenceNozzleTipCalibration$ModelBasedRunoutCameraOffsetCompensation" center-x="0.1570619991691553" center-y="0.036100261927051625" radius="0.0388699849413074" phase-shift="-116.65691331929807" units="Millimeters" peak-error="0.014814883569982281" rms-error="0.009249091829637984"/>
+                     <runout-compensation class="org.openpnp.machine.reference.ReferenceNozzleTipCalibration$ModelBasedRunoutCameraOffsetCompensation" center-x="0.1691436914129365" center-y="0.036100261927051625" radius="0.03886998494130741" phase-shift="-116.65691331929807" units="Millimeters" peak-error="0.014814883569982304" rms-error="0.00924909182963799"/>
                   </entry>
                </runout-compensation-lookup>
                <minimum-detail-size value="0.2" units="Millimeters"/>
