@@ -26,7 +26,7 @@
 - Migrated: #6 — Test bottom vision per package with overhead lights on
 - Migrated: #8 — Compute, configure, and test a non-zero bottom-camera roaming radius (was: Camera Roaming Radius experiment; the roaming-radius gate question itself is #7)
 - Migrated: #15 — Pipeline editor: pixel-sized stage properties show no unit; support mm for lens-independent masks
-- It looks like DetectRectlinearSymmetry defaults to a +/- 45 degree search. This is way more than we need.
+- Migrated: #16 — DetectRectlinearSymmetry searchAngle ±30–45° is far wider than feeder presentation needs
 
 ### General
 
