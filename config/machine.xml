@@ -349,7 +349,7 @@
                   <gain property="Gain" value="0"/>
                   <gamma property="Gamma" value="100"/>
                   <hue property="Hue" value="1"/>
-                  <power-line-frequency property="PowerLineFrequency" value="1"/>
+                  <power-line-frequency property="PowerLineFrequency" value="2"/>
                   <saturation property="Saturation" value="64"/>
                   <sharpness property="Sharpness" value="0"/>
                   <white-balance property="WhiteBalance" value="4000" auto="false"/>
@@ -1037,7 +1037,7 @@
             <gain property="Gain" value="0"/>
             <gamma property="Gamma" value="100"/>
             <hue property="Hue" value="1"/>
-            <power-line-frequency property="PowerLineFrequency" value="1"/>
+            <power-line-frequency property="PowerLineFrequency" value="2"/>
             <saturation property="Saturation" value="64"/>
             <sharpness property="Sharpness" value="0"/>
             <white-balance property="WhiteBalance" value="5485" auto="false"/>
