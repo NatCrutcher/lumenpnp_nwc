@@ -30,9 +30,9 @@
 
 ### General
 
-- Quick: regenerate packages.xml based on improved footprint handling in the /dev/parts script.
-- Every now and then, I see the OpenPnP live camera feed jump (not sure if it's both or just one) even though nothing is moving on the LumenPnP. This makes me worry that the occasional frames are getting corrupted, which might cause placement problems.
-- Help tune nozzle parameters for more efficient vision and reasonable part allowances.
+- Migrated #17 — Regenerate packages.xml.
+- Migrated: #18 — Live camera feed jumps while the machine is idle; settle timeouts hand unsettled frames to vision silently
+- Help tune nozzle parameters (pick dwell, place dwell, min part diameter, max part diameter, max part height, max pick tolerance) for more efficient vision, reasonable part allowances, improved vacuum timing, etc. Why are the dwell times inconsistent? 
 - Migrated: #13 — Nozzle-tip background calibration: Brightness mode silently erases dim parts (the cause turned out to be `Brightness` mode discarding saturation, not the LED colour balance)
 - Add a discard bin so it stops dropping parts off the front of the machine. I think the best option is a shallow tray mounted just to the left of my secondary fiducial using one plate screw. Enhancement: make it a two-part magnetic design for easier removal and emptying. Configure OpenPnP to use it and make sure the nozzle won't crash into the second fiducial support, which is near the discard bin.
 - Check if the N045 nozzle or the servo head one are bent from the collision. When calibrating the N045, it seems more eccentric, while the N24 on head two has no visible runout. I may want to order a spare nozzle servo with associated parts.
@@ -48,7 +48,7 @@
 - Migrated: #14 — Bottom camera lens swap: narrower field of view, before/after retune plan (do the LED ring swap separately, after)
 - Migrated: #11 — Single placement Z offset ("paste squish") parameter; nominal part heights
 - Consider if we want the Python script to make the board.xml file to exclude parts with a blank NccId.
-- Check if the camera power line frequency is set correctly for 60 Hz (2 I think).
+- Check if the camera power line frequency is set correctly for 60 Hz (2 I think). *Both cameras are currently at 1 = 50 Hz; first thing to try under #18.*
 - Try Non-Squareness Compensation: [https://github.com/openpnp/openpnp/wiki/Linear-Transformed-Axes\#use-case--non-squareness-compensation](https://github.com/openpnp/openpnp/wiki/Linear-Transformed-Axes#use-case--non-squareness-compensation) *I cannot remember if I already did this.*
 - Try second fiducial calibration: [https://github.com/openpnp/openpnp/wiki/Vision-Solutions\#calibration-secondary-fiducial](https://github.com/openpnp/openpnp/wiki/Vision-Solutions#calibration-secondary-fiducial) *I think this is complete.*
 - Try bottom camera auto-focus for part height detection. *Wait for the new bottom camera lens.*
