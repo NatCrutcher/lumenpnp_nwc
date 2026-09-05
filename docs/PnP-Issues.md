@@ -45,7 +45,7 @@
 - Print the adapter to assemble/disassemble the vacuum nozzle shaft through the stepper.
 - Update my Python code that generates the parts.xml and packages.xml to:
   - Include the compatible nozzle tips for each package
-- Install more telephoto bottom camera lens. I'm conflicted on when to do this. It would help with some of the vision issues, but it also means my system would be non-standard, so my tuning and recommendations would drift from what most people could do. I think I want to separate my improvements into those requiring little or no hardware mods, and those requiring more extensive mods.
+- Migrated: #14 — Bottom camera lens swap: narrower field of view, before/after retune plan (do the LED ring swap separately, after)
 - Migrated: #11 — Single placement Z offset ("paste squish") parameter; nominal part heights
 - Consider if we want the Python script to make the board.xml file to exclude parts with a blank NccId.
 - Check if the camera power line frequency is set correctly for 60 Hz (2 I think).
