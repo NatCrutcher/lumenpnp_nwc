@@ -25,12 +25,12 @@
 - Migrated: #5 — Assign bottom vision deliberately for every package
 - Migrated: #6 — Test bottom vision per package with overhead lights on
 - Migrated: #8 — Compute, configure, and test a non-zero bottom-camera roaming radius (was: Camera Roaming Radius experiment; the roaming-radius gate question itself is #7)
-- Vision pipeline diameters for stages like MaskCircle do not provide units. Document existing units in the property info text. Also consider translating to mm and showing that as a secondary unit. If I set a mask to 400, then change the camera lens, will I need to adjust the mask diameter? If we used mm, then it should scale to be lens independent. For example, if I know my part is 1.0 x 0.5 mm and I set a mask circle of 2.0 mm, I'd like it to stay at 2.0 mm regardless of the lens.
+- Migrated: #15 — Pipeline editor: pixel-sized stage properties show no unit; support mm for lens-independent masks
 - It looks like DetectRectlinearSymmetry defaults to a +/- 45 degree search. This is way more than we need.
 
 ### General
 
-- Quick: regenerate packages.xml
+- Quick: regenerate packages.xml based on improved footprint handling in the /dev/parts script.
 - Every now and then, I see the OpenPnP live camera feed jump (not sure if it's both or just one) even though nothing is moving on the LumenPnP. This makes me worry that the occasional frames are getting corrupted, which might cause placement problems.
 - Help tune nozzle parameters for more efficient vision and reasonable part allowances.
 - Migrated: #13 — Nozzle-tip background calibration: Brightness mode silently erases dim parts (the cause turned out to be `Brightness` mode discarding saturation, not the LED colour balance)
