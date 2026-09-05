@@ -54,6 +54,63 @@ dead at run time. The notable exception: **`BVS_Default`'s `MaskCircle` has
 `property-name=""`**, so it listens to nothing and really does run at its fixed 250 px ≈ 9.0 mm
 in every context.
 
+### Background Calibration
+
+The `MaskHsv` row above deserves its own note, because it is the one auto-derived property that
+can silently **delete the part**. `MaskHsv` blackens pixels *inside* its bounds
+(`MaskHsv.java`, `invert=false`), and the nozzle tip's background calibration decides those
+bounds whenever `background-calibration-method` is anything but `None`
+(`ReferenceBottomVision.java:507-518`).
+
+N045 is calibrated `Brightness`, with `background-max-value="136"` and `background-tol-value="8"`
+and hue/saturation left at their 0–255 defaults. That pushes:
+
+```
+hueMin=0  hueMax=255  saturationMin=0  saturationMax=255  valueMin=0  valueMax=144
+```
+
+— i.e. **blacken every pixel dimmer than V = 144, at any hue or saturation**. The intent is to
+erase the dark nozzle tip and keep the bright contacts of a part. It works when the part really is
+brighter than the tip, and it degrades quietly when it is not. The OSLON Pure 1414's white ceramic
+body sits astride that ceiling: it peaks at V ≈ 170 under the overhead lights, so most of the body
+is masked and a bright core survives, but on a dimmer capture of the same part (peak V 131)
+nothing survives at all. That is the likely reason `BVS_OSRAM1414` had the stage disabled rather
+than tuned (issue #2).
+
+Two things follow. First, **value is not always the discriminator** — on that part the tip sits at
+V ≈ 71 and the body at V ≈ 112–133, overlapping, while *saturation* separates them cleanly: the
+body tops out at 180 and the tip starts at 190, because the tip is strongly teal under the LED
+ring and the body is desaturated white. `Brightness` throws saturation away by pinning `saturationMin = 0`;
+`BrightnessAndKeyColor` (`ReferenceNozzleTipCalibration.java:527`) is the mode that would measure
+hue and saturation instead. Second, the calibration is **not** the last word: it is Layer 2, so a
+[parameter assignment](#parameter-assignments) overrides it. That is how `BVS_0402` keeps its own
+`MaskHsv.hueMin/hueMax/saturationMin/valueMax` — and it is the supported way to re-enable
+`MaskHsv` on a dim part without touching a calibration that every pipeline on that tip shares.
+
+**Measured, 2026-09-03.** `BVS_OSRAM1414` had `MaskHsv` enabled with a hand-set saturation floor
+written into the *stage attributes*. The log shows what actually ran:
+
+```
+MaskHsv TRACE: Fraction actually masked = 0.9996
+```
+
+Nearly everything inside the auto mask was blackened — the calibration's `value ≤ 144` cut, not
+the intended floor. The pipeline still aligned, but on the part's brightest core only:
+**305 px² instead of 1447 px²**, a 1.23 × 1.27 mm rectangle instead of 1.375 × 1.411 mm. On a
+dimmer capture of the same part (V peaking at 131) **zero** pixels clear 144 and the part
+disappears completely. This is the failure mode to watch for: it is silent, it looks like a
+working pipeline, and it only bites when the light changes.
+
+Note also that a `Parameter*` stage does **not** rescue this. Those stages write the target
+stage's field through a setter, and the field is only the fallback — the stage's own
+`getPossiblePipelinePropertyOverride` still prefers the property the calibration set. Only a
+[parameter assignment](#parameter-assignments) keyed `MaskHsv.saturationMin` wins, and that has no
+GUI: it must be edited into the XML with OpenPnP closed.
+
+N045's stored `background-diagnostics` says as much in OpenPnP's own words — *"Background elements
+are too bright… Renew the blackening of dark parts of the nozzle tip"* — which is the hardware
+half of the same problem.
+
 ### Auto-Derived Sizes
 
 What the sizes pushed by the vision operation actually are. A **shot** is OpenPnP's term (class `VisionCompositing.Shot`) for one planned camera
@@ -192,6 +249,13 @@ Note this happens for *any* override, not just parameter assignments — `expect
 - A raw `"Stage.property"` assignment (like `DetectRectlinearSymmetry.subSampling`) has **no
   GUI anywhere**: it can only be created or edited in the XML, or made GUI-editable by adding
   a `Parameter*` stage to the pipeline whose `property-name` targets it.
+- **Not every stage listens.** `Threshold` has no `getPossiblePipelinePropertyOverride` call at
+  all, so its `threshold` attribute cannot be driven by a `"Threshold.threshold"` property. The
+  only way to control it from outside is a `ParameterNumeric` stage — which is exactly what
+  `pThreshold` is, and why editing the stage attribute while a `pThreshold` assignment exists
+  appears to do nothing. Parameter stages are keyed by their own **stage name**, not a dotted
+  property path, and they mutate the target stage through a setter
+  (`CvAbstractParameterStage.java:111-134`).
 - Each stage's `property-name` attribute (e.g. `"DetectRectlinearSymmetry"`, `"partmask"`) is
   the prefix the stage listens on; renaming it changes which properties reach the stage. That
   is how `MaskCircle` "4b" listens on `partmask.*` while `MaskCircle` "3" listens on
@@ -282,6 +346,54 @@ signal and produce false peaks. The clamp is an empirical "enough samples per bi
 but it keys off the diagonal rather than the perpendicular extent that actually sets the
 per-bin count, and disabling is not the only tool available (the stage already scales its
 cross-section smoothing with `superSamplingEff` to fight the same interference).
+
+Third, and least obvious, the clamp degrades the **angle** as well as the centre. The angular
+search step is (`DetectRectlinearSymmetry.java:582`):
+
+```java
+double angleStep = Math.max(0.0001, Math.min(Math.toRadians(searchAngle)/4, subSamplingEff/maxSpan/superSamplingEff));
+```
+
+so `superSamplingEff` divides it directly — below the 200 px cliff the angular resolution is
+halved along with the positional one, and `maxSpan` is the *window*, not the subject.
+
+**Bench-observed 2026-09-03** (`BVS_OSRAM1414_R`, a 1.6 mm LED in a 2.3 mm window; see
+[Bottom-Vision-Pipelines.md](Bottom-Vision-Pipelines.md)). The window is 63.58 px with an 89.9 px
+diagonal, so `maxDiagonal/100` truncates to 0 and `superSamplingEff` is clamped to 1, giving
+`angleStep = 0.9011°`. Across six alignments the stage returned exactly two answers, **+1.538672°
+and −2.065748° — 3.60442° apart, or precisely 4.000 angle steps**. Because each correction is
+applied to the nozzle, the next measurement demanded the opposite one and the part angle
+oscillated indefinitely instead of converging. No `min-symmetry` rejection, no exception: the
+stage was confidently wrong. The stage's own error model (`:764`,
+`angleError = angleStep · maxSpan / subjectSize`) predicts ±1.49° for this geometry, because the
+38.5 px subject is much smaller than the 63.6 px window.
+
+**Confirmed by widening the window.** Setting the same pipeline to a 5.2 mm window takes
+`maxDiagonal` to 204, releases `superSampling = 2`, and moves the reported rotation onto a new
+lattice — the predicted one:
+
+| window | `superSamplingEff` | predicted `angleStep` | observed grid |
+|---|---|---|---|
+| 2.3 mm | 1 (clamped) | 0.901113° | **0.901105°** |
+| 5.2 mm | 2 | 0.199285° | **0.199282°** |
+
+Two window sizes either side of the cliff, agreement to three parts in 10⁵, with every reported
+correction landing on the corresponding lattice. `angleStep = subSampling / (maxSpan ·
+superSampling)` and the `maxDiagonal/100` clamp are doing exactly what the source says, and the
+observed correction grid is precise enough to pin down the units-per-pixel OpenPnP used for the
+conversion (0.036174).
+
+Releasing the clamp improved matters without fixing them: the oscillation amplitude fell 1.81×
+(3.604° → 1.993°) but the estimator still hopped between lattice points rather than converging,
+twice returning an identical correction for two different presented angles. Finer bins do not
+help when the score surface itself is flat — which is the case for a near-square subject, and is
+the argument for the parabolic-interpolation fix below rather than for more supersampling.
+
+The perverse consequence is worth stating plainly: **the way to get better angular resolution here
+is a *bigger* search window.** That runs directly against the principle that makes these pipelines
+robust in the first place — size the search window to the part, so the overhead lights never enter
+it (see [Overhead Light Exposure](#overhead-light-exposure)). The clamp puts two good practices in
+opposition, and small parts lose either way.
 
 Tracked upstream as [issue #9](https://github.com/NatCrutcher/lumenpnp_nwc/issues/9)
 (companion to [#7](https://github.com/NatCrutcher/lumenpnp_nwc/issues/7)). The preferred fix

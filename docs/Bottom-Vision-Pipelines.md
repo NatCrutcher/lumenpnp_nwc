@@ -195,15 +195,10 @@ Created in `fa975a1` ("More 9LED testing and tuning"). For 1.6 × 0.8 mm capacit
 | Change vs `BVS_Stock` | Value | Effect |
 |---|---|---|
 | `MaskCircle` **"4b"** (`partmask`) | 100000 → **100 px ≈ 3.6 mm** | The part-sized crop. This is the overhead-light fix |
-| Stage `1` added | `ImageRead` (**disabled**) | Debug leftover — replays `config/snapshots/Bottom_2026-08-20_12.08.52.805.png` |
-| Stage `2` added | `AffineWarp` (**disabled**) | Debug leftover |
 
-> **Recommendation [stock]: keep; delete the two disabled debug stages when convenient.** Both are
-> `enabled="false"`, so they do nothing at run time — but an `ImageRead` pointing at a snapshot
-> file is a trap if anyone toggles it while debugging, and it hard-codes an absolute path that
-> breaks on any other machine. A 3.6 mm mask on a 1.6 × 0.8 mm body is a sensible ~2× margin and matches the
-> `d = a·p + b` rule of thumb in [PnP-Issues.md](PnP-Issues.md). Also: this is a *capacitor*
-> pipeline, but one resistor part (`n07`) points at it — see §2.
+> **Recommendation [stock]: keep.** A 3.6 mm mask on a 1.6 × 0.8 mm body is a sensible ~2× margin
+> and matches the `d = a·p + b` rule of thumb in [PnP-Issues.md](PnP-Issues.md). Also: this is a
+> *capacitor* pipeline, but one resistor part (`n07`) points at it — see §2.
 
 ### `BVS_L1210` — *L_1210_3225Metric* — base: `BVS_Stock`
 
@@ -211,15 +206,14 @@ Created in `984fec7` ("Bottom vision: tune L1210…") for the 3.2 × 2.5 mm indu
 
 | Change vs `BVS_Stock` | Value | Effect |
 |---|---|---|
-| `MaskCircle` **"4b"** (`partmask`) | 100000 → **400 px ≈ 14.5 mm** | Part-sized crop |
+| `MaskCircle` **"4b"** (`partmask`) | 100000 → **250 px ≈ 9.0 mm** | Part-sized crop |
 
 The cleanest custom pipeline in the config — one deliberate change, no debug stages, no parameter
 overrides.
 
-> **Recommendation [stock]: keep, but the mask is loose.** 14.5 mm around a 3.2 × 2.5 mm body
-> (diagonal ≈ 4.1 mm) is ~3.5× the part, well above the ~2× used for the 0603. Tightening toward
-> **150–200 px (5.4–7.2 mm)** should improve robustness against the overhead lights at no cost.
-> One part uses it, so it is a cheap experiment.
+> **Recommendation [stock]: keep.** The mask was 400 px ≈ 14.5 mm — ~3.5× the 4.1 mm body
+> diagonal, well above the ~2× used for the 0603 — and `b7afa96` tightened it to **250 px ≈
+> 9.0 mm** under issue #3. One part uses it, so it was a cheap experiment.
 
 ### `BVS_OSRAM1414` — *OSRAM Pure 1414 LED Vision* — base: `BVS_Stock`
 
@@ -228,23 +222,99 @@ the 1.6 × 1.6 mm OSLON Pure 1414 LED.
 
 | Change vs `BVS_Stock` | Value | Effect |
 |---|---|---|
-| `MaskHsv` (stage `6`) | enabled → **disabled** | Colour masking abandoned for this part |
-| `Threshold` | 100 → **99** | Marginal |
-| `pThreshold` parameter assignment | — → **99** | Same value pinned as a pipeline parameter |
-| Stage `1` added | `ImageRead` (**disabled**) | Debug leftover — `config/snapshots/Bottom_2026-08-19_22.10.59.879.png` |
-| `MaskCircle` "4b" | **unchanged (100000, off)** | No part-sized crop |
+| `MaskHsv` (stage `6`) | **disabled** | Deliberate — see below; briefly enabled 2026-09-03 and reverted |
+| `Threshold` / `pThreshold` | 99 → **80** | Bench-tuned 2026-09-03 |
+| `MaskCircle` "4b" | **unchanged (100000, off)** | No part-sized crop — deliberately, see below |
 
-> **Recommendation [stock]: retune — this is the weakest pipeline in the config.** Disabling
-> `MaskHsv` removes the colour discrimination that separates a white LED body from the white
-> overhead-light glare, and with **no part-sized mask** it is looking at the full 19 mm field.
-> That combination is precisely the failure mode described in
-> [PnP-Issues.md](PnP-Issues.md). Two concrete steps, in order:
-> 1. Set `MaskCircle` "4b" to ≈ **120 px (4.3 mm)** for the 1.6 × 1.6 mm body and re-test.
-> 2. Re-enable `MaskHsv` and retune the hue range against the current LED-ring colour balance,
->    rather than leaving it off.
->
-> The disabled `ImageRead` stage should also go. Six parts use this, all on the 9LED project, so it is worth
-> the effort.
+**What the captures show.** Measured with [`bin/bv-analyze`](Tools.md#measuring-bottom-vision)
+over `bv_source_*.png` from real alignments of `p05`, overhead lights on, using the pipeline's own
+blur and HSV_FULL conversion. The archived snapshot is included because it is much dimmer and
+turns out to be the interesting stress case:
+
+| Capture | part gray med / max | part S max | tip gray max | tip S min |
+|---|---|---|---|---|
+| 2026-08-19 archive (lights off) | 95 / 111 | 179 | 96 | 196 |
+| 2026-08-31 bench (lights on, ×6) | 118 / **163** | **180** | 62 | **190** |
+
+Three things follow, and they overturn the plan the issue was opened with.
+
+**The overhead lights are not this pipeline's problem.** At run time the auto `MaskCircle` is
+185 px ≈ 6.7 mm on N045 (see
+[Overhead Light Exposure](OpenPnP-Vision-Concepts.md#overhead-light-exposure)), so the 19 mm XML
+diameter is dead and the glare never enters. What competes with the part is the **nozzle tip**,
+inside that 6.7 mm circle.
+
+**Threshold, not the mask, is the live control — but the shipped 99 was not badly wrong.** On the
+dim archive, threshold 99 admitted under 20 % of the body. On the lights-on captures it admits
+~91 % of the bright core, because the part is far brighter (peak 163 vs 111). Sweeping all six
+captures, the band that yields exactly **one** contour per frame is **70–85**; at 99 the part
+breaks into 2–4 fragments, and at 60 two of the six frames swallow an 11 px² speck of nozzle tip
+at 1.5 mm radius that drags the fitted centre **0.49 mm**. `Threshold` is set through the
+`pThreshold` **parameter** — `Threshold.java` has no property override, so the stage attribute is
+not a live control.
+
+**Neither colour nor a part mask helps this pipeline.** Both of the issue's original two steps
+turn out to be dead ends here, for different reasons.
+
+A `partmask` cannot work: at 120 px it changes nothing, and the value that *would* suppress the
+tip speck — 80 px, radius 1.45 mm — is smaller than the 1.131 mm part half-diagonal plus N045's
+0.35 mm pick tolerance, so it would clip a part picked at maximum offset. The intruder sits at
+1.5 mm, inside any mask that is safe to use.
+
+A saturation floor looks attractive until the statistic is framed correctly. Part saturation tops
+out at 180 and the *tip as a whole* starts at 190 — but the tip pixels that matter are only those
+bright enough to survive the threshold, and those are a different population:
+
+| pixels outside the part, within the run-time mask | count (13 captures) | saturation min … median |
+|---|---|---|
+| gray ≥ 40 | ~240 000 | 132 … 255 |
+| gray ≥ 60 | ~500 | **145** … 203 |
+| gray ≥ 80 | **none** | — |
+
+At threshold 80 **nothing outside the part clears the threshold at all**, so `MaskHsv` has nothing
+to remove — which is exactly what the simulation shows: identical fit with the floor and without
+it. And at a lower threshold the floor still would not save us, because those intruders run down
+to S = 145, *inside* the part's own 0–180 range. The 2026-08-31 tip speck happened to sit at
+S = 240, which made the floor look better than it is.
+
+So the discrimination that actually works here is **brightness**, with a comfortable margin: the
+part runs to gray 163 while nothing else in the mask exceeds 62. `MaskHsv` stays disabled, which
+also removes the background-calibration hazard below entirely.
+
+**Bench results** (`p05`, White 4000K, overhead lights on, 3× at each of two rotations):
+
+| Date | Config | Rotation | X / Y mm | Δ mm | Repeat spread |
+|---|---|---|---|---|---|
+| 2026-08-31 | threshold 99, no MaskHsv | −1.68° | −0.090 … −0.072 / −0.018 … 0.002 | 0.072–0.090 | 0.018 mm |
+| 2026-08-31 | threshold 99, no MaskHsv | −91.68° | −0.054 / 0.108 | 0.121 | 0.000 mm |
+| 2026-09-03 | threshold 80, MaskHsv on *(see caveat — ran as a V ≤ 144 cut)* | −1.85° | −0.091 / 0.144 | 0.170 | 0.000 mm |
+| 2026-09-03 | threshold 80, MaskHsv on *(same caveat)* | +88.15° | −0.127 … −0.109 / −0.018 | 0.110–0.128 | 0.018 mm |
+
+All twelve alignments were accepted with no size-check rejections. Δ is the size of the
+correction, which depends on how the part sits on the nozzle, so the quality figure is the
+**repeat spread: ≤ 0.018 mm throughout**. The first alignment of the 2026-08-31 set applied
+`C:+1.685°` and every one after it reported `C:0.000` — `bv-analyze` independently measures that
+first frame at −1.8° and the rest axis-aligned, which both confirms the correction took and
+cross-validates the simulator against OpenPnP.
+
+> **What happened when `MaskHsv` was enabled, 2026-09-03.** Worth recording, because the failure
+> was silent. The bounds were set as *stage attributes*, so at run time N045's background
+> calibration replaced all six with `hue 0–255, sat 0–255, value 0–144` (see
+> [Background Calibration](OpenPnP-Vision-Concepts.md#background-calibration)). The log says so
+> directly — `MaskHsv TRACE: Fraction actually masked = 0.9996` — and the pipeline was measuring
+> only the part's brightest core: **305 px² instead of 1447 px²**, a 1.23 × 1.27 mm rectangle
+> instead of 1.375 × 1.411 mm. It still aligned, because the part peaks at V ≈ 170 against the 144
+> ceiling; on the dimmer archived capture **zero** part pixels clear 144 and the part would vanish
+> entirely. Note that a `Parameter*` stage cannot fix this — only a `pipeline-parameter-assignments`
+> entry outranks the calibration, and that has no GUI. The stage was disabled again rather than
+> pursued, for the measurement reasons above.
+
+> **Recommendation [stock]: threshold 80, no colour mask, no part mask.** The one lever that
+> matters is the threshold, and 80 sits in the middle of the 70–85 band that yields a single clean
+> contour on every one of twelve bench captures. Six parts use this, all on the 9LED project.
+> Tracked as issue #2, which also measured it against a rectilinear-symmetry rival — see
+> [`BVS_OSRAM1414_R`](#bvs_osram1414_r--osram-pure-1414-rectlinear--deleted-2026-09-04) under
+> **Removed**.
 
 ### `BVS_VQFN24` — *VQFN-24 Bottom Vision* — base: `BVS_Stock`
 
@@ -271,6 +341,56 @@ underside and barely visible.
 
 ## Removed
 
+### `BVS_OSRAM1414_R` — *OSRAM Pure 1414 Rectlinear* — deleted 2026-09-04
+
+Built during issue #2 to test whether a rectilinear-symmetry pipeline beats the threshold one on
+the 1.6 × 1.6 mm OSLON Pure 1414, and deleted after losing that A/B. Recorded in full because the
+measurements answer a question that will come up again in
+[issue #4](https://github.com/NatCrutcher/lumenpnp_nwc/issues/4).
+
+It was `BVS_Stock_R` with five parameter assignments: `subSampling = 1`, a search window sized by
+experiment, and a `MaskHsv` saturation floor of 190 (`hue 0–255`, `valueMax 255`) to keep the
+nozzle tip out of the window. The rationale was sound — `DetectRectlinearSymmetry` uses `threshold`
+only for *asymmetric* detection, so with both symmetry flags set it runs `FullSymmetry` and does
+not depend on a brightness cut at all, which is exactly the fragility the threshold pipeline has.
+
+**Results** (`p05`, 3× at each of two rotations, overhead lights on):
+
+| configuration | X spread | Y spread | rotation |
+|---|---|---|---|
+| `BVS_OSRAM1414`, threshold 80 | 0.018 mm | 0.003 mm | `C:0.000` five of six |
+| `BVS_OSRAM1414_R`, 2.3 mm window | 0.006 mm | 0.023 mm | oscillates, 3.604° swing |
+| `BVS_OSRAM1414_R`, 5.2 mm window | **0.0017 mm** | **0.0074 mm** | oscillates, 1.993° swing |
+
+**It found the part beautifully and could not orient it.** At 5.2 mm it was an order of magnitude
+more repeatable in position than anything else tested. But the rotation never converged: because
+each correction is applied to the nozzle, the next measurement demanded an opposite one, and the
+part angle oscillated indefinitely. Twice the estimator returned an identical correction for two
+*different* presented angles — an argmax hopping between lattice points, not an estimator tracking
+a subject. No `min-symmetry` rejections and no exceptions: it was confidently wrong.
+
+**The cause was pinned down exactly**, and is the `superSampling` clamp of
+[issue #9](https://github.com/NatCrutcher/lumenpnp_nwc/issues/9). Reported rotations lie on the
+lattice `angleStep = subSampling / (maxSpan · superSampling)`
+(`DetectRectlinearSymmetry.java:582`), and widening the window across the clamp's 200 px
+`maxDiagonal` cliff moved the lattice precisely as predicted:
+
+| window | `superSamplingEff` | predicted `angleStep` | observed grid |
+|---|---|---|---|
+| 2.3 mm | 1 (clamped) | 0.901113° | **0.901105°** |
+| 5.2 mm | 2 | 0.199285° | **0.199282°** |
+
+Finer bins shrank the oscillation 1.81× but did not stop it — because the problem is not bin size,
+it is that the angular symmetry score of a **near-square** subject is flat, so the argmax has
+nothing to grip.
+
+**Lesson for the future:** reserve rectilinear-symmetry pipelines for **elongated** parts, and use
+a threshold pipeline for near-square ones. `BVS_0402` (1.0 × 0.5 mm) and `BVS_Stock_R`'s
+`SOT-23-6` (1.6 × 2.9 mm) are both strongly elongated, which is very likely why they behave. A
+secondary lesson: rotation correction on a 4-fold-ambiguous square is of dubious value anyway —
+polarity comes from the tape, not from vision — so a pipeline that churns the nozzle ±1° every
+alignment is strictly worse than one that reports `C:0.000` and leaves it alone.
+
 ### `BVS_0603_R_Small` — *R_0603_1608Metric-R_Small* — deleted in `e839f37`
 
 Recorded here so the deletion is not re-litigated. It was an **exact duplicate of `BVS_Default`** —
@@ -296,9 +416,9 @@ Name pipelines after the *package* or the part *geometry*, which is what the cur
 | `BVS_Stock_R` | — | — | `SOT-23-6` | keep; best base for small chips |
 | `BVS_Stock_B` | — | — | nothing | keep; untried, worth trying |
 | `BVS_0402` | `BVS_Stock_R` | subSampling 8→1, search window → 1.7 × 0.8 mm, HSV retune | 2 packages, 20 parts | **keep — the model** |
-| `BVS_0603_C` | `BVS_Stock` | partmask → 100 px (3.6 mm) | 1 package + part `n07` | keep; drop disabled debug stages |
-| `BVS_L1210` | `BVS_Stock` | partmask → 400 px (14.5 mm) | 1 package, 1 part | keep; tighten mask to 150–200 px |
-| `BVS_OSRAM1414` | `BVS_Stock` | MaskHsv **off**, threshold 99, no mask | 1 package, 6 parts | **retune — add mask, re-enable HSV** |
+| `BVS_0603_C` | `BVS_Stock` | partmask → 100 px (3.6 mm) | 1 package + part `n07` | keep |
+| `BVS_L1210` | `BVS_Stock` | partmask → 250 px (9.0 mm) | 1 package, 1 part | keep — tightened `b7afa96` |
+| `BVS_OSRAM1414` | `BVS_Stock` | threshold 99 → **80**, no mask, no colour | 1 package, 6 parts | bench-verified 2026-09-03 |
 | `BVS_VQFN24` | `BVS_Stock` | partmask → 200 px (7.2 mm), HSV value 40–100 (dark body) | `Texas_RGE0024H_VQFN-24…` package | keep — promoted `e839f37` |
 
 ---
@@ -321,7 +441,7 @@ untested pipeline and a passing one should never look alike in this table.
 | `C_0603_1608Metric_HD` | `BVS_0603_C` | 1.6×0.8 | N045 | 11 | |
 | `Cree_XE-G` | `BVS_Stock` | 1.6×2.05 | N045 | 7 | 2026-08-30 `p17` 3× pass, Δ ≤ 0.065 mm (#8; compositing `Invalid` — asymmetric pads — falls back cleanly) |
 | `L_1210_3225Metric` | `BVS_L1210` | 3.2×2.5 | N24, N045 | 1 | |
-| `OSRAM-OSLON-Pure-1414` | `BVS_OSRAM1414` | 1.6×1.6 | N045 | 6 | |
+| `OSRAM-OSLON-Pure-1414` | `BVS_OSRAM1414` | 1.6×1.6 | N045 | 6 | 2026-08-31 `p05` 6× pass, Δ ≤ 0.121 mm; 2026-09-03 6× pass at threshold 80 with MaskHsv off, Δ ≤ 0.195 mm, spread ≤ 0.018 mm, `C:0.000` five of six; `BVS_OSRAM1414_R` A/B same day lost on rotation (#2) |
 | `R_0402_1005Metric_HD` | `BVS_0402` | 1.0×0.5 | N045 | 16 | |
 | `SOT-23-6` | `BVS_Stock_R` | 1.6×2.9 | N045 | 4 | 2026-08-30 `k16` 3× pass, Δ ≤ 0.243 mm (#8; first live user of the footprint-derived search window) |
 | `Texas_RGE0024H_VQFN-24-1EP_4x4_P0.5_EP2.7x2.7_ThVias` | `BVS_VQFN24` | 4.0×4.0 | N24 | 1 | |
@@ -434,11 +554,17 @@ To re-derive §1's lineage claims:
 - **Remember the pixel artifact** — `FilterContours.min-area` and
   `DetectRectlinearSymmetry.min-feature-size` flip between mm and px on save and are not edits.
 
+To re-derive the measured numbers in §1, run [`bin/bv-analyze`](Tools.md#measuring-bottom-vision)
+over the relevant capture. With no argument it takes the newest `bv_source_*.png`, which every
+alignment writes, so the loop is: run an alignment, then measure it. `--simulate` replays the
+threshold chain for candidate mask/threshold/HSV values without touching the machine.
+
 ## Related
 
 - [Issue #1](https://github.com/NatCrutcher/lumenpnp_nwc/issues/1) — this document, plus the
   readable-id rename and the rules for renaming pipeline ids by hand.
-- [Issue #2](https://github.com/NatCrutcher/lumenpnp_nwc/issues/2) — retune `BVS_OSRAM1414`.
+- [Issue #2](https://github.com/NatCrutcher/lumenpnp_nwc/issues/2) — retune `BVS_OSRAM1414`,
+  and the `BVS_OSRAM1414_R` A/B.
 - [Issue #3](https://github.com/NatCrutcher/lumenpnp_nwc/issues/3) — pipeline hygiene: tighten
   `BVS_L1210` mask, delete the disabled debug stages.
 - [Issue #4](https://github.com/NatCrutcher/lumenpnp_nwc/issues/4) — `BVS_LumenPnP_Default`
