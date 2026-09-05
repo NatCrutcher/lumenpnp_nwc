@@ -531,7 +531,7 @@
    <package version="1.1" bottom-vision-id="BVS_OSRAM1414" id="OSRAM-OSLON-Pure-1414" description="NwcPcbLibrary:OSRAM-OSLON-Pure-1414" pick-vacuum-level="0.0" place-blow-off-level="0.0">
       <footprint units="Millimeters" body-width="1.6" body-height="1.6" outer-dimension="0.0" inner-dimension="0.0" pad-count="0" pad-pitch="0.0" pad-across="0.0" pad-roundness="0.0">
          <pad name="A" x="-0.385" y="0.0" width="0.52" height="1.29" rotation="0.0" mark="false" roundness="0.0"/>
-         <pad name="K" x="0.385" y="0.0" width="0.2" height="1.29" rotation="0.0" mark="false" roundness="0.0"/>
+         <pad name="K" x="0.385" y="0.0" width="0.52" height="1.29" rotation="0.0" mark="false" roundness="0.0"/>
       </footprint>
       <vision-compositing compositing-method="Restricted" min-leverage-factor="0.2" extra-shots="0" allow-inside="true">
          <max-pick-tolerance value="0.0" units="Millimeters"/>
