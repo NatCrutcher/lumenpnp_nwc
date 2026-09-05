@@ -30,6 +30,8 @@
 
 ### General
 
+- Quick: regenerate packages.xml
+- Every now and then, I see the OpenPnP live camera feed jump (not sure if it's both or just one) even though nothing is moving on the LumenPnP. This makes me worry that the occasional frames are getting corrupted, which might cause placement problems.
 - Help tune nozzle parameters for more efficient vision and reasonable part allowances.
 - There is a background nozzle calibration that looks at the color (HSV) of the nozzle and uses that to adjust parameters for some vision pipelines. It did not work well, I think because of the poor color balance of the LED lights, maybe because the nozzles are nearly black. Try to figure out if this is worth fixing, perhaps with new or tuned LED lighting.
 - Add a discard bin so it stops dropping parts off the front of the machine. I think the best option is a shallow tray mounted just to the left of my secondary fiducial using one plate screw. Enhancement: make it a two-part magnetic design for easier removal and emptying. Configure OpenPnP to use it and make sure the nozzle won't crash into the second fiducial support, which is near the discard bin.
