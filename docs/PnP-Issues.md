@@ -38,7 +38,7 @@
 - Add a discard bin so it stops dropping parts off the front of the machine. I think the best option is a shallow tray mounted just to the left of my secondary fiducial using one plate screw. Enhancement: make it a two-part magnetic design for easier removal and emptying. Configure OpenPnP to use it and make sure the nozzle won't crash into the second fiducial support, which is near the discard bin.
 - Check if the N045 nozzle or the servo head one are bent from the collision. When calibrating the N045, it seems more eccentric, while the N24 on head two has no visible runout. I may want to order a spare nozzle servo with associated parts.
 - Start a blog/document on LumenPnP lessons, tuning, improvements.
-- Fix the LumenPnP y-axis homing. The stop is positioned so that the switch is triggered at almost exactly the same time the axis mechanically collides. Adjust the gold screw out to prevent the collision but check how much I'll need to recalibrate afterwards.
+- Migrated: #21 — Y homing: the endstop trips at the mechanical collision, with no overtravel margin
 - Recheck my nozzle z-heights.
 - Try to develop a z-height repeatability measurement with Claude. Ideas: use vacuum touch sniffing with the primary fiducial. Rehome the z-axis and retest the height of both nozzles many times to see how repeatable this is. I worry that the microswitch may be a limiting factor in Z precision.
 - Use nozzle vacuum sniffing to probe the PCB height at 3-4 locations to make sure it is flat. This may want to lift the PCB out of the holder unless I design a better holder.
