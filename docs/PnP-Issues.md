@@ -66,7 +66,7 @@
 
 - Vision: figure out a way to crop the image based on the part size, so that the bottom vision does not see past the black disc on the head to the overhead lights. A true image crop is preferred because it should speed up the processing, but even masking would be acceptable. Roughly, we'd want a crop circle diameter like `d = a*p + b` where `p` is the diameter of the smallest circle that outlines a properly centered part, `a` is a multiplier, and `b` is an additive term. So for an 0402, p = 0.559; if we set a = 1.2, b = 1.0, then d = 1.67.
 - Vision: Automatically adjust subsampling/supersampling based on the expected part size in pixels. The default bottom vision pipeline uses subSampling = 3px, which may be fine for larger parts or a more telephoto lens, but is bad for an 0402 with the wide-angle LumenPnP bottom camera.
-- Vision Pipeline Editor: Add a textbox for a pipeline description that is saved to the XML. It is very unclear to me how to select between the stock bottom vision pipeline and the rectilinear pipeline, or others.
+- Migrated: #26 — Vision pipeline editor: add a saved description field so pipelines explain themselves
 - Feeders Tab: add an option to show a description column, since my part IDs are not descriptive. Or at least show the description for the part in the selected feeder in the bottom pane.
 - Locked up in vision pipeline editor.
 - Popped up screen capture dialog from vision pipeline editor (I have not seen this lately).
