@@ -36,7 +36,7 @@
 - Migrated: #25 — Nozzle tip parameters: four tips fail OpenPnP's own validation and only N045 was ever tuned (answers the dwell-inconsistency question from git history)
 - Migrated: #13 — Nozzle-tip background calibration: Brightness mode silently erases dim parts (the cause turned out to be `Brightness` mode discarding saturation, not the LED colour balance)
 - Migrated: #27 — Configure the discard location for the new discard bin
-- Check if the N045 nozzle or the servo head one are bent from the collision. When calibrating the N045, it seems more eccentric, while the N24 on head two has no visible runout. I may want to order a spare nozzle servo with associated parts.
+- Migrated: #28 — N1 runout stepped +20% at the 2026-08-20 collision; isolate tip vs. shaft (N2 is unchanged, so no spare servo indicated)
 - Start a blog/document on LumenPnP lessons, tuning, improvements.
 - Migrated: #21 — Y homing: the endstop trips at the mechanical collision, with no overtravel margin
 - Recheck my nozzle z-heights.
