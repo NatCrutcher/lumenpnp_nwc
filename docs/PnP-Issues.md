@@ -79,7 +79,7 @@
   - Try a larger nozzle that contacts the hard plastic rim of the LED rather than the slight depression in the center. The N14 might be perfect and should work well to pick the larger parts on this project.
 - I was testing the pick height from a feeder and commanded the nozzle to the next pick position. After verification, I selected the next feeder and either (can't remember) commanded the camera or the nozzle to the pick location on this next feeder. The nozzle moved directly horizontally, without lifting, and crashed into the edge of the feeder. Whenever moving from one feeder to another, the head and nozzle should lift to a safe Z height.
 
-- Why does the LumenPnP vacuum sensor have such a limited range? My guess is because it's at the far end of a 3 foot long tube and the restriction of an open N045 nozzle is not much different than a closed N045 nozzle. On the other hand, the pump noise changes quite noticeably when a part is on the tip, so maybe flow would be a better measurement than pressure. My guess is that the pump speeds up or slows down to try to maintain the vacuum, so the vacuum does not change as much as the pump RPMs and pump current. Along these lines, I wonder if any of the nicer pumps include a way to read the RPM or load current.
+- Migrated: #22 — Vacuum sensing reads one byte of a 16-bit sensor: 6 counts of signal on an 0402 (the read command truncates the sensor, not the pneumatics)
 
 ## Enhancements
 
