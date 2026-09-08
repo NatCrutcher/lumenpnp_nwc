@@ -35,7 +35,7 @@
 - Migrated: #19 — Set up nozzle-tip changing with the SandwichChanger holder
 - Migrated: #25 — Nozzle tip parameters: four tips fail OpenPnP's own validation and only N045 was ever tuned (answers the dwell-inconsistency question from git history)
 - Migrated: #13 — Nozzle-tip background calibration: Brightness mode silently erases dim parts (the cause turned out to be `Brightness` mode discarding saturation, not the LED colour balance)
-- Add a discard bin so it stops dropping parts off the front of the machine. I think the best option is a shallow tray mounted just to the left of my secondary fiducial using one plate screw. Enhancement: make it a two-part magnetic design for easier removal and emptying. Configure OpenPnP to use it and make sure the nozzle won't crash into the second fiducial support, which is near the discard bin.
+- Migrated: #27 — Configure the discard location for the new discard bin
 - Check if the N045 nozzle or the servo head one are bent from the collision. When calibrating the N045, it seems more eccentric, while the N24 on head two has no visible runout. I may want to order a spare nozzle servo with associated parts.
 - Start a blog/document on LumenPnP lessons, tuning, improvements.
 - Migrated: #21 — Y homing: the endstop trips at the mechanical collision, with no overtravel margin
