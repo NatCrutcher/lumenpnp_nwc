@@ -70,13 +70,8 @@
 - Feeders Tab: add an option to show a description column, since my part IDs are not descriptive. Or at least show the description for the part in the selected feeder in the bottom pane.
 - Locked up in vision pipeline editor.
 - Popped up screen capture dialog from vision pipeline editor (I have not seen this lately).
-- One of the LEDs I'm trying to place has a very slightly tacky surface (perhaps silicone) and stuck to the nozzle when it was supposed to be placed.
-  - Increase the place dwell time to allow more time for the vacuum to dissipate
-  - I think OpenPnP has detection for part off, possibly to check for exactly this. In other words, after placing (or trying to place) the part and retracting, turn the vacuum back on and check for the no part vacuum reading. If it detects a part, stop and wait. Or Claude's idea: "if you're using an absolute-threshold part-on check, switch to include the trend/differential method. A stuck part gives a vacuum signature with no proper dip-and-recover at the pick, so trend catches it where a level threshold can't. Pair it with "discard on error" so a bad pick ends the placement instead of propagating."
-  - Slow the lift speed (Z retract)
-  - Place lower for better paste adhesion
-  - Experiment with a slight side jog or angled lift off: "**Peel, don't pull.** After the place dwell, jog 50–100 µm in X (or a small circle) *before* lifting Z. Shear breaks a tacky adhesive bond at a fraction of the force of straight tension, and paste tack easily resists that much lateral movement. Doable as a Gcode snippet in the nozzle's after-place script."
-  - Try a larger nozzle that contacts the hard plastic rim of the LED rather than the slight depression in the center. The N14 might be perfect and should work well to pick the larger parts on this project.
+- Migrated: #24 — OSLON Pure 1414 sticks to the N045 nozzle instead of releasing onto paste (place dwell, peel jog, N14 swap; "place lower" is #11)
+- Migrated: #23 — Part-off detection is disabled on every nozzle tip, so a stuck part goes unnoticed
 - I was testing the pick height from a feeder and commanded the nozzle to the next pick position. After verification, I selected the next feeder and either (can't remember) commanded the camera or the nozzle to the pick location on this next feeder. The nozzle moved directly horizontally, without lifting, and crashed into the edge of the feeder. Whenever moving from one feeder to another, the head and nozzle should lift to a safe Z height.
 
 - Migrated: #22 — Vacuum sensing reads one byte of a 16-bit sensor: 6 counts of signal on an 0402 (the read command truncates the sensor, not the pneumatics)
