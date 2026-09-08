@@ -33,7 +33,7 @@
 - Migrated #17 — Regenerate packages.xml.
 - Migrated: #18 — Live camera feed jumps while the machine is idle; settle timeouts hand unsettled frames to vision silently
 - Migrated: #19 — Set up nozzle-tip changing with the SandwichChanger holder
-- Help tune nozzle parameters (pick dwell, place dwell, min part diameter, max part diameter, max part height, max pick tolerance) for more efficient vision, reasonable part allowances, improved vacuum timing, etc. Why are the dwell times inconsistent? 
+- Migrated: #25 — Nozzle tip parameters: four tips fail OpenPnP's own validation and only N045 was ever tuned (answers the dwell-inconsistency question from git history)
 - Migrated: #13 — Nozzle-tip background calibration: Brightness mode silently erases dim parts (the cause turned out to be `Brightness` mode discarding saturation, not the LED colour balance)
 - Add a discard bin so it stops dropping parts off the front of the machine. I think the best option is a shallow tray mounted just to the left of my secondary fiducial using one plate screw. Enhancement: make it a two-part magnetic design for easier removal and emptying. Configure OpenPnP to use it and make sure the nozzle won't crash into the second fiducial support, which is near the discard bin.
 - Check if the N045 nozzle or the servo head one are bent from the collision. When calibrating the N045, it seems more eccentric, while the N24 on head two has no visible runout. I may want to order a spare nozzle servo with associated parts.
