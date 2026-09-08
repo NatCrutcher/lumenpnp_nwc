@@ -68,11 +68,11 @@
 - Vision: Automatically adjust subsampling/supersampling based on the expected part size in pixels. The default bottom vision pipeline uses subSampling = 3px, which may be fine for larger parts or a more telephoto lens, but is bad for an 0402 with the wide-angle LumenPnP bottom camera.
 - Migrated: #26 — Vision pipeline editor: add a saved description field so pipelines explain themselves
 - Feeders Tab: add an option to show a description column, since my part IDs are not descriptive. Or at least show the description for the part in the selected feeder in the bottom pane.
-- Locked up in vision pipeline editor.
-- Popped up screen capture dialog from vision pipeline editor (I have not seen this lately).
+- OpenPnP locked up in the vision pipeline editor.
+- Kubuntu popped up a screen capture dialog from vision pipeline editor when I used Alt-Tab to switch windows (I have not seen this lately).
 - Migrated: #24 — OSLON Pure 1414 sticks to the N045 nozzle instead of releasing onto paste (place dwell, peel jog, N14 swap; "place lower" is #11)
 - Migrated: #23 — Part-off detection is disabled on every nozzle tip, so a stuck part goes unnoticed
-- I was testing the pick height from a feeder and commanded the nozzle to the next pick position. After verification, I selected the next feeder and either (can't remember) commanded the camera or the nozzle to the pick location on this next feeder. The nozzle moved directly horizontally, without lifting, and crashed into the edge of the feeder. Whenever moving from one feeder to another, the head and nozzle should lift to a safe Z height.
+- Migrated: #29 — Home does not retract Z first: homing from pick depth sweeps the nozzle through the feeders (the logs show the feeder-to-feeder moves did lift; Home was the trigger)
 
 - Migrated: #22 — Vacuum sensing reads one byte of a 16-bit sensor: 6 counts of signal on an 0402 (the read command truncates the sensor, not the pneumatics)
 
