@@ -1182,7 +1182,7 @@
             <command head-mountable-id="ACT171086c0660cfc3b" type="ACTUATOR_READ_COMMAND">
                <text><![CDATA[M260 A112 B1 S1 ; Select vac1 through multiplexer]]></text>
                <text><![CDATA[M260 A109 B6 S1 ; Selects MSB register]]></text>
-               <text><![CDATA[M261 A109 B1 S2 ; Request one byte back via decimal]]></text>
+               <text><![CDATA[M261 A109 B2 S2 ; Request MSB+CSB back as a signed int16 (#22)]]></text>
             </command>
             <command head-mountable-id="ACT171086c0660cfc3b" type="ACTUATOR_READ_REGEX">
                <text><![CDATA[^.*data:(?<Value>.*)]]></text>
@@ -1196,9 +1196,9 @@
                <text><![CDATA[{True:M106 P3 S180}{False:M107 P3};]]></text>
             </command>
             <command head-mountable-id="ACT171086f27295ab60" type="ACTUATOR_READ_COMMAND">
-               <text><![CDATA[M260 A112 B2 S1 ; Select vac1 through multiplexer]]></text>
+               <text><![CDATA[M260 A112 B2 S1 ; Select vac2 through multiplexer]]></text>
                <text><![CDATA[M260 A109 B6 S1 ; Selects MSB register]]></text>
-               <text><![CDATA[M261 A109 B1 S2 ; Request one byte back via decimal]]></text>
+               <text><![CDATA[M261 A109 B2 S2 ; Request MSB+CSB back as a signed int16 (#22)]]></text>
             </command>
             <command head-mountable-id="ACT171086f27295ab60" type="ACTUATOR_READ_REGEX">
                <text><![CDATA[^.*data:(?<Value>.*)]]></text>
@@ -1326,7 +1326,7 @@
          </entry>
       </properties>
       <nozzle-tips>
-         <nozzle-tip class="org.openpnp.machine.reference.ReferenceNozzleTip" id="NT1" name="N045" pick-dwell-milliseconds="400" place-dwell-milliseconds="300" place-blow-off-level="0.0" vision-calibration="None" vision-calibration-trigger="Manual" vision-match-minimum-score="0.2" vision-calibration-max-passes="3" z-calibration-trigger="Manual" z-calibration-fail-homing="true" template-nozzle-tip="false" template-locked="false" establish-part-on-level="true" establish-part-off-level="true" part-off-probing-milliseconds="0" part-off-dwell-milliseconds="0" is-push-and-drag-allowed="false">
+         <nozzle-tip class="org.openpnp.machine.reference.ReferenceNozzleTip" id="NT1" name="N045" pick-dwell-milliseconds="2000" place-dwell-milliseconds="300" place-blow-off-level="0.0" vision-calibration="None" vision-calibration-trigger="Manual" vision-match-minimum-score="0.2" vision-calibration-max-passes="3" z-calibration-trigger="Manual" z-calibration-fail-homing="true" template-nozzle-tip="false" template-locked="false" establish-part-on-level="false" establish-part-off-level="true" part-off-probing-milliseconds="0" part-off-dwell-milliseconds="0" is-push-and-drag-allowed="false">
             <changer-start-location units="Millimeters" x="43.614" y="124.185" z="31.0" rotation="0.0"/>
             <changer-start-to-mid-speed>0.05</changer-start-to-mid-speed>
             <changer-mid-location units="Millimeters" x="43.614" y="124.185" z="5.5" rotation="0.0"/>
@@ -1364,14 +1364,14 @@
                <calibration-Z-offset value="0.0" units="Millimeters"/>
                <calibration-tip-diameter value="0.0" units="Millimeters"/>
             </calibration>
-            <method-part-on>Absolute</method-part-on>
+            <method-part-on>Difference</method-part-on>
             <part-on-check-after-pick>true</part-on-check-after-pick>
             <part-on-check-align>false</part-on-check-align>
             <part-on-check-before-place>false</part-on-check-before-place>
-            <vacuum-level-part-on-low>215.0</vacuum-level-part-on-low>
-            <vacuum-level-part-on-high>232.0</vacuum-level-part-on-high>
-            <vacuum-difference-part-on-low>0.0</vacuum-difference-part-on-low>
-            <vacuum-difference-part-on-high>0.0</vacuum-difference-part-on-high>
+            <vacuum-level-part-on-low>-32000.0</vacuum-level-part-on-low>
+            <vacuum-level-part-on-high>32000.0</vacuum-level-part-on-high>
+            <vacuum-difference-part-on-low>-32000.0</vacuum-difference-part-on-low>
+            <vacuum-difference-part-on-high>32000.0</vacuum-difference-part-on-high>
             <method-part-off>None</method-part-off>
             <part-off-check-after-place>true</part-off-check-after-place>
             <part-off-check-before-pick>false</part-off-check-before-pick>
@@ -1414,7 +1414,7 @@
                <calibration-Z-offset value="0.0" units="Millimeters"/>
                <calibration-tip-diameter value="0.8698818415522449" units="Millimeters"/>
             </calibration>
-            <method-part-on>Absolute</method-part-on>
+            <method-part-on>None</method-part-on>
             <part-on-check-after-pick>true</part-on-check-after-pick>
             <part-on-check-align>false</part-on-check-align>
             <part-on-check-before-place>false</part-on-check-before-place>
@@ -1464,7 +1464,7 @@
                <calibration-Z-offset value="0.0" units="Millimeters"/>
                <calibration-tip-diameter value="0.0" units="Millimeters"/>
             </calibration>
-            <method-part-on>Absolute</method-part-on>
+            <method-part-on>None</method-part-on>
             <part-on-check-after-pick>true</part-on-check-after-pick>
             <part-on-check-align>false</part-on-check-align>
             <part-on-check-before-place>false</part-on-check-before-place>
@@ -1481,7 +1481,7 @@
             <vacuum-difference-part-off-high>0.0</vacuum-difference-part-off-high>
             <diameter-low value="0.0" units="Millimeters"/>
          </nozzle-tip>
-         <nozzle-tip class="org.openpnp.machine.reference.ReferenceNozzleTip" id="TIP16f0412ed2d50009" name="N24" pick-dwell-milliseconds="300" place-dwell-milliseconds="100" place-blow-off-level="0.0" vision-calibration="None" vision-calibration-trigger="Manual" vision-match-minimum-score="0.2" vision-calibration-max-passes="3" z-calibration-trigger="Manual" z-calibration-fail-homing="true" template-nozzle-tip="false" template-locked="false" establish-part-on-level="true" establish-part-off-level="false" part-off-probing-milliseconds="0" part-off-dwell-milliseconds="0" is-push-and-drag-allowed="false">
+         <nozzle-tip class="org.openpnp.machine.reference.ReferenceNozzleTip" id="TIP16f0412ed2d50009" name="N24" pick-dwell-milliseconds="2000" place-dwell-milliseconds="100" place-blow-off-level="0.0" vision-calibration="None" vision-calibration-trigger="Manual" vision-match-minimum-score="0.2" vision-calibration-max-passes="3" z-calibration-trigger="Manual" z-calibration-fail-homing="true" template-nozzle-tip="false" template-locked="false" establish-part-on-level="false" establish-part-off-level="false" part-off-probing-milliseconds="0" part-off-dwell-milliseconds="0" is-push-and-drag-allowed="false">
             <changer-start-location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="0.0"/>
             <changer-start-to-mid-speed>1.0</changer-start-to-mid-speed>
             <changer-mid-location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="0.0"/>
@@ -1519,14 +1519,14 @@
                <calibration-Z-offset value="0.0" units="Millimeters"/>
                <calibration-tip-diameter value="0.0" units="Millimeters"/>
             </calibration>
-            <method-part-on>Absolute</method-part-on>
+            <method-part-on>Difference</method-part-on>
             <part-on-check-after-pick>true</part-on-check-after-pick>
             <part-on-check-align>false</part-on-check-align>
             <part-on-check-before-place>false</part-on-check-before-place>
-            <vacuum-level-part-on-low>219.0</vacuum-level-part-on-low>
-            <vacuum-level-part-on-high>244.0</vacuum-level-part-on-high>
-            <vacuum-difference-part-on-low>0.0</vacuum-difference-part-on-low>
-            <vacuum-difference-part-on-high>0.0</vacuum-difference-part-on-high>
+            <vacuum-level-part-on-low>-32000.0</vacuum-level-part-on-low>
+            <vacuum-level-part-on-high>32000.0</vacuum-level-part-on-high>
+            <vacuum-difference-part-on-low>-32000.0</vacuum-difference-part-on-low>
+            <vacuum-difference-part-on-high>32000.0</vacuum-difference-part-on-high>
             <method-part-off>None</method-part-off>
             <part-off-check-after-place>true</part-off-check-after-place>
             <part-off-check-before-pick>true</part-off-check-before-pick>
@@ -1569,7 +1569,7 @@
                <calibration-Z-offset value="0.0" units="Millimeters"/>
                <calibration-tip-diameter value="0.0" units="Millimeters"/>
             </calibration>
-            <method-part-on>Absolute</method-part-on>
+            <method-part-on>None</method-part-on>
             <part-on-check-after-pick>true</part-on-check-after-pick>
             <part-on-check-align>false</part-on-check-align>
             <part-on-check-before-place>false</part-on-check-before-place>
@@ -1619,7 +1619,7 @@
                <calibration-Z-offset value="0.0" units="Millimeters"/>
                <calibration-tip-diameter value="0.0" units="Millimeters"/>
             </calibration>
-            <method-part-on>Absolute</method-part-on>
+            <method-part-on>None</method-part-on>
             <part-on-check-after-pick>true</part-on-check-after-pick>
             <part-on-check-align>false</part-on-check-align>
             <part-on-check-before-place>false</part-on-check-before-place>
