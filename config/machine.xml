@@ -1075,12 +1075,12 @@
                <text><![CDATA[M260 A112 B1 S1 ; Selecting VAC1 through the I2C multiplexer]]></text>
                <text><![CDATA[M260 A109 ; Starts Command to VAC sensor at address 109]]></text>
                <text><![CDATA[M260 B48 ; Address Byte 48 selects CMD register]]></text>
-               <text><![CDATA[M260 B27 ; Sends byte to select 62.5 sleep time, SCO, sleep mode conversion (0001 1 011)]]></text>
+               <text><![CDATA[M260 B11 ; CMD 0x0B = 0000 1 011: sleep_time 0 ms (back-to-back conversions), SCO, sleep mode conversion. Was B27 (62.5 ms, measured 46 ms period)]]></text>
                <text><![CDATA[M260 S1 ; Sends data]]></text>
                <text><![CDATA[M260 A112 B2 S1 ; Selecting VAC2 through the I2C multiplexer]]></text>
                <text><![CDATA[M260 A109 ; Starts Command to VAC sensor at address 109]]></text>
                <text><![CDATA[M260 B48 ; Address Byte 48 selects CMD register]]></text>
-               <text><![CDATA[M260 B27 ; Sends byte to select 62.5 sleep time, SCO, sleep mode conversion (0001 1 011)]]></text>
+               <text><![CDATA[M260 B11 ; CMD 0x0B = 0000 1 011: sleep_time 0 ms (back-to-back conversions), SCO, sleep mode conversion. Was B27 (62.5 ms, measured 46 ms period)]]></text>
                <text><![CDATA[M260 S1 ; Sends data]]></text>
             </command>
             <command head-mountable-id="ACT170524c73c5ed540" type="ACTUATOR_READ_COMMAND">
