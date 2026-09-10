@@ -31,8 +31,13 @@ and no amount of vision calibration compensates for loose hardware.
 - [ ] Linear rails / bearings run smoothly end to end with power off. No binding, no gritty spots.
 - [ ] Both nozzle shafts spin freely with no axial slop.
 - [ ] Nozzle tips (N045, N24) seated fully and not cross-threaded.
-- [ ] Nozzles physically level and parked before homing. **Check this every single time.**
-      *(OpenPnP does not remember nozzle positions from the previous homing sequence.)*
+- [ ] Nozzles physically level and parked before the **first** homing of a session.
+      **Check this every single time.**
+      *(At power-up OpenPnP has no idea where the nozzles are, so it cannot retract them
+      before homing, and the X/Y home sweep runs at whatever Z the rocker was left at. A
+      re-home within a session retracts to Safe Z by itself — see
+      [#29](https://github.com/NatCrutcher/lumenpnp_nwc/issues/29). The machine option
+      "Confirm homing when unhomed?" prompts for this check on the first homing.)*
 - [ ] Compressor connected, pressure at spec, no audible leaks at the manifold or umbilicals.
 - [ ] Both cameras physically clean (lens and any protective window).
 - [ ] Datum boards (primary and secondary) installed, clean, and unobstructed.
