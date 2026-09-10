@@ -82,17 +82,13 @@
   - Does the 3-way solenoid vent the unused port to free air or close it off?
   - I'll probably need one pressure tank for each pump, since the positive pressure will bleed off quickly through the open nozzles.
 - Migrated: #10 — Vision pipeline editor: zoom/pan or closeup view of stage results
-- Vision Pipeline: Support easier way to substitute the last snapshot for ImageCapture, perhaps a useLastSnapshot checkbox
-- Vision Pipeline: Improve documentation
-- Vision Pipeline: Show time per step
-- Add option to recycle part after vacuum detection failure
-- Add option to prompt after vacuum detection failure. The prompt should show the vacuum limit and the measured value. It should provide the following options:
-  - Place the part
-  - Recycle the part
-  - Discard the part and stop
-  - Discard the part and retry
+- Migrated: #30 — Pipeline editor re-captures from the camera on every property edit; add a reuse-last-image option
+- Migrated: #32 — A third of CvPipeline stages ship with no description; stage documentation is the biggest barrier to pipeline work
+- Migrated: #31 — Pipeline editor shows stage timing one stage at a time; add a timing column to the stages table
+- Migrated: #33 — Recycle the part to its feeder instead of discarding it after a failed part-on check
+- Migrated: #34 — Vacuum failure gives an OK-only dialog with no numbers; prompt with the measured value, the limits, and a choice of actions
 
-- Update the LED light rings with RGBW LEDs for better color balance.
+- Migrated: #35 — Update the LED light rings with RGBW LEDs for better colour balance
 
 ## Questions
 
