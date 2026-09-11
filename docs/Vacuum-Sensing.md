@@ -150,7 +150,7 @@ Levels on this machine, after 2 s of vacuum:
 - **Settling** (within 100 counts of final) is slow: ~590 ms for an open N045, ~770 ms for an
   0603, ~1100 ms for an 0402. An open N24 is done in ~175 ms, since its big orifice barely
   holds any vacuum.
-- **Venting:** after a place, the line is back at atmosphere within 150 ms of the valve
+- **Venting:** after a place, the reading is back at atmosphere within 150 ms of the valve
   closing.
 
 That settling time is the second finding. The old 400 ms pick dwell never saw a plateau, so
@@ -196,7 +196,7 @@ Establish Level turns a fixed dwell into a **dwell with an early exit**.
   measurements: the vacuum decaying during the place (valve closed), and the part-off probe
   (valve open, described next). A range tuned for the probe is reached during the place decay
   while the line still holds thousands of counts of vacuum, so the nozzle would lift early.
-  Use a fixed place dwell instead. The line vents in under 150 ms.
+  Use a fixed place dwell instead. The reading is back at atmosphere in under 150 ms.
 
 ## Part-Off Detection
 
@@ -206,8 +206,9 @@ to the tip is otherwise invisible, and the job carries on placing with it attach
 The check is an active probe, not a passive read. At safe Z after the place, OpenPnP **reopens
 the valve** for *Probing Time*, closes it, waits *Dwell Time*, and reads. It's tempting to
 treat this as a leak-down test, where you close the valve and see whether the vacuum holds.
-**On the LumenPnP that doesn't work:** closing the valve vents the line to atmosphere whether a
-part is on the tip or not. So set **Dwell Time to 0**. OpenPnP then decides on the last reading
+**On the LumenPnP that doesn't work:** once the valve closes, the sensor reads atmosphere within
+~150 ms whether a part is on the tip or not, even with the nozzle still pressed onto the part
+during a place. So set **Dwell Time to 0**. OpenPnP then decides on the last reading
 taken with the valve open: an open tip reads "no part", a sealed one reads "part".
 
 ![Part-off probe: open tip versus a stuck 0402](img/vacuum/vacuum-part-off-probe.png)
@@ -297,8 +298,8 @@ These apply to OpenPnP 2.6 and are true on any machine, not just a LumenPnP:
 - **A shorter part-off probe.** The open and stuck curves are further apart at 200 ms (1220
   counts) than at 500 ms (1000), which suggests a ~250 ms probe with a threshold near −4600
   would work. That's based on one stuck part, though, so it needs more samples first.
-- **Place dwell**, currently a temporary 1000 ms. The line vents in under 150 ms, and a
-  longer wait doesn't help a part that's sticking for some other reason.
+- **Place dwell**, currently a temporary 1000 ms. The reading is back at atmosphere in under
+  150 ms, and a longer wait doesn't help a part that's sticking for some other reason.
 - **Cross-checks:** N045 on N2 and N24 on N1, plus the other four tips.
 - **Reporting it to Opulo**, since the one-byte read is in the shipped config.
 
