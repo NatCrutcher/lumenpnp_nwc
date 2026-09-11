@@ -30,6 +30,10 @@
 
 ### General
 
+- Answered: when to check part-on and part-off, whether to use Establish Level, and whether a check can run while moving to bottom vision — see [Vacuum Sensing](Vacuum-Sensing.md#when-to-check) and its [Establish Level](Vacuum-Sensing.md#establish-level) section (short answers: pick side yes, place side no; not during motion in stock OpenPnP, but the after-alignment check now costs one 16 ms read).
+- Turns out the missing graph is an OpenPnP display quirk. Since we're using Absolute with Establish
+    Level off, the part-off graph panel gets hidden even though the data is still being recorded. - This seems like a bug to me. Let's add it as an issue.
+- Now that the vacuum sensing is working better, let's tune for speed.
 - Migrated #17 — Regenerate packages.xml.
 - Migrated: #18 — Live camera feed jumps while the machine is idle; settle timeouts hand unsettled frames to vision silently
 - Migrated: #19 — Set up nozzle-tip changing with the SandwichChanger holder
@@ -37,7 +41,7 @@
 - Migrated: #13 — Nozzle-tip background calibration: Brightness mode silently erases dim parts (the cause turned out to be `Brightness` mode discarding saturation, not the LED colour balance)
 - Migrated: #27 — Configure the discard location for the new discard bin
 - Migrated: #28 — N1 runout stepped +20% at the 2026-08-20 collision; isolate tip vs. shaft (N2 is unchanged, so no spare servo indicated)
-- Start a blog/document on LumenPnP lessons, tuning, improvements.
+- Start a blog/document on LumenPnP lessons, tuning, improvements. *First one: [Vacuum Sensing](Vacuum-Sensing.md).*
 - Migrated: #21 — Y homing: the endstop trips at the mechanical collision, with no overtravel margin
 - Recheck my nozzle z-heights.
 - Try to develop a z-height repeatability measurement with Claude. Ideas: use vacuum touch sniffing with the primary fiducial. Rehome the z-axis and retest the height of both nozzles many times to see how repeatable this is. I worry that the microswitch may be a limiting factor in Z precision.

@@ -28,9 +28,9 @@ The working history is in issues
 
 ## The Sensor
 
-Each head has a digital pressure sensor at I²C address **0x6D** (`A109`) behind a multiplexer at
-**0x70** (`A112`; control byte `B1` selects VAC1, `B2` selects VAC2). The register map matches CFSensor's
-**XGZP6857D** family:
+Each head has a digital pressure sensor at I²C address **0x6D** (`A109`) behind a multiplexer
+at **0x70** (`A112`; control byte `B1` selects VAC1, `B2` selects VAC2). The register map
+matches CFSensor's **XGZP6857D** family:
 
 | Register | Contents |
 |---|---|
@@ -248,9 +248,10 @@ back.
 
 **Can it check while moving to bottom vision?** Not in stock OpenPnP. Each check is one read
 at a fixed step, and the vacuum actuators are set to wait for the machine to stop before
-reading. But the after-alignment check happens while the nozzle is already stopped at the
-camera, and a read now takes only 16 ms, so it's close to free. Turning it on is a good
-cheap upgrade.
+reading. (In 2.6 that wait actually comes from the *Coordinated Before Actuate* setting,
+because *Coordinated Before Read* is ignored: see [#38].) But the after-alignment check happens
+while the nozzle is already stopped at the camera, and a read now takes only 16 ms, so it's
+close to free. Turning it on is a good cheap upgrade.
 
 Part-off is the expensive one: a full probe per placement. It earns its time on small parts,
 which is where sticking is both likeliest and hardest to spot.
@@ -293,15 +294,22 @@ These apply to OpenPnP 2.6 and are true on any machine, not just a LumenPnP:
 ## Still Open
 
 - **Twenty consecutive 0402 picks** without a false "no part", which is the acceptance test in
-  #22. The 0402 entered range at 530–610 ms against an 800 ms timeout, so the timeout may need
+  [#22]. The 0402 entered range at 530–610 ms against an 800 ms timeout, so the timeout may need
   to go to 1000 ms.
-- **A shorter part-off probe.** The open and stuck curves are further apart at 200 ms (1220
-  counts) than at 500 ms (1000), which suggests a ~250 ms probe with a threshold near −4600
-  would work. That's based on one stuck part, though, so it needs more samples first.
-- **Place dwell**, currently a temporary 1000 ms. The reading is back at atmosphere in under
-  150 ms, and a longer wait doesn't help a part that's sticking for some other reason.
-- **Cross-checks:** N045 on N2 and N24 on N1, plus the other four tips.
-- **Reporting it to Opulo**, since the one-byte read is in the shipped config.
+- **A shorter part-off probe** ([#40]). The open and stuck curves are further apart at 200 ms
+  (1220 counts) than at 500 ms (1000), which suggests a ~250 ms probe with a threshold near
+  −4600 would work. That's based on one stuck part, though, so it needs more samples first.
+- **Place dwell** ([#25]), currently a temporary 1000 ms. The reading is back at atmosphere in
+  under 150 ms, and a longer wait doesn't help a part that's sticking for some other reason.
+- **Cross-checks** ([#41]): N045 on N2 and N24 on N1, plus the other four tips.
+- **Reporting it to Opulo** ([#42]), since the one-byte read came with the LumenPnP 4.1 config.
+
+[#22]: https://github.com/NatCrutcher/lumenpnp_nwc/issues/22
+[#25]: https://github.com/NatCrutcher/lumenpnp_nwc/issues/25
+[#38]: https://github.com/NatCrutcher/lumenpnp_nwc/issues/38
+[#40]: https://github.com/NatCrutcher/lumenpnp_nwc/issues/40
+[#41]: https://github.com/NatCrutcher/lumenpnp_nwc/issues/41
+[#42]: https://github.com/NatCrutcher/lumenpnp_nwc/issues/42
 
 ---
 
