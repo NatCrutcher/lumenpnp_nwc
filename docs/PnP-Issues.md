@@ -31,8 +31,7 @@
 ### General
 
 - Answered: when to check part-on and part-off, whether to use Establish Level, and whether a check can run while moving to bottom vision — see [Vacuum Sensing](Vacuum-Sensing.md#when-to-check) and its [Establish Level](Vacuum-Sensing.md#establish-level) section (short answers: pick side yes, place side no; not during motion in stock OpenPnP, but the after-alignment check now costs one 16 ms read).
-- Turns out the missing graph is an OpenPnP display quirk. Since we're using Absolute with Establish
-    Level off, the part-off graph panel gets hidden even though the data is still being recorded. - This seems like a bug to me. Let's add it as an issue.
+- Migrated: #43 — Part-off graph: the probe curve is recorded but hidden with Absolute + Establish Level off, and the probe records on the part-on setting (still present on `upstream/test`)
 - Now that the vacuum sensing is working better, let's tune for speed.
 - Migrated #17 — Regenerate packages.xml.
 - Migrated: #18 — Live camera feed jumps while the machine is idle; settle timeouts hand unsettled frames to vision silently
