@@ -290,6 +290,10 @@ These apply to OpenPnP 2.6 and are true on any machine, not just a LumenPnP:
   *before* the part-off check runs, so OpenPnP believes the nozzle is empty. The job stops,
   which is the point, but you clear the part by hand. Still true on current `upstream/test`;
   tracked in [#44] and [#33](https://github.com/NatCrutcher/lumenpnp_nwc/issues/33).
+- **Nothing shears the part loose at release.** A part that sticks is a mechanical problem, not
+  a sensing one: the vacuum is cut, the dwell expires, and the nozzle lifts straight up. A
+  sideways jog against the tape pocket fixes it on recycle — see
+  [Peel Jog](NozzleSetup.md#peel-jog) and #45.
 
 ## Try It Yourself
 

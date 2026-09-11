@@ -104,6 +104,152 @@ The graph in Nozzle Tips → N045 → Part Detection plots the curve for the pic
 — it separates a slow build-up (timing) from a plateau short of the range
 (seal).
 
+## Peel Jog
+
+Releasing a part is "cut the vacuum, wait out the place dwell, lift straight
+up" — nothing shears the bond between tip and part, so a small part held by
+residual vacuum, static or surface tack rides back up on the nozzle. On this
+machine that showed up first when recycling 0402s: **3 of 14 recycles** left
+the part on the tip across the 2026-09-11 sessions, the first with part-off
+detection live (`config/log/OpenPnP.log`, `OpenPnP.0.log`).
+
+The fix is a sideways jog, injected between the release and the lift. The
+pocket wall holds the part while the tip slides off it. The jog follows the
+part's long axis, or across the tape for a square part — see
+[Geometry](#geometry). It applies to the OSLON Pure 1414 too, which is square
+and is the part #24 is about; #45 covers it on the recycle side, and the same
+idea at *place* is rung 3 of #24.
+
+### Hook Points
+
+`ReferenceNozzle.place()` is shared by board placements, discards and feeder
+take-backs, and fires `Nozzle.AfterPlace` while still at place Z, before the
+caller retracts. That is the only window in which motion can be injected. The
+three paths are told apart by which events bracket them:
+
+| Path | Bracketing events | Fired from |
+| --- | --- | --- |
+| Recycle / take-back | `Feeder.BeforeTakeBack` / `Feeder.AfterTakeBack` | the GUI Recycle button, and nowhere else |
+| Discard | `Job.BeforeDiscard` / `Job.AfterDiscard` | `Cycles.discardAlways()` |
+| Board placement | neither | — |
+
+So `Feeder.BeforeTakeBack` arms a flag, `Nozzle.AfterPlace` acts only when
+armed, and placements are untouched. Recycle, discard and place can each get
+their own behaviour with no change to OpenPnP itself.
+
+Discard is deliberately left alone for now: `discard-location` is at z = 30,
+i.e. safe Z, so the part is dropped in free air with nothing to shear against.
+A peel there only becomes possible once #27 sets a real bin-floor Z.
+
+### The Scripts
+
+Three files in `config/scripts/Events/`, the first event scripts on this
+machine:
+
+| File | Role |
+| --- | --- |
+| `Feeder.BeforeTakeBack.peel.js` | arms `nwc.peel.armed` in `config.scriptState` as `nozzle\|feederId\|millis` |
+| `Nozzle.AfterPlace.peel.js` | consumes the flag, checks the gates, jogs |
+| `Feeder.AfterTakeBack.peel.js` | clears the flag; in practice a diagnostic |
+
+Tunables live at the top of `Nozzle.AfterPlace.peel.js`: `LIFT_MM` 0.00,
+`BACK_MM` 0.10, `FWD_MM` 0.20, `SPEED` 0.2, `MAX_AGE_MS` 30000, `XY_TOL_MM` 0.5,
+`SQUARE_TOL_MM` 0.05.
+
+Three gates have to pass before anything moves, because a take-back that
+throws before `place()` leaves the flag armed and `Feeder.AfterTakeBack` never
+runs — it is not in a `finally`. The nozzle name must match, the flag must be
+under 30 s old, and the nozzle must be standing within 0.5 mm of the armed
+feeder's pick location. The last one is what actually protects a board: a
+placement is never that close to a feeder. The flag is consumed before any
+gate is evaluated, so a stale one survives at most a single place event.
+
+**Every failure is swallowed and logged.** An exception out of
+`Nozzle.AfterPlace` aborts `place()`, and `ReferenceStripFeeder.takeBackPart()`
+only decrements `feedCount` *after* `putPartBack()` returns — so a throwing
+script silently desyncs the feed count from the tape. The peel is an
+optimisation; the part-off check that runs straight afterwards is the real
+safety net. Grep the log for `[peel]`; TinyLog cannot resolve a caller class
+from Nashorn, so the tag is the only handle.
+
+### Geometry
+
+The jog follows the part's **long** axis where it has one. The footprint's
+body width lies along part-local X, so the machine-frame heading is
+`(cos C, sin C)` when `bodyWidth > bodyHeight`, and C + 90° otherwise, where C
+is the part's rotation in the tape.
+
+**Take C from `feeder.getPickLocation()`, not from `nozzle.getLocation()`.**
+`place()` calls `setPart(null)` before firing `Nozzle.AfterPlace`, and
+`AbstractNozzle.setPart(null)` clears the nozzle's `rotationModeOffset`
+(`AbstractNozzle.java:112-114`). From that moment `getLocation()` reports the
+raw *head* rotation instead of the *part* rotation — on N1 the two differ by
+exactly 90°, so the jog comes out across the part instead of along it. The log
+names the moment:
+
+```
+17:14:00.117  N1.moveTo((..., -0.154867 mm), 1.0)                        ; pick location
+17:14:00.117  N1.toHeadLocation((..., -90.154867 mm)) rotation mode offset 90.0
+17:14:00.505  N1.place()
+17:14:01.514  Nozzle N1: set rotation mode offset: none.                 ; setPart(null)
+17:14:01.641  [peel] ... part C=-0.15 (head -90.15)
+```
+
+The *move targets* still use the current rotation from `nozzle.getLocation()`,
+so the nozzle holds the angle it is physically at. Only the axis derivation
+uses the pick rotation. Mixing those up would rotate the nozzle 90° while the
+part is in the pocket.
+
+A **square** part has no long axis, so the jog runs **across the tape** — the
+perpendicular to the line from the feeder's reference hole to its last hole
+(`getIdealLineLocations()`). A square part sits in a square pocket, so the
+clearance is the same either way and the only thing left to decide on is
+tape-shift risk: the strip feeders do not always hold the tape firmly, and a
+jog along its length can drag the tape and lose the taught position. That is
+the case for the OSLON Pure 1414 (1.6 × 1.6 mm) in 8 mm tape at 4 mm pitch.
+
+It happens that both parts jog across the tape on this machine. The 0402's
+long axis already lies across the tape — with `9LED_2_06_r0B` running along −Y
+the pick rotation is C ≈ 0, so the long-axis heading is (1, 0), i.e. ±X.
+Verified against the real feeder geometry: the along-tape component of both
+jogs is 0.000 mm for the 0402 and for the 1414. If a jog ever comes out along
+±Y on these two feeders, the rotation source is wrong again.
+
+Two cases still skip rather than guess, because jogging along a pocket's short
+dimension is the one thing that can jam the tip against a pocket wall: a part
+with no footprint or no body dimensions, and a square part on a feeder that
+gives no tape direction (anything that is not a strip feeder, or a strip feeder
+whose two holes are coincident).
+
+`BACK_MM` then `FWD_MM` is relative travel, so the net displacement from the
+pick point is only `FWD_MM - BACK_MM`: the default −0.1 / +0.2 stays within
+**±0.1 mm of pocket centre**, not 0.2. For an 0402 (1.0 × 0.5 mm body) in 8 mm
+paper tape the pocket is roughly 1.15 × 0.65 mm, so there is ~0.15 mm of
+clearance to the wall on either axis. The first move guarantees wall contact,
+the second guarantees contact on the opposite wall with travel left over to
+shear.
+
+`LIFT_MM` defaults to **0**. Jogging along the long axis should not need a
+lift at all: at place Z the part rests on the pocket floor and the end wall
+takes the load, which is where the shear works best. Lifting also lifts a part
+that is *still stuck*, and a 0.35 mm part in a ~0.6 mm pocket has little
+headroom before its top edge clears the rim — at which point the jog drags it
+out onto the carrier tape instead of shearing it off. That failure **passes**
+the part-off check while losing the part. Raise it to 0.05 only if the tip is
+seen scrubbing the part along the pocket floor.
+
+### Installing a Script
+
+`Scripting` negatively caches events that had no scripts, so dropping files
+into `config/scripts/Events/` is not enough on a running instance. Use
+**Machine Setup → Scripting → clear the scripting engine pool**, which clears
+that cache too; a restart also works. OpenPnP rewrites its XML on exit but
+never touches `scripts/`, so the files can be added while it is running.
+
+If `Feeder.AfterTakeBack.peel.js` ever logs that the flag survived the
+take-back, `Nozzle.AfterPlace.peel.js` did not run — that cache, or a
+filename typo, is the usual reason.
+
 ## Session findings (Aug 2026)
 
 > **Superseded.** These readings came from the one-byte vacuum read, which
