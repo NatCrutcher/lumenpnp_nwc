@@ -1,0 +1,170 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.11"
+# dependencies = []
+# ///
+"""List the vacuum-sensor sample runs in an OpenPnP log, and export any one of them.
+
+OpenPnP's Part Detection graph shows one pick or place at a time, forgets it on the next,
+and hides the part-off probe entirely when Establish Level is off. The log keeps every
+sample. This turns it back into curves:
+
+  runs (default)    One line per burst of vacuum reads: time, sensor (VAC1/VAC2, from the
+                    I2C multiplexer channel), the nozzle event that preceded it, sample
+                    count and rate, first/last/extreme level, time to settle within 100
+                    counts, and any torn-read spikes.
+
+  --csv HH:MM:SS    Dump the run starting at that time as t_ms,value for plotting.
+
+  --messages        The vacuum pass/fail lines OpenPnP printed ("... outside PartOn range").
+
+A torn read is a two-byte read that straddles a conversion: high byte from one, low byte
+from the next. It shows as an out-and-back spike that differs from a neighbour by almost
+exactly a multiple of 256. Other out-and-back spikes are reported as pneumatic. See
+docs/Vacuum-Sensing.md.
+
+Works on logs from either the old one-byte read (bytes:1) or the two-byte read (bytes:2).
+"""
+
+import argparse
+import os
+import re
+import statistics
+import sys
+
+GAP_S = 0.1                 # reads further apart than this start a new run
+SETTLE_COUNTS = 100
+STAMP = re.compile(r"^(\d{4}-\d\d-\d\d) (\d\d):(\d\d):(\d\d\.\d+) ")
+MUX = re.compile(r">> M260 A112 B(\d) S1")
+READ = re.compile(r"actuatorRead response: .*bytes:(\d) data:(-?\d+)")
+EVENT = re.compile(r"ReferenceNozzle DEBUG: (N\d+)\.(pick|place)\(\)")
+MESSAGE = re.compile(r"ReferenceNozzle DEBUG: (Nozzle tip .* outside Part(?:On|Off) range .*)")
+
+
+def seconds(m):
+    return int(m.group(2)) * 3600 + int(m.group(3)) * 60 + float(m.group(4))
+
+
+def hms(t):
+    return "%02d:%02d:%06.3f" % (t // 3600, t % 3600 // 60, t % 60)
+
+
+def parse(path):
+    """Samples as (t, sensor, bytes, value), nozzle events as (t, label), messages as (t, text)."""
+    samples, events, messages = [], [], []
+    mux = None
+    with open(path, errors="replace") as f:
+        for line in f:
+            stamp = STAMP.match(line)
+            if not stamp:
+                continue
+            t = seconds(stamp)
+            if m := MUX.search(line):
+                mux = int(m.group(1))
+            elif m := READ.search(line):
+                samples.append((t, mux, int(m.group(1)), int(m.group(2))))
+            elif m := EVENT.search(line):
+                events.append((t, "%s.%s" % (m.group(1), m.group(2))))
+            elif m := MESSAGE.search(line):
+                messages.append((t, m.group(1)))
+    return samples, events, messages
+
+
+def split_runs(samples):
+    runs, cur = [], []
+    for s in samples:
+        if cur and (s[0] - cur[-1][0] > GAP_S or s[1] != cur[-1][1]):
+            runs.append(cur)
+            cur = []
+        cur.append(s)
+    if cur:
+        runs.append(cur)
+    return runs
+
+
+def spikes(values):
+    """Out-and-back excursions over 60 counts, classified torn or pneumatic."""
+    found = []
+    for i in range(1, len(values) - 1):
+        a, b, c = values[i - 1], values[i], values[i + 1]
+        if (b - a) * (b - c) <= 0 or min(abs(b - a), abs(b - c)) <= 60:
+            continue
+        torn = False
+        for n in (a, c):
+            d = b - n
+            fold = abs(((d + 128) % 256) - 128)
+            if abs(d) >= 128 and fold <= 40:
+                torn = True
+        found.append((i, b, "torn" if torn else "pneumatic"))
+    return found
+
+
+def settle_ms(run):
+    """Time after which every sample stays within SETTLE_COUNTS of the mean of the last 10."""
+    t0 = run[0][0]
+    values = [s[3] for s in run]
+    final = statistics.mean(values[-10:])
+    for i in range(len(values)):
+        if all(abs(v - final) <= SETTLE_COUNTS for v in values[i:]):
+            return round(1000 * (run[i][0] - t0))
+    return None
+
+
+def describe(run, events):
+    t0 = run[0][0]
+    values = [s[3] for s in run]
+    before = [e for e in events if e[0] <= t0 + 0.05]
+    event = before[-1][1] if before else "-"
+    dur = 1000 * (run[-1][0] - t0)
+    rate = (len(run) - 1) / (dur / 1000) if dur > 0 else 0
+    # One-byte reads wrap at atmosphere (0 -> 255), so an extreme means nothing there.
+    extreme = (min(values) if abs(min(values)) > abs(max(values)) else max(values)) \
+        if run[0][2] == 2 else "-"
+    torn = [s for s in spikes(values) if s[2] == "torn"]
+    other = [s for s in spikes(values) if s[2] != "torn"]
+    return "%s  VAC%s  b%d  %-9s %4d  %5.0f ms  %4.0f/s  %7d %7d %7s  %7s  %s" % (
+        hms(t0), run[0][1] or "?", run[0][2], event, len(run), dur, rate,
+        values[0], values[-1], extreme,
+        settle_ms(run) if len(run) >= 20 else "-",
+        ", ".join("%s@%dms" % (k, round(1000 * (run[i][0] - t0)))
+                  for i, _, k in torn + other) or "")
+
+
+def main():
+    root = os.environ.get("NWC_DIR", os.path.expanduser("~/dev/lumenpnp_nwc"))
+    ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    ap.add_argument("log", nargs="?", default=os.path.join(root, "config/log/OpenPnP.log"))
+    ap.add_argument("--csv", metavar="HH:MM:SS", help="export the run starting at this time")
+    ap.add_argument("--messages", action="store_true", help="list OpenPnP's vacuum pass/fail lines")
+    ap.add_argument("--min", type=int, default=5, help="hide runs with fewer samples (default 5)")
+    args = ap.parse_args()
+
+    samples, events, messages = parse(args.log)
+    if not samples:
+        sys.exit("no vacuum reads in %s (log level must be TRACE for actuatorRead lines)" % args.log)
+    runs = split_runs(samples)
+
+    if args.messages:
+        for t, text in messages:
+            print(hms(t), text)
+        return
+
+    if args.csv:
+        h, m, s = args.csv.split(":")
+        want = int(h) * 3600 + int(m) * 60 + float(s)
+        run = min(runs, key=lambda r: abs(r[0][0] - want))
+        if abs(run[0][0] - want) > 1.0:
+            sys.exit("no run starts within 1 s of %s" % args.csv)
+        print("t_ms,value")
+        for t, _, _, v in run:
+            print("%.1f,%d" % (1000 * (t - run[0][0]), v))
+        return
+
+    print("start         sensor b  after       n   duration  rate    first    last extreme  settle  spikes")
+    for run in runs:
+        if len(run) >= args.min:
+            print(describe(run, events))
+
+
+if __name__ == "__main__":
+    main()

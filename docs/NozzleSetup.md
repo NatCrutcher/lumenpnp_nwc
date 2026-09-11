@@ -65,6 +65,10 @@ onto that tip — it sizes the bottom-vision window.
 
 ## Vacuum part detection
 
+Current thresholds, the two-byte sensor scale, part-off detection, and how to
+record a settling curve are in [Vacuum Sensing](Vacuum-Sensing.md). This
+section covers how OpenPnP evaluates the check.
+
 `ReferenceNozzle.isPartOn()`, per **Measurement Method**:
 
 - **Absolute** — passes iff `low ≤ reading ≤ high`, inclusive.
@@ -74,11 +78,12 @@ onto that tip — it sizes the bottom-vision window.
   So switching to Difference means widening the absolute range to contain the
   free-flow baseline, not narrowing it around the part-on level.
 
-On this machine the sensor value **falls** as vacuum rises, so a Difference
-Range is negative (e.g. `−20 .. −3`). The stock `0.0 .. 0.0` fails everything
-— set it before selecting the method.
+On this machine the sensor value **falls** as vacuum rises (it reads more
+negative), so a Difference Range is negative, and the Vacuum Range's *Low*
+field holds the sealed, high-vacuum end. The stock `0.0 .. 0.0` fails
+everything — set it before selecting the method.
 
-**Establish Level** (on for N045, part-on and part-off): during the pick the
+**Establish Level** (part-on only, on N045 and N24): during the pick the
 level is sampled repeatedly until it reaches the Vacuum Range **or the pick
 dwell expires**, whichever comes first. Pick Dwell is therefore a timeout on
 vacuum build-up, not just a settling delay — too short and a slow-sealing part
@@ -100,6 +105,11 @@ The graph in Nozzle Tips → N045 → Part Detection plots the curve for the pic
 (seal).
 
 ## Session findings (Aug 2026)
+
+> **Superseded.** These readings came from the one-byte vacuum read, which
+> discarded the low eight bits of the sensor ([#22](https://github.com/NatCrutcher/lumenpnp_nwc/issues/22)).
+> The numbers below are on the old 0–255 scale and are **not current settings**;
+> multiply `(old − 256) × 256` to compare. See [Vacuum Sensing](Vacuum-Sensing.md).
 
 **0402 "No part detected" on N045.** Readings: **235 free-flow, 229 with the
 0402 on the tip** — only 6 counts of signal, against a PartOn range of
@@ -129,4 +139,4 @@ gives on the same tip to tell "small part" from "leaking tip."
 
 Other current N045 part-detection settings: Method Part On `Absolute`, PartOn
 range `215 .. 232`, Method Part Off `None` (part-off range `248 .. 255`
-recorded but unused). N24: `Absolute`, PartOn `219 .. 239`.
+recorded but unused). N24: `Absolute`, PartOn `219 .. 244`.

@@ -12,6 +12,7 @@ OpenPnP fork, and measuring what the machine sees.
 | [`openpnp-dev-setup`](../bin/openpnp-dev-setup) | Fork | One-time per-PC setup of the fork working tree |
 | [`pr-preflight`](../bin/pr-preflight) | Fork | Pre-PR checks on an OpenPnP feature branch |
 | [`bv-analyze`](../bin/bv-analyze) | Measure | Measures a bottom-camera capture; replays the threshold pipeline |
+| [`vacuum-log`](../bin/vacuum-log) | Measure | Lists vacuum-sensor runs in an OpenPnP log; flags torn reads; exports curves |
 
 Everything reads the live config at `~/dev/lumenpnp_nwc/config`, overridable with `NWC_DIR`.
 
@@ -107,3 +108,23 @@ Running the script is all that is needed — uv resolves and caches the environm
 (the first one downloads ~70 MB of OpenCV), and there is no virtualenv to create or activate.
 This is the pattern to copy for any future Python tool here. It requires `uv` on `PATH`
 (`~/.local/bin/uv`).
+
+## Measuring Vacuum
+
+`vacuum-log` exists because OpenPnP's Part Detection graph shows one pick at a time, forgets it on
+the next, and hides the part-off probe entirely when Establish Level is off. The log keeps every
+sample. With no arguments it reads `config/log/OpenPnP.log` and prints one line per burst of
+vacuum reads: which sensor (from the I²C multiplexer channel), the nozzle event that preceded it,
+sample count and rate, first/last/extreme level, time to settle within 100 counts, and any
+out-and-back spikes, classified as torn reads or pneumatic.
+
+```sh
+vacuum-log                                     # every run in the current log
+vacuum-log config/log/OpenPnP.3.log            # an older log
+vacuum-log --messages                          # OpenPnP's "outside PartOn range" lines
+vacuum-log --csv 10:22:15.765 > stuck.csv      # one run as t_ms,value
+```
+
+It reads both the old one-byte (`bytes:1`) and current two-byte (`bytes:2`) reads. The log level
+must be TRACE for the `actuatorRead` lines to be there. See [Vacuum Sensing](Vacuum-Sensing.md).
+
