@@ -8,7 +8,7 @@ switched off entirely.
 Reading two bytes instead of one gives **256× the resolution**, and the same 0402 now shows
 **1400 counts** of signal. Along the way this turned up a torn-read bug, a pick dwell that had
 never once let the vacuum settle, and enough margin to turn on stuck-part detection, which has
-already caught a real stuck 0402.
+already caught three real stuck 0402s.
 
 ![One-byte versus two-byte vacuum readings on the same nozzle tip](img/vacuum/vacuum-before-after.png)
 
@@ -164,11 +164,17 @@ settings on this machine:
 
 | Tip | Method | Vacuum Range (Low … High) | Establish Level | Pick dwell |
 |---|---|---|---|---|
-| N045 | Absolute | −7900 … −6050 | on | 800 ms |
+| N045 | Absolute | −7900 … −5800 | on | 800 ms |
 | N24 | Absolute | −7800 … −3500 | on | 500 ms |
 
-The N045 High of −6050 sits midway between an open tip and a seated 0402, about 700 counts
-from each. Every margin is well over the 255 counts a torn read could have added.
+The N045 High comes from ten 0402 picks. The after-pick check read −6302 … −6949 (σ ≈ 256:
+seal quality varies from pick to pick), and a pick with no part read −5325. −5800 sits roughly
+midway between the worst 0402 and no part. The first High, −6050, was set midway between the
+2 s plateaus of a single 0402 pick and an open tip. That looked like 700 counts of margin each
+side, but it left the worst real pick only 252 counts inside. **One pick's plateau isn't the
+spread of many.**
+
+The 0402 enters range at 409–581 ms, well inside the 800 ms timeout.
 
 **Low and High are numeric, not "low vacuum" and "high vacuum".** More vacuum is more
 negative, so **Low is the sealed end**. It's easy to enter these backwards.
@@ -178,9 +184,10 @@ graph from OpenPnP shows it:
 
 ![OpenPnP Part Detection graph: 0603 on N045 with Establish Level](img/vacuum/openpnp-establish-0603-n045.png)
 
-The curve stops at about 400 ms, the moment the 0603 crossed −6050. The straight line out to
-about 820 ms isn't data: it's OpenPnP joining that point to the after-pick check, a single read
-taken once the nozzle has retracted to safe Z. By then the vacuum has kept building. On N24,
+The curve stops at about 400 ms, the moment the 0603 crossed −6050 (the High at the time). The
+straight line out to
+about 820 ms isn't data: it's OpenPnP joining that point to the after-pick check, a single
+read taken once the nozzle has retracted to safe Z. By then the vacuum has kept building. On N24,
 the k05 crosses at about 183 ms:
 
 ![OpenPnP Part Detection graph: k05 (VQFN-24) on N24 with Establish Level](img/vacuum/openpnp-establish-k05-n24.png)
@@ -213,16 +220,27 @@ taken with the valve open: an open tip reads "no part", a sealed one reads "part
 
 ![Part-off probe: open tip versus a stuck 0402](img/vacuum/vacuum-part-off-probe.png)
 
-That orange curve is a real stuck 0402. It was caught and stopped the job. A sealed tip also
-starts pulling vacuum within ~20 ms, against ~85 ms for an open one.
+The orange curves are three real stuck 0402s, all caught; the blue ones are ten clean places.
+A sealed tip starts pulling vacuum sooner (37–68 ms after the valve opens, against 53–123 ms for
+an open tip), so the two separate early. These probes were recorded at 500 ms; 300 ms is enough.
 
 | Tip | Method | Range (Low … High) | Probing Time | Dwell Time | Checked |
 |---|---|---|---|---|---|
-| N045 | Absolute | −5600 … 500 | 500 ms | 0 | after place |
+| N045 | Absolute | −5150 … 500 | 300 ms | 0 | after place |
 | N24 | Absolute | −2500 … 500 | 250 ms | 0 | after place, before pick |
 
-The N045 probe is long because it has the smallest margin: at 500 ms an open tip reads about
-−5100 and a stuck 0402 about −6100. The probe costs its full length on every placement.
+N045 has the smallest margin, so its probe time came from the data. At each candidate time,
+the threshold goes midway between the worst stuck and the worst open sample:
+
+| Probe | Threshold | Worst open | Worst stuck | Open mean from threshold |
+|---|---|---|---|---|
+| 250 ms | −4850 | 387 above | 372 below | 3.7σ |
+| **300 ms** | **−5150** | **451 above** | **443 below** | **5.8σ** |
+| 500 ms | −5600 | 440 above | 476 below | 13.5σ |
+
+300 ms keeps the full margin of the 500 ms probe and saves 200 ms per placement. Before that,
+the spread in when an open tip starts pulling vacuum dominates. The probe costs its full
+length on every placement, so it's worth trimming.
 
 **Where's the graph?** The Part Detection tab only shows the part-off graph when Establish
 Level (part-off) is ticked or the method is Difference. With Absolute and Establish Level off,
@@ -270,9 +288,8 @@ These apply to OpenPnP 2.6 and are true on any machine, not just a LumenPnP:
   whether to record at all using the part-on settings, not the part-off ones.
 - **A detected stuck part isn't discarded or retried.** `place()` clears the nozzle's part
   *before* the part-off check runs, so OpenPnP believes the nozzle is empty. The job stops,
-  which is the point, but you clear the part by hand. Tracked in
-  [#23](https://github.com/NatCrutcher/lumenpnp_nwc/issues/23) and
-  [#33](https://github.com/NatCrutcher/lumenpnp_nwc/issues/33).
+  which is the point, but you clear the part by hand. Still true on current `upstream/test`;
+  tracked in [#44] and [#33](https://github.com/NatCrutcher/lumenpnp_nwc/issues/33).
 
 ## Try It Yourself
 
@@ -284,8 +301,9 @@ These apply to OpenPnP 2.6 and are true on any machine, not just a LumenPnP:
    set both ranges to −32000 … 32000, and set the pick dwell to 2000 ms. Difference with
    Establish Level off samples for the whole dwell with no early exit. Pick nothing, then a
    small part, then a big one, and screenshot each graph.
-4. Put **High** midway between the open level and your smallest part's level, and **Low**
-   below your finger reading. Switch back to *Absolute* with Establish Level on, and set the
+4. Put **High** midway between the open level and the *worst* of several picks of your
+   smallest part, read at the after-pick check. The plateau of a single pick overstates the
+   margin. Put **Low** below your finger reading. Switch back to *Absolute* with Establish Level on, and set the
    pick dwell to comfortably past where the smallest part enters the range.
 5. For part-off, set **Dwell Time to 0**, then find the probe time where an open tip and a
    stuck part are well separated. Holding a finger on the tip at safe Z right after a place is
@@ -293,23 +311,23 @@ These apply to OpenPnP 2.6 and are true on any machine, not just a LumenPnP:
 
 ## Still Open
 
-- **Twenty consecutive 0402 picks** without a false "no part", which is the acceptance test in
-  [#22]. The 0402 entered range at 530–610 ms against an 800 ms timeout, so the timeout may need
-  to go to 1000 ms.
-- **A shorter part-off probe** ([#40]). The open and stuck curves are further apart at 200 ms
-  (1220 counts) than at 500 ms (1000), which suggests a ~250 ms probe with a threshold near
-  −4600 would work. That's based on one stuck part, though, so it needs more samples first.
+- **Confirm the −5800 part-on High** in normal use. The estimate that it puts the worst 0402
+  ~350 counts inside comes from a curve, not from picks at that setting.
+  `bin/vacuum-log --messages` lists every failed check.
 - **Place dwell** ([#25]), currently a temporary 1000 ms. The reading is back at atmosphere in
   under 150 ms, and a longer wait doesn't help a part that's sticking for some other reason.
 - **Cross-checks** ([#41]): N045 on N2 and N24 on N1, plus the other four tips.
 - **Reporting it to Opulo** ([#42]), since the one-byte read came with the LumenPnP 4.1 config.
+- **OpenPnP fixes:** the hidden part-off graph ([#43]), and stuck parts that are neither
+  discarded nor retried ([#44]).
 
 [#22]: https://github.com/NatCrutcher/lumenpnp_nwc/issues/22
 [#25]: https://github.com/NatCrutcher/lumenpnp_nwc/issues/25
 [#38]: https://github.com/NatCrutcher/lumenpnp_nwc/issues/38
-[#40]: https://github.com/NatCrutcher/lumenpnp_nwc/issues/40
 [#41]: https://github.com/NatCrutcher/lumenpnp_nwc/issues/41
 [#42]: https://github.com/NatCrutcher/lumenpnp_nwc/issues/42
+[#43]: https://github.com/NatCrutcher/lumenpnp_nwc/issues/43
+[#44]: https://github.com/NatCrutcher/lumenpnp_nwc/issues/44
 
 ---
 

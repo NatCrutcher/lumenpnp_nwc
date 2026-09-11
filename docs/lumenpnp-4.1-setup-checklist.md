@@ -123,14 +123,18 @@ Commit after each. Note the reported residual/error value where OpenPnP gives on
 - [ ] `git commit -m "nozzle tip runout calibration"`
 
 ### Vacuum part detection
-- [ ] Baseline reading, nozzle open to air (nothing picked): ______
-- [ ] Reading with nozzle sealed against a flat surface: ______
-- [ ] Reading holding a 0402: ______
-- [ ] Reading holding a large part (e.g. QFN or electrolytic): ______
-- [ ] Thresholds set with clear separation between picked and not-picked.
+*Two-byte read, raw counts; more vacuum is more negative. See [Vacuum Sensing](Vacuum-Sensing.md).
+The stock one-byte read can't resolve these (#22).*
+- [x] Baseline reading, nozzle open to air (nothing picked): **−5353** (N045 on N1), **−1056** (N24 on N2)
+- [x] Reading with nozzle sealed against a flat surface: **−7390** (N045), **−7237** (N24), finger over the tip
+- [x] Reading holding a 0402: **−6764** after 2 s; **−6302 … −6949** at the after-pick check (10 picks)
+- [x] Reading holding a large part (e.g. QFN or electrolytic): **−6865** (k05, VQFN-24, on N24)
+- [x] Thresholds set with clear separation between picked and not-picked.
       *(If 0402 and open-air readings overlap, part detection is worthless — fix the leak first.)*
-- [ ] Part-off detection (blow-off) verified.
-- [ ] `git commit -m "vacuum part detection thresholds"`
+      N045 −7900 … −5800, N24 −7800 … −3500.
+- [x] Part-off detection verified: three stuck 0402s caught on N045 (300 ms valve-open probe;
+      this machine has no blow-off). #23
+- [x] `git commit -m "vacuum part detection thresholds"` — `d57ff65`, `2b048f1`
 
 ---
 

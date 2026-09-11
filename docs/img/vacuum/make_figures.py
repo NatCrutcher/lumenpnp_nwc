@@ -53,6 +53,11 @@ def clean(ax):
     ax.tick_params(length=0)
 
 
+def num(v):
+    """Integer with a typographic minus, to match the axis labels."""
+    return ("%d" % v).replace("-", "\u2212")
+
+
 def end_label(ax, x, y, text, color):
     """Direct label at a line's end, in text ink with a colored key mark."""
     ax.plot([x + 25], [y], marker="s", markersize=6, color=color, clip_on=False)
@@ -109,29 +114,34 @@ def before_after():
 
 
 def part_off_probe():
-    fig, ax = plt.subplots(figsize=(8.5, 4.2))
-    ax.axhspan(-5600, 600, color=BAND, zorder=0)
-    ax.text(530, -300, "PartOff range −5600 … 500: pass", color=INK_2, fontsize=8.5, ha="right", va="center")
-    ax.axhline(-5600, color=INK_2, linewidth=1)
+    fig, ax = plt.subplots(figsize=(8.5, 4.4))
+    probe, threshold = 300, -5150
+    ax.axhspan(threshold, 600, color=BAND, zorder=0)
+    ax.text(530, -300, "PartOff range −5150 … 500: pass", color=INK_2, fontsize=8.5, ha="right", va="center")
+    ax.axhline(threshold, color=INK_2, linewidth=1)
+    ax.axvline(probe, color=INK_2, linestyle=(0, (3, 3)), linewidth=1)
+    ax.text(probe + 6, -7600, "probe ends: 300 ms\n(recorded to 500 ms)", color=INK_2, fontsize=8.5, va="bottom")
 
-    runs = [("n045_partoff_open_a", OPEN, None), ("n045_partoff_open_b", OPEN, "no part (two probes)"),
-            ("n045_partoff_stuck_0402", SMALL, "0402 stuck on the tip")]
-    for name, color, label in runs:
+    runs = [("n045_partoff_open_" + k, OPEN) for k in "abcdefghij"] + \
+           [("n045_partoff_stuck_0402_" + k, SMALL) for k in "abc"]
+    at_probe = {OPEN: [], SMALL: []}
+    for name, color in runs:
         t, v = load(name)
-        # The final row is the one read OpenPnP takes after closing the valve;
-        # the decision is the last valve-open sample before it.
-        ax.plot(t[:-1], v[:-1], color=color, label=label)
-        ax.plot([t[-2]], [v[-2]], marker="o", markersize=8, color=color,
-                markeredgecolor=SURFACE, markeredgewidth=2, zorder=5)
-    ax.annotate("decision: −6094\n→ “Part vacuum-detected\n    on nozzle after place”",
-                xy=(507, -6094), xytext=(330, -7350), color=INK, fontsize=8.5,
-                arrowprops=dict(arrowstyle="-", color=INK_2, linewidth=1))
-    ax.annotate("decision: −5095, −5080\n→ pass", xy=(505, -5090), xytext=(345, -4350),
+        # The final row is the one read OpenPnP takes after closing the valve; drop it.
+        t, v = t[:-1], v[:-1]
+        ax.plot(t, v, color=color, linewidth=1.5, alpha=0.9)
+        i = max(j for j, x in enumerate(t) if x <= probe)
+        at_probe[color].append(v[i])
+        ax.plot([t[i]], [v[i]], marker="o", markersize=7, color=color,
+                markeredgecolor=SURFACE, markeredgewidth=1.5, zorder=5)
+    lo, hi = min(at_probe[OPEN]), max(at_probe[OPEN])
+    ax.annotate("10 probes, no part:\n%s … %s → pass" % (num(hi), num(lo)), xy=(probe, lo), xytext=(360, -3900),
                 color=INK, fontsize=8.5, arrowprops=dict(arrowstyle="-", color=INK_2, linewidth=1))
-    ax.annotate("sealed tip: vacuum\nwithin ~20 ms", xy=(25, -400), xytext=(40, -5300),
-                color=INK_2, fontsize=8.5, arrowprops=dict(arrowstyle="-", color=INK_2, linewidth=1))
-    ax.annotate("open tip: ~85 ms", xy=(88, -150), xytext=(120, -700),
-                color=INK_2, fontsize=8.5, arrowprops=dict(arrowstyle="-", color=INK_2, linewidth=1))
+    lo, hi = min(at_probe[SMALL]), max(at_probe[SMALL])
+    ax.annotate("3 probes, 0402 stuck:\n%s … %s → job stops" % (num(hi), num(lo)), xy=(probe, hi), xytext=(360, -6600),
+                color=INK, fontsize=8.5, arrowprops=dict(arrowstyle="-", color=INK_2, linewidth=1))
+    ax.plot([], [], color=OPEN, label="no part")
+    ax.plot([], [], color=SMALL, label="0402 stuck on the tip")
     ax.set_xlim(0, 540)
     ax.set_ylim(-7800, 600)
     ax.set_title("The Part-Off Probe")
@@ -141,7 +151,6 @@ def part_off_probe():
     clean(ax)
     fig.subplots_adjust(left=0.1, right=0.97, top=0.9, bottom=0.14)
     fig.savefig(os.path.join(HERE, "vacuum-part-off-probe.png"), dpi=160)
-
 
 if __name__ == "__main__":
     before_after()
