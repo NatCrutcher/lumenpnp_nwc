@@ -120,6 +120,13 @@ part's long axis, or across the tape for a square part — see
 and is the part #24 is about; #45 covers it on the recycle side, and the same
 idea at *place* is rung 3 of #24.
 
+**Result (2026-09-11).** Confirmed working on `r0B` (0402, long axis) and `p04`
+(OSLON Pure 1414, square, across the tape) with `LIFT_MM = 0` — the part comes
+off at the jog. Across the two sessions that ran the scripts: 8 peels, 8
+completed, no skips, no script failures, and **no part-off failures**, against
+3 in 15 take-backs before. The lift has not been needed, and no scrubbing was
+seen, so 0 stands as the default.
+
 ### Hook Points
 
 `ReferenceNozzle.place()` is shared by board placements, discards and feeder
