@@ -1332,7 +1332,7 @@
          </entry>
       </properties>
       <nozzle-tips>
-         <nozzle-tip class="org.openpnp.machine.reference.ReferenceNozzleTip" id="NT1" name="N045" pick-dwell-milliseconds="2000" place-dwell-milliseconds="300" place-blow-off-level="0.0" vision-calibration="None" vision-calibration-trigger="Manual" vision-match-minimum-score="0.2" vision-calibration-max-passes="3" z-calibration-trigger="Manual" z-calibration-fail-homing="true" template-nozzle-tip="false" template-locked="false" establish-part-on-level="false" establish-part-off-level="true" part-off-probing-milliseconds="0" part-off-dwell-milliseconds="0" is-push-and-drag-allowed="false">
+         <nozzle-tip class="org.openpnp.machine.reference.ReferenceNozzleTip" id="NT1" name="N045" pick-dwell-milliseconds="800" place-dwell-milliseconds="1000" place-blow-off-level="0.0" vision-calibration="None" vision-calibration-trigger="Manual" vision-match-minimum-score="0.2" vision-calibration-max-passes="3" z-calibration-trigger="Manual" z-calibration-fail-homing="true" template-nozzle-tip="false" template-locked="false" establish-part-on-level="true" establish-part-off-level="false" part-off-probing-milliseconds="500" part-off-dwell-milliseconds="0" is-push-and-drag-allowed="false">
             <changer-start-location units="Millimeters" x="43.614" y="124.185" z="31.0" rotation="0.0"/>
             <changer-start-to-mid-speed>0.05</changer-start-to-mid-speed>
             <changer-mid-location units="Millimeters" x="43.614" y="124.185" z="5.5" rotation="0.0"/>
@@ -1370,19 +1370,19 @@
                <calibration-Z-offset value="0.0" units="Millimeters"/>
                <calibration-tip-diameter value="0.0" units="Millimeters"/>
             </calibration>
-            <method-part-on>Difference</method-part-on>
+            <method-part-on>Absolute</method-part-on>
             <part-on-check-after-pick>true</part-on-check-after-pick>
             <part-on-check-align>false</part-on-check-align>
             <part-on-check-before-place>false</part-on-check-before-place>
-            <vacuum-level-part-on-low>-32000.0</vacuum-level-part-on-low>
-            <vacuum-level-part-on-high>32000.0</vacuum-level-part-on-high>
-            <vacuum-difference-part-on-low>-32000.0</vacuum-difference-part-on-low>
-            <vacuum-difference-part-on-high>32000.0</vacuum-difference-part-on-high>
-            <method-part-off>None</method-part-off>
+            <vacuum-level-part-on-low>-7900.0</vacuum-level-part-on-low>
+            <vacuum-level-part-on-high>-6050.0</vacuum-level-part-on-high>
+            <vacuum-difference-part-on-low>0.0</vacuum-difference-part-on-low>
+            <vacuum-difference-part-on-high>0.0</vacuum-difference-part-on-high>
+            <method-part-off>Absolute</method-part-off>
             <part-off-check-after-place>true</part-off-check-after-place>
             <part-off-check-before-pick>false</part-off-check-before-pick>
-            <vacuum-level-part-off-low>248.0</vacuum-level-part-off-low>
-            <vacuum-level-part-off-high>255.0</vacuum-level-part-off-high>
+            <vacuum-level-part-off-low>-5600.0</vacuum-level-part-off-low>
+            <vacuum-level-part-off-high>500.0</vacuum-level-part-off-high>
             <vacuum-difference-part-off-low>0.0</vacuum-difference-part-off-low>
             <vacuum-difference-part-off-high>0.0</vacuum-difference-part-off-high>
             <diameter-low value="0.0" units="Millimeters"/>
@@ -1424,15 +1424,15 @@
             <part-on-check-after-pick>true</part-on-check-after-pick>
             <part-on-check-align>false</part-on-check-align>
             <part-on-check-before-place>false</part-on-check-before-place>
-            <vacuum-level-part-on-low>220.0</vacuum-level-part-on-low>
-            <vacuum-level-part-on-high>242.0</vacuum-level-part-on-high>
+            <vacuum-level-part-on-low>-9216.0</vacuum-level-part-on-low>
+            <vacuum-level-part-on-high>-3584.0</vacuum-level-part-on-high>
             <vacuum-difference-part-on-low>0.0</vacuum-difference-part-on-low>
             <vacuum-difference-part-on-high>0.0</vacuum-difference-part-on-high>
             <method-part-off>None</method-part-off>
             <part-off-check-after-place>true</part-off-check-after-place>
             <part-off-check-before-pick>false</part-off-check-before-pick>
-            <vacuum-level-part-off-low>242.0</vacuum-level-part-off-low>
-            <vacuum-level-part-off-high>255.0</vacuum-level-part-off-high>
+            <vacuum-level-part-off-low>-3584.0</vacuum-level-part-off-low>
+            <vacuum-level-part-off-high>-256.0</vacuum-level-part-off-high>
             <vacuum-difference-part-off-low>0.0</vacuum-difference-part-off-low>
             <vacuum-difference-part-off-high>0.0</vacuum-difference-part-off-high>
             <diameter-low value="0.0" units="Millimeters"/>
@@ -1474,8 +1474,8 @@
             <part-on-check-after-pick>true</part-on-check-after-pick>
             <part-on-check-align>false</part-on-check-align>
             <part-on-check-before-place>false</part-on-check-before-place>
-            <vacuum-level-part-on-low>220.0</vacuum-level-part-on-low>
-            <vacuum-level-part-on-high>245.0</vacuum-level-part-on-high>
+            <vacuum-level-part-on-low>-9216.0</vacuum-level-part-on-low>
+            <vacuum-level-part-on-high>-2816.0</vacuum-level-part-on-high>
             <vacuum-difference-part-on-low>0.0</vacuum-difference-part-on-low>
             <vacuum-difference-part-on-high>0.0</vacuum-difference-part-on-high>
             <method-part-off>None</method-part-off>
@@ -1487,7 +1487,7 @@
             <vacuum-difference-part-off-high>0.0</vacuum-difference-part-off-high>
             <diameter-low value="0.0" units="Millimeters"/>
          </nozzle-tip>
-         <nozzle-tip class="org.openpnp.machine.reference.ReferenceNozzleTip" id="TIP16f0412ed2d50009" name="N24" pick-dwell-milliseconds="2000" place-dwell-milliseconds="100" place-blow-off-level="0.0" vision-calibration="None" vision-calibration-trigger="Manual" vision-match-minimum-score="0.2" vision-calibration-max-passes="3" z-calibration-trigger="Manual" z-calibration-fail-homing="true" template-nozzle-tip="false" template-locked="false" establish-part-on-level="false" establish-part-off-level="false" part-off-probing-milliseconds="0" part-off-dwell-milliseconds="0" is-push-and-drag-allowed="false">
+         <nozzle-tip class="org.openpnp.machine.reference.ReferenceNozzleTip" id="TIP16f0412ed2d50009" name="N24" pick-dwell-milliseconds="500" place-dwell-milliseconds="1000" place-blow-off-level="0.0" vision-calibration="None" vision-calibration-trigger="Manual" vision-match-minimum-score="0.2" vision-calibration-max-passes="3" z-calibration-trigger="Manual" z-calibration-fail-homing="true" template-nozzle-tip="false" template-locked="false" establish-part-on-level="true" establish-part-off-level="false" part-off-probing-milliseconds="250" part-off-dwell-milliseconds="0" is-push-and-drag-allowed="false">
             <changer-start-location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="0.0"/>
             <changer-start-to-mid-speed>1.0</changer-start-to-mid-speed>
             <changer-mid-location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="0.0"/>
@@ -1525,19 +1525,19 @@
                <calibration-Z-offset value="0.0" units="Millimeters"/>
                <calibration-tip-diameter value="0.0" units="Millimeters"/>
             </calibration>
-            <method-part-on>Difference</method-part-on>
+            <method-part-on>Absolute</method-part-on>
             <part-on-check-after-pick>true</part-on-check-after-pick>
             <part-on-check-align>false</part-on-check-align>
             <part-on-check-before-place>false</part-on-check-before-place>
-            <vacuum-level-part-on-low>-32000.0</vacuum-level-part-on-low>
-            <vacuum-level-part-on-high>32000.0</vacuum-level-part-on-high>
-            <vacuum-difference-part-on-low>-32000.0</vacuum-difference-part-on-low>
-            <vacuum-difference-part-on-high>32000.0</vacuum-difference-part-on-high>
-            <method-part-off>None</method-part-off>
+            <vacuum-level-part-on-low>-7800.0</vacuum-level-part-on-low>
+            <vacuum-level-part-on-high>-3500.0</vacuum-level-part-on-high>
+            <vacuum-difference-part-on-low>0.0</vacuum-difference-part-on-low>
+            <vacuum-difference-part-on-high>0.0</vacuum-difference-part-on-high>
+            <method-part-off>Absolute</method-part-off>
             <part-off-check-after-place>true</part-off-check-after-place>
             <part-off-check-before-pick>true</part-off-check-before-pick>
-            <vacuum-level-part-off-low>0.0</vacuum-level-part-off-low>
-            <vacuum-level-part-off-high>0.0</vacuum-level-part-off-high>
+            <vacuum-level-part-off-low>-2500.0</vacuum-level-part-off-low>
+            <vacuum-level-part-off-high>500.0</vacuum-level-part-off-high>
             <vacuum-difference-part-off-low>0.0</vacuum-difference-part-off-low>
             <vacuum-difference-part-off-high>0.0</vacuum-difference-part-off-high>
             <diameter-low value="0.0" units="Millimeters"/>
@@ -1579,8 +1579,8 @@
             <part-on-check-after-pick>true</part-on-check-after-pick>
             <part-on-check-align>false</part-on-check-align>
             <part-on-check-before-place>false</part-on-check-before-place>
-            <vacuum-level-part-on-low>220.0</vacuum-level-part-on-low>
-            <vacuum-level-part-on-high>245.0</vacuum-level-part-on-high>
+            <vacuum-level-part-on-low>-9216.0</vacuum-level-part-on-low>
+            <vacuum-level-part-on-high>-2816.0</vacuum-level-part-on-high>
             <vacuum-difference-part-on-low>0.0</vacuum-difference-part-on-low>
             <vacuum-difference-part-on-high>0.0</vacuum-difference-part-on-high>
             <method-part-off>None</method-part-off>
@@ -1629,8 +1629,8 @@
             <part-on-check-after-pick>true</part-on-check-after-pick>
             <part-on-check-align>false</part-on-check-align>
             <part-on-check-before-place>false</part-on-check-before-place>
-            <vacuum-level-part-on-low>220.0</vacuum-level-part-on-low>
-            <vacuum-level-part-on-high>245.0</vacuum-level-part-on-high>
+            <vacuum-level-part-on-low>-9216.0</vacuum-level-part-on-low>
+            <vacuum-level-part-on-high>-2816.0</vacuum-level-part-on-high>
             <vacuum-difference-part-on-low>0.0</vacuum-difference-part-on-low>
             <vacuum-difference-part-on-high>0.0</vacuum-difference-part-on-high>
             <method-part-off>None</method-part-off>
