@@ -106,30 +106,41 @@ The graph in Nozzle Tips → N045 → Part Detection plots the curve for the pic
 
 ## Part Detection Failures
 
-Local-test build only (branches `fix/vacuum-check-messages`,
-`feature/recycle-on-pick-failure`, `feature/part-detection-dialog`; see
-[the upstream drafts](openpnp-dev/upstream-drafts/)). Stock 2.6 re-picks
-`1 + pick retry count` times, discards the part, and pauses with a bare
-"No part vacuum-detected after pick."
+Local-test build only (fork branches `fix/vacuum-check-messages` →
+`feature/recycle-on-pick-failure` → `feature/part-detection-dialog`, a linear
+stack; see [the upstream drafts](openpnp-dev/upstream-drafts/)). Stock 2.6
+re-picks `1 + pick retry count` times, discards the part, retries within Max
+Placement Attempts, and pauses with a bare "No part vacuum-detected after pick."
 
 What the build does instead:
 
 - **The message and the log say what was measured.** Every failed check reads like
-  `Nozzle tip N045 absolute vacuum level -5700.0 outside PartOn range -7900.0 .. -5800.0`,
+  `Nozzle tip N045 absolute vacuum level -5700.0 outside Part On range -7900.0 .. -5800.0`,
   in the error box and at WARN in the log, so `bin/vacuum-log --messages` sees it.
-- **Failed pick recovery** (Machine Setup → Job Processors → ReferencePnpJobProcessor):
-  *Discard* is stock behaviour; *Recycle to feeder* puts the part back in its pocket via the
-  feeder's take-back (the strip feeder decrements its feed count, so the next feed presents
-  the same pocket) and picks once more. This is what runs unattended, i.e. with Defer error
-  handling. The peel jog fires for it, because the automatic recycle goes through the same
-  `Feeder.BeforeTakeBack` / `AfterTakeBack` events as the Recycle button.
-- **The dialog.** With Alert error handling, a failed part-on check after pick, after
-  alignment or before place blocks the job on a dialog showing the message above plus part,
-  placement, nozzle and feeder, with *Use the part*, *Recycle and retry* (only when the
-  feeder can take the part back), *Discard and retry*, *Discard and pause*, *Pause*. The job
-  carries on according to the choice; no Start press. Closing the dialog is *Pause*. While it
-  is open, Pause/Stop presses queue behind it. The feeder's *Pick retry count* is still the
-  number of silent re-picks before you are asked.
+- **Two settings** under Machine Setup → Job Processors → ReferencePnpJobProcessor:
+  - **Part detection failure**, used with Alert error handling (the normal toolbar state):
+    *Prompt with dialog* (default), *Place the part*, *Recycle and retry*, *Discard and retry*,
+    *Discard and pause*, *Pause*.
+  - **Part detection failure (deferred)**, used with Defer error handling or without a GUI:
+    the same list minus the prompt. Default *Discard and retry*, which is stock behaviour.
+- **What the actions do.** *Place the part* goes on as if the check had passed. *Recycle and
+  retry* puts the part back via the feeder's take-back (the strip feeder decrements its feed
+  count, so the next feed presents the same pocket) and picks once more; a feeder that can't
+  take the part back discards it instead. *Discard and retry* discards and retries within the
+  feeder's pick retries and Max Placement Attempts. The two pause actions pause the job even
+  with deferred errors, with the part discarded or left on the nozzle. The peel jog fires for
+  every automatic recycle, because it goes through the same `Feeder.BeforeTakeBack` /
+  `AfterTakeBack` events as the Recycle button.
+- **The dialog.** A failed part-on check after pick, after alignment or before place blocks
+  the job on a dialog showing the message above plus part, placement, nozzle and feeder, with
+  the five actions as buttons (*Recycle and retry* only when the feeder can take the part
+  back). The job carries on according to the choice; no Start press. Closing the dialog is
+  *Pause*. While it is open, Pause/Stop presses queue behind it. The feeder's *Pick retry
+  count* is still the number of silent re-picks before you are asked; a retry chosen in the
+  dialog always gets another attempt, regardless of the counters.
+- **Feeders panel test pick.** The feed-and-pick button shows the same numbers and asks
+  *Keep the part* / *Recycle the part* / *Discard the part*, since the part only sits on the
+  nozzle for inspection there.
 - **After-place part-off failures are unchanged.** No dialog, no discard: `place()` has
   already cleared the nozzle's part. That is [#44].
 

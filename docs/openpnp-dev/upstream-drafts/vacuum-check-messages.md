@@ -20,10 +20,10 @@ straight to a PR without a Google Group thread.
 > box. I have a small PR that puts the numbers into the message at all five check sites and
 > logs them at WARN:
 >
-> `No part vacuum-detected after pick. Nozzle tip N045 absolute vacuum level -5700.0 outside PartOn range -7900.0 .. -5800.0.`
+> `No part vacuum-detected after pick. Nozzle tip N045 absolute vacuum level -5700.0 outside Part On range -7900.0 .. -5800.0.`
 >
 > The second is the confirmation you ask for. I have that working too, as a follow-up on top
-> of the first: with Alert error handling the job processor asks "use the part / recycle it to
+> of the first: with Alert error handling the job processor asks "place the part / recycle it to
 > the feeder and retry / discard and retry / discard and pause / pause", at the pick check as
 > well as after alignment and before place, and continues according to the choice. Deferred
 > error handling and headless operation are unchanged. I'll open that separately once the
@@ -39,12 +39,13 @@ carries the nozzle tip name, the measurement method, the measured level and the 
 range, e.g.
 
 ```
-No part vacuum-detected after pick. Nozzle tip N045 absolute vacuum level -5700.0 outside PartOn range -7900.0 .. -5800.0.
+No part vacuum-detected after pick. Nozzle tip N045 absolute vacuum level -5700.0 outside Part On range -7900.0 .. -5800.0.
 ```
 
 The same report is logged at WARN instead of DEBUG. Applies to all five job-processor check
-sites (before pick, after pick, after alignment, before place, after place) and to the
-Feeders panel's manual pick.
+sites (before pick, after pick, after alignment, before place, after place) and to both
+checks of the Feeders panel's test pick. The range is named as the GUI names it, "Part On"
+and "Part Off", rather than the PartOn/PartOff of the old debug line.
 
 ### Justification
 
@@ -64,7 +65,8 @@ against which range. Vacuum levels are in the units the vacuum sense actuator re
   and cleared on a passing check. `getVacuumCheckReport()` exposes it.
 - `ReferenceNozzle.describeVacuumCheck(Nozzle, String)` appends the report to a message when
   the nozzle is a `ReferenceNozzle` and the last check failed. `ReferencePnpJobProcessor`
-  uses it at the five throw sites; `FeedersPanel.pickFeeder()` at its before-pick check.
-- The failure log lines move from `Logger.debug` to `Logger.warn`. Wording unchanged.
+  uses it at the five throw sites; `FeedersPanel.pickFeeder()` at its two checks.
+- The failure log lines move from `Logger.debug` to `Logger.warn`, with "Part On" / "Part Off"
+  spelled as in the GUI.
 - `ReferenceJobProcessorRetryTests.testVacuumCheckFailureMessage` forces a failing reading
   through the test vacuum actuator and asserts the tip name, reading and range in the message.
