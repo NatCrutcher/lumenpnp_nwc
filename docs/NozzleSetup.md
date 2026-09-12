@@ -104,6 +104,35 @@ The graph in Nozzle Tips → N045 → Part Detection plots the curve for the pic
 — it separates a slow build-up (timing) from a plateau short of the range
 (seal).
 
+## Part Detection Failures
+
+Local-test build only (branches `fix/vacuum-check-messages`,
+`feature/recycle-on-pick-failure`, `feature/part-detection-dialog`; see
+[the upstream drafts](openpnp-dev/upstream-drafts/)). Stock 2.6 re-picks
+`1 + pick retry count` times, discards the part, and pauses with a bare
+"No part vacuum-detected after pick."
+
+What the build does instead:
+
+- **The message and the log say what was measured.** Every failed check reads like
+  `Nozzle tip N045 absolute vacuum level -5700.0 outside PartOn range -7900.0 .. -5800.0`,
+  in the error box and at WARN in the log, so `bin/vacuum-log --messages` sees it.
+- **Failed pick recovery** (Machine Setup → Job Processors → ReferencePnpJobProcessor):
+  *Discard* is stock behaviour; *Recycle to feeder* puts the part back in its pocket via the
+  feeder's take-back (the strip feeder decrements its feed count, so the next feed presents
+  the same pocket) and picks once more. This is what runs unattended, i.e. with Defer error
+  handling. The peel jog fires for it, because the automatic recycle goes through the same
+  `Feeder.BeforeTakeBack` / `AfterTakeBack` events as the Recycle button.
+- **The dialog.** With Alert error handling, a failed part-on check after pick, after
+  alignment or before place blocks the job on a dialog showing the message above plus part,
+  placement, nozzle and feeder, with *Use the part*, *Recycle and retry* (only when the
+  feeder can take the part back), *Discard and retry*, *Discard and pause*, *Pause*. The job
+  carries on according to the choice; no Start press. Closing the dialog is *Pause*. While it
+  is open, Pause/Stop presses queue behind it. The feeder's *Pick retry count* is still the
+  number of silent re-picks before you are asked.
+- **After-place part-off failures are unchanged.** No dialog, no discard: `place()` has
+  already cleared the nozzle's part. That is [#44].
+
 ## Peel Jog
 
 Releasing a part is "cut the vacuum, wait out the place dwell, lift straight
@@ -136,7 +165,7 @@ three paths are told apart by which events bracket them:
 
 | Path | Bracketing events | Fired from |
 | --- | --- | --- |
-| Recycle / take-back | `Feeder.BeforeTakeBack` / `Feeder.AfterTakeBack` | the GUI Recycle button, and nowhere else |
+| Recycle / take-back | `Feeder.BeforeTakeBack` / `Feeder.AfterTakeBack` | the GUI Recycle button; in the local-test build also the job's automatic recycle (#33) and the failure dialog's *Recycle and retry* (#34), all through `Cycles.recycle()` |
 | Discard | `Job.BeforeDiscard` / `Job.AfterDiscard` | `Cycles.discardAlways()` |
 | Board placement | neither | — |
 

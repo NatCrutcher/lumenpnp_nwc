@@ -286,10 +286,17 @@ These apply to OpenPnP 2.6 and are true on any machine, not just a LumenPnP:
   Level and the probe independently. See [Establish Level](#establish-level).
 - **The part-off graph is hidden** with Absolute and Establish Level off. The probe also decides
   whether to record at all using the part-on settings, not the part-off ones.
+- **A failed part-on check costs the part.** Stock 2.6 re-picks, discards, and only then
+  pauses with an OK-only box that doesn't say what was measured. The local-test build fixes
+  all three: the message carries the reading and the range, the part can be recycled to its
+  feeder instead of discarded, and with Alert error handling the job asks what to do before
+  doing anything. See [Part Detection Failures](NozzleSetup.md#part-detection-failures),
+  [#33](https://github.com/NatCrutcher/lumenpnp_nwc/issues/33) and
+  [#34](https://github.com/NatCrutcher/lumenpnp_nwc/issues/34).
 - **A detected stuck part isn't discarded or retried.** `place()` clears the nozzle's part
   *before* the part-off check runs, so OpenPnP believes the nozzle is empty. The job stops,
   which is the point, but you clear the part by hand. Still true on current `upstream/test`;
-  tracked in [#44] and [#33](https://github.com/NatCrutcher/lumenpnp_nwc/issues/33).
+  tracked in [#44].
 - **Nothing shears the part loose at release.** A part that sticks is a mechanical problem, not
   a sensing one: the vacuum is cut, the dwell expires, and the nozzle lifts straight up. A
   sideways jog against the tape pocket fixes it on recycle — see
