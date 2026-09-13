@@ -249,7 +249,8 @@ same open tip 12–15 s after the pump last ran reads about 1000 counts weaker (
 checks of [#44](https://github.com/NatCrutcher/lumenpnp_nwc/issues/44) are such late probes, and
 so is a before-pick check at the start of a job. Until the cold-pump curves are characterised,
 assume a stuck part can read above −5150 on them. Candidates: a longer probe for margin, or
-*Vacuum pump control* set to *KeepRunning* on the head during jobs.
+*Vacuum pump control* set to *KeepRunning* on the head during jobs. Tracked in
+[#57](https://github.com/NatCrutcher/lumenpnp_nwc/issues/57).
 
 **Where's the graph?** The Part Detection tab only shows the part-off graph when Establish
 Level (part-off) is ticked or the method is Difference. With Absolute and Establish Level off,

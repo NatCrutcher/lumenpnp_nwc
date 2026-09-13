@@ -147,9 +147,9 @@ What the build does instead:
   The build tells the nozzle to keep the part when the check fails, in the job and in a
   feeder take-back, so the end-of-cycle discard and the deferred retry work.
 - **Two more settings**, same panel, for the after-place site:
-  - **Stuck part after place**: *Prompt with dialog* (default), *Retry the placement*, *Place
-    by hand*, *Discard and retry*, *Discard and skip*, *Pause*. No recycle: the part has
-    touched the paste.
+  - **Stuck part after place**: *Prompt with dialog* (default), *Placement is good*, *Retry the
+    placement*, *Place by hand*, *Discard and retry*, *Discard and skip*, *Pause*. No recycle:
+    the part has touched the paste. The dialog lists what each button does.
   - **Stuck part after place (deferred)**: the same minus the prompt and the hand placement.
     Default *Discard and retry*, which this machine keeps.
   - **Place retry attempts** (3 stock; 4 here) and **Place retry Z step** (0 mm stock; 0.05 mm
@@ -160,13 +160,15 @@ What the build does instead:
   - **Mind the probe.** The retry and discard checks probe a cold pump, 10 s or more after it
     last ran, and read about 1000 counts weaker than the after-place probe that the N045 range
     was tuned on (−3884 against −4670 to −4856 on an open tip, 2026-09-13). A stuck part may
-    pass such a probe. See [Part-Off Detection](Vacuum-Sensing.md#part-off-detection).
-- **What the other actions do.** *Place by hand* parks the part at the placement with the
-  vacuum off and asks you to take it off the nozzle (or hold it down while the nozzle lifts),
-  then checks part-off again. *Discard and retry* discards and plans the placement again with
-  a new part, within Max Placement Attempts. *Discard and skip* discards and marks the
-  placement errored, the job goes on. *Pause* leaves the part on the nozzle; the next Start
-  discards it in pre-flight. Every discard here is checked: a part still on the nozzle after
+    pass such a probe. See [Part-Off Detection](Vacuum-Sensing.md#part-off-detection) and
+    [#57](https://github.com/NatCrutcher/lumenpnp_nwc/issues/57).
+- **What the other actions do.** *Placement is good* trusts the board over the sensor and
+  goes on. *Place by hand* parks the part at the placement with the vacuum off and asks you to
+  take it off the nozzle (or hold it down while the nozzle lifts), then checks part-off again.
+  *Discard and retry* discards and plans the placement again with a new part, within Max
+  Placement Attempts. *Discard and skip* discards and marks the placement errored, the job goes
+  on. *Pause* leaves the part on the nozzle: Start places it again, Stop discards it in the
+  cleanup. Every discard here is checked: a part still on the nozzle after
   the discard pauses the job with "remove it by hand", which matters while the bin is at safe
   Z ([#27](https://github.com/NatCrutcher/lumenpnp_nwc/issues/27)).
 - **Peel hook.** Each retry fires `Job.Placement.BeforeRetry` with `placement`,

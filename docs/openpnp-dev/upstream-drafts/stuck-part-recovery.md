@@ -37,10 +37,11 @@ part-detection dialog does, and is the same conversation.
 > not mistaken for a stuck part.
 >
 > A second branch then gives the after-place site its own setting, next to "Part detection
-> failure": *Prompt with dialog* (default), *Retry the placement* (the same part again, no re-pick,
-> each attempt a configurable step lower to press it into the paste), *Place by hand* (the nozzle
-> parks at the placement with the vacuum off and asks you to take the part), *Discard and retry*,
-> *Discard and skip*, *Pause*, plus a deferred variant. It deliberately has no recycle: the part
+> failure": *Prompt with dialog* (default), *Placement is good* (the check was a false alarm),
+> *Retry the placement* (the same part again, no re-pick, each attempt a configurable step lower
+> to press it into the paste), *Place by hand* (the nozzle parks at the placement with the vacuum
+> off and asks you to take the part), *Discard and retry*, *Discard and skip*, *Pause*, plus a
+> deferred variant. It deliberately has no recycle: the part
 > has touched the paste. Discards after a stuck part are checked, since a part that did not come
 > off on the board may not come off in free air either.
 >
@@ -92,8 +93,12 @@ Adds a **Stuck part after place** setting to the ReferencePnpJobProcessor, taken
 part-off check after a place fails:
 
 - **Prompt with dialog** (default): with Alert error handling and a GUI, ask which of the other
-  actions to take. The dialog shows the failure with the measured level and range, plus part,
-  placement, nozzle and feeder. Closing it is Pause.
+  actions to take. The dialog shows the failure with the measured level and range, the part,
+  placement, nozzle and feeder, and a line per button saying what it does. Closing it is Pause.
+
+  ![The Part Still on Nozzle dialog](../../img/Issue44_Dialog_Screenshot.png)
+
+- **Placement is good**: the check was a false alarm and the part is on the board. Go on.
 - **Retry the placement**: place the same part again at the same location, up to **Place retry
   attempts** times, each attempt **Place retry Z step** lower. No re-pick, no re-align. Out of
   attempts, the dialog asks again; unattended, the part is discarded and the placement marked
@@ -103,7 +108,8 @@ part-off check after a place fails:
 - **Discard and retry**: discard, then plan the placement again with a new part within Max
   Placement Attempts.
 - **Discard and skip**: discard and mark the placement errored, the job goes on.
-- **Pause**: pause with the part on the nozzle; the next Start's pre-flight discards it.
+- **Pause**: pause the job with the part on the nozzle. Start places it again; Stop discards it
+  in the cleanup.
 
 **Stuck part after place (deferred)** applies with deferred error handling or without a GUI,
 offers everything but the prompt and the hand placement, and defaults to *Discard and retry*.
@@ -141,9 +147,10 @@ A `Job.Placement.BeforeRetry` script receives `nozzle`, `part`, `placement`, `bo
   probes. *Discard and retry* sets the placement to Pending itself within Max Placement Attempts,
   rather than rethrowing to the Defer branch, which could not find the feeder after the discard.
 - `promptPartOffFailure()` and `promptPlaceByHand()` use `UiUtils.askOnMachineThread` and are
-  protected so tests script them. The dialog says how many retries there are and how much lower
-  each one places.
-- Nine tests in `ReferenceJobProcessorRetryTests`, one per action plus exhaustion under Defer,
+  protected so tests script them. The dialog lists each button with a one-line description from
+  the translations, the retry line filled in with the configured attempts and Z step. The hand
+  placement dialog explains its Pause button in the text.
+- Ten tests in `ReferenceJobProcessorRetryTests`, one per action plus exhaustion under Defer,
   the declined hand placement, a part stuck after the discard, and the deferred setter.
 
 ## Notes to Self
@@ -162,4 +169,4 @@ A `Job.Placement.BeforeRetry` script receives `nozzle`, `part`, `placement`, `bo
   characterisation was of the first kind. The retry and discard checks are of the second kind,
   so a stuck part on a cold pump may read above −5150 and pass. Not a code problem; needs a
   bench characterisation of probe level against pump-off time, and probably a longer probe or
-  `vacuum-pump-control=KeepRunning` during jobs.
+  `vacuum-pump-control=KeepRunning` during jobs. Tracked in lumenpnp_nwc#57.
