@@ -30,9 +30,20 @@
 
 ### General
 
+- Migrated: #46 - After an action, leave the heads both centered (at the same height). Right now, they tend to end up with one about 10-12 mm higher than the other, providing less safety clearance.
+- Migrated: #47 - Now that the vacuum sensing is working better, let's tune for speed.
+- Migrated: #48 - Start a blog/document on LumenPnP lessons, tuning, improvements. *First one: [Vacuum Sensing](Vacuum-Sensing.md).*
+- Migrated: #49 - Try nozzle vacuum sniffling (https://github.com/openpnp/openpnp/wiki/Contact-Probing-Nozzle) to sense the Z height of the nozzles.
+- Migrated: #50 - If we don't get automated nozzle vacuum sniffling working, then manually recheck my nozzle z-heights.
+- Migrated: #51 - Use nozzle vacuum sniffing to probe the PCB height at 3-4 locations to make sure it is flat. This may want to lift the PCB out of the holder unless I design a better holder. Also, it appears OpenPnP does not have any support for Z-axis leveling.
+- Migrated: #52 - Try to order some spare N045 nozzles. Opulo seems to want to sell these in a full set: ask if I can just buy a couple of the N045 nozzles.
+- Migrated: #53 - Print the adapter to assemble/disassemble the vacuum nozzle shaft through the stepper.
+- Migrated: #54 - Update my Python code that generates the parts.xml and packages.xml to include the compatible nozzle tips for each package.
+- Migrated: #55 - Try bottom camera auto-focus for part height detection. How accurate is this? Only use it if the accuracy is high. *Maybe wait for the new bottom camera lens.*
+- Consider if we want the Python script to make the board.xml file to exclude parts with a blank NccId.
+- Try Non-Squareness Compensation: [https://github.com/openpnp/openpnp/wiki/Linear-Transformed-Axes\#use-case--non-squareness-compensation](https://github.com/openpnp/openpnp/wiki/Linear-Transformed-Axes#use-case--non-squareness-compensation) *I cannot remember if I already did this.*
 - Answered: when to check part-on and part-off, whether to use Establish Level, and whether a check can run while moving to bottom vision — see [Vacuum Sensing](Vacuum-Sensing.md#when-to-check) and its [Establish Level](Vacuum-Sensing.md#establish-level) section (short answers: pick side yes, place side no; not during motion in stock OpenPnP, but the after-alignment check now costs one 16 ms read).
 - Migrated: #43 — Part-off graph: the probe curve is recorded but hidden with Absolute + Establish Level off, and the probe records on the part-on setting (still present on `upstream/test`)
-- Now that the vacuum sensing is working better, let's tune for speed.
 - Migrated #17 — Regenerate packages.xml.
 - Migrated: #18 — Live camera feed jumps while the machine is idle; settle timeouts hand unsettled frames to vision silently
 - Migrated: #19 — Set up nozzle-tip changing with the SandwichChanger holder
@@ -40,22 +51,11 @@
 - Migrated: #13 — Nozzle-tip background calibration: Brightness mode silently erases dim parts (the cause turned out to be `Brightness` mode discarding saturation, not the LED colour balance)
 - Migrated: #27 — Configure the discard location for the new discard bin
 - Migrated: #28 — N1 runout stepped +20% at the 2026-08-20 collision; isolate tip vs. shaft (N2 is unchanged, so no spare servo indicated)
-- Start a blog/document on LumenPnP lessons, tuning, improvements. *First one: [Vacuum Sensing](Vacuum-Sensing.md).*
 - Migrated: #21 — Y homing: the endstop trips at the mechanical collision, with no overtravel margin
-- Recheck my nozzle z-heights.
-- Try to develop a z-height repeatability measurement with Claude. Ideas: use vacuum touch sniffing with the primary fiducial. Rehome the z-axis and retest the height of both nozzles many times to see how repeatable this is. I worry that the microswitch may be a limiting factor in Z precision.
-- Use nozzle vacuum sniffing to probe the PCB height at 3-4 locations to make sure it is flat. This may want to lift the PCB out of the holder unless I design a better holder.
-- Try to order some spare N045 nozzles. Opulo seems to want to sell these in a full set: ask if I can just buy a couple of the N045 nozzles.
-- Print the adapter to assemble/disassemble the vacuum nozzle shaft through the stepper.
-- Update my Python code that generates the parts.xml and packages.xml to:
-  - Include the compatible nozzle tips for each package
 - Migrated: #14 — Bottom camera lens swap: narrower field of view, before/after retune plan (do the LED ring swap separately, after)
 - Migrated: #11 — Single placement Z offset ("paste squish") parameter; nominal part heights
-- Consider if we want the Python script to make the board.xml file to exclude parts with a blank NccId.
 - Migrated to #18 — Check if the camera power line frequency is set correctly for 60 Hz (2 I think). *Both cameras were 50 Hz, now changed to 60 Hz.*
-- Try Non-Squareness Compensation: [https://github.com/openpnp/openpnp/wiki/Linear-Transformed-Axes\#use-case--non-squareness-compensation](https://github.com/openpnp/openpnp/wiki/Linear-Transformed-Axes#use-case--non-squareness-compensation) *I cannot remember if I already did this.*
-- Try second fiducial calibration: [https://github.com/openpnp/openpnp/wiki/Vision-Solutions\#calibration-secondary-fiducial](https://github.com/openpnp/openpnp/wiki/Vision-Solutions#calibration-secondary-fiducial) *I think this is complete.*
-- Try bottom camera auto-focus for part height detection. *Wait for the new bottom camera lens.*
+- DONE: Try second fiducial calibration: [https://github.com/openpnp/openpnp/wiki/Vision-Solutions\#calibration-secondary-fiducial](https://github.com/openpnp/openpnp/wiki/Vision-Solutions#calibration-secondary-fiducial) 
 
 ## Tuning
 
@@ -69,10 +69,10 @@
 
 - Vision: figure out a way to crop the image based on the part size, so that the bottom vision does not see past the black disc on the head to the overhead lights. A true image crop is preferred because it should speed up the processing, but even masking would be acceptable. Roughly, we'd want a crop circle diameter like `d = a*p + b` where `p` is the diameter of the smallest circle that outlines a properly centered part, `a` is a multiplier, and `b` is an additive term. So for an 0402, p = 0.559; if we set a = 1.2, b = 1.0, then d = 1.67.
 - Vision: Automatically adjust subsampling/supersampling based on the expected part size in pixels. The default bottom vision pipeline uses subSampling = 3px, which may be fine for larger parts or a more telephoto lens, but is bad for an 0402 with the wide-angle LumenPnP bottom camera.
-- Migrated: #26 — Vision pipeline editor: add a saved description field so pipelines explain themselves
 - Feeders Tab: add an option to show a description column, since my part IDs are not descriptive. Or at least show the description for the part in the selected feeder in the bottom pane.
 - OpenPnP locked up in the vision pipeline editor.
 - Kubuntu popped up a screen capture dialog from vision pipeline editor when I used Alt-Tab to switch windows (I have not seen this lately).
+- Migrated: #26 — Vision pipeline editor: add a saved description field so pipelines explain themselves
 - Migrated: #24 — OSLON Pure 1414 sticks to the N045 nozzle instead of releasing onto paste (place dwell, peel jog, N14 swap; "place lower" is #11)
 - Migrated: #23 — Part-off detection is disabled on every nozzle tip, so a stuck part goes unnoticed
 - Migrated: #29 — Home does not retract Z first: homing from pick depth sweeps the nozzle through the feeders (the logs show the feeder-to-feeder moves did lift; Home was the trigger)

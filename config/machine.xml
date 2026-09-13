@@ -368,10 +368,10 @@
       </heads>
       <signalers/>
       <feeders>
-         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc50108e1f6fec" name="9LED_1_01_a07" enabled="true" part-id="a07" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="6" max-feed-count="0">
+         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc50108e1f6fec" name="9LED_1_01_a07" enabled="true" part-id="a07" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="5" max-feed-count="0">
             <location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="-90.0"/>
-            <reference-hole-location units="Millimeters" x="15.759143962173233" y="209.7231876610184" z="4.0" rotation="0.0"/>
-            <last-hole-location units="Millimeters" x="15.745625680737728" y="205.69950842243045" z="0.0" rotation="0.0"/>
+            <reference-hole-location units="Millimeters" x="15.729" y="209.503" z="4.0" rotation="0.0"/>
+            <last-hole-location units="Millimeters" x="15.729" y="205.503" z="0.0" rotation="0.0"/>
             <part-pitch value="2.0" units="Millimeters"/>
             <tape-width value="8.0" units="Millimeters"/>
             <pipeline>
@@ -782,7 +782,7 @@
             <parallax-diameter value="0.0" units="Millimeters"/>
             <parallax-angle>0.0</parallax-angle>
          </feeder>
-         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc53ff1af70405" name="9LED_2_06_r0B" enabled="true" part-id="r0B" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="5" max-feed-count="0">
+         <feeder class="org.openpnp.machine.reference.feeder.ReferenceStripFeeder" version="1.1" id="FDR18cc53ff1af70405" name="9LED_2_06_r0B" enabled="true" part-id="r0B" retry-count="3" feed-retry-count="2" pick-retry-count="0" priority="Normal" feed-options="Normal" tape-type="WhitePaper" standard-eia-481="true" vision-enabled="true" feed-count="4" max-feed-count="0">
             <location units="Millimeters" x="0.0" y="0.0" z="0.0" rotation="-90.0"/>
             <reference-hole-location units="Millimeters" x="324.228" y="191.978" z="4.3" rotation="0.0"/>
             <last-hole-location units="Millimeters" x="324.228" y="187.978" z="0.0" rotation="0.0"/>
@@ -1350,7 +1350,7 @@
             <max-part-diameter value="6.0" units="Millimeters"/>
             <max-part-height value="2.5" units="Millimeters"/>
             <max-pick-tolerance value="0.35" units="Millimeters"/>
-            <calibration angle-subdivisions="6" allow-misdetections="5" angle-start="-200.0" angle-stop="200.0" excenter-ratio="0.25" enabled="true" fail-homing="true" runout-compensation-algorithm="ModelCameraOffsetAffine" version="2.1" recalibration-trigger="NozzleTipChange" background-calibration-method="Brightness" background-min-hue="0" background-max-hue="255" background-tol-hue="8" background-min-saturation="0" background-max-saturation="255" background-tol-saturation="8" background-min-value="3" background-max-value="128" background-tol-value="8" background-diagnostics="&lt;html&gt;Background elements are too bright.&lt;br/&gt;Try to eliminate highlights and reflections.&lt;br/&gt;Use a shade behind the nozzle.&lt;br/&gt;Renew the blackening of dark parts of the nozzle tip.&lt;br/&gt;Clean the nozzle tip. If it is shiny, make it dull.&lt;br/&gt;Eliminate light sources that reflect on the nozzle tip.&lt;/html&gt;" min-background-mask-value="32" max-background-mask-value="128" background-worst-saturation="63" background-worst-hue-span="42" background-worst-value="127" offset-threshold="0.0" detection-threshold-margin="0.4">
+            <calibration angle-subdivisions="6" allow-misdetections="5" angle-start="-200.0" angle-stop="200.0" excenter-ratio="0.25" enabled="true" fail-homing="true" runout-compensation-algorithm="ModelCameraOffsetAffine" version="2.1" recalibration-trigger="NozzleTipChange" background-calibration-method="Brightness" background-min-hue="0" background-max-hue="255" background-tol-hue="8" background-min-saturation="0" background-max-saturation="255" background-tol-saturation="8" background-min-value="2" background-max-value="145" background-tol-value="8" background-diagnostics="&lt;html&gt;Background elements are too bright.&lt;br/&gt;Try to eliminate highlights and reflections.&lt;br/&gt;Use a shade behind the nozzle.&lt;br/&gt;Renew the blackening of dark parts of the nozzle tip.&lt;br/&gt;Clean the nozzle tip. If it is shiny, make it dull.&lt;br/&gt;Eliminate light sources that reflect on the nozzle tip.&lt;/html&gt;" min-background-mask-value="32" max-background-mask-value="128" background-worst-saturation="63" background-worst-hue-span="42" background-worst-value="127" offset-threshold="0.0" detection-threshold-margin="0.4">
                <pipeline>
                   <stages>
                      <cv-stage class="org.openpnp.vision.pipeline.stages.ImageCapture" name="image" enabled="true" default-light="true" settle-option="Settle" count="1"/>
@@ -1362,7 +1362,7 @@
                <runout-compensation-lookup class="java.util.HashMap">
                   <entry>
                      <string>N1</string>
-                     <runout-compensation class="org.openpnp.machine.reference.ReferenceNozzleTipCalibration$ModelBasedRunoutCameraOffsetCompensation" center-x="0.09469290308104422" center-y="-0.026052111069621325" radius="0.056763773686559" phase-shift="-110.14770701064249" units="Millimeters" peak-error="0.024741937706566353" rms-error="0.014679783376868715"/>
+                     <runout-compensation class="org.openpnp.machine.reference.ReferenceNozzleTipCalibration$ModelBasedRunoutCameraOffsetCompensation" center-x="0.1166330055159862" center-y="-0.03391833135319009" radius="0.06855166183586052" phase-shift="-101.12775073300799" units="Millimeters" peak-error="0.021596286455828985" rms-error="0.014496734999251396"/>
                   </entry>
                </runout-compensation-lookup>
                <minimum-detail-size value="0.2" units="Millimeters"/>
@@ -1517,7 +1517,7 @@
                <runout-compensation-lookup class="java.util.HashMap">
                   <entry>
                      <string>NOZ1710829fd33a0170</string>
-                     <runout-compensation class="org.openpnp.machine.reference.ReferenceNozzleTipCalibration$ModelBasedRunoutCameraOffsetCompensation" center-x="0.07249015346268706" center-y="0.036100261927051625" radius="0.03886998494130741" phase-shift="-135.11468971144248" units="Millimeters" peak-error="0.012285997098554895" rms-error="0.01091117688299956"/>
+                     <runout-compensation class="org.openpnp.machine.reference.ReferenceNozzleTipCalibration$ModelBasedRunoutCameraOffsetCompensation" center-x="0.07853099958457765" center-y="0.05415039289057745" radius="0.027485229936617454" phase-shift="-141.4520350105987" units="Millimeters" peak-error="0.032692145758504314" rms-error="0.023246391625973056"/>
                   </entry>
                </runout-compensation-lookup>
                <minimum-detail-size value="0.2" units="Millimeters"/>
@@ -1643,7 +1643,7 @@
             <diameter-low value="0.0" units="Millimeters"/>
          </nozzle-tip>
       </nozzle-tips>
-      <pnp-job-processor class="org.openpnp.machine.reference.ReferencePnpJobProcessor" job-order="PartHeight" max-vision-retries="3" max-placement-retries="5" feeder-fault-limit="3" feeder-fault-window-size="6" stepping-to-next-motion="true" optimize-multiple-nozzles="true" allow-immediate-nozzle-tip-calibration="false" fiducial-level="1" pre-rotate-all-nozzles="true">
+      <pnp-job-processor class="org.openpnp.machine.reference.ReferencePnpJobProcessor" job-order="PartHeight" max-vision-retries="3" max-placement-retries="2" feeder-fault-limit="3" part-detection-failure-action="Prompt" part-detection-failure-action-deferred="RecycleAndRetry" feeder-fault-window-size="6" stepping-to-next-motion="true" optimize-multiple-nozzles="true" allow-immediate-nozzle-tip-calibration="false" fiducial-level="1" pre-rotate-all-nozzles="true">
          <planner class="org.openpnp.machine.reference.ReferencePnpJobProcessor$SimplePnpJobPlanner" strategy="Minimize"/>
       </pnp-job-processor>
       <fiducial-locator class="org.openpnp.machine.reference.vision.ReferenceFiducialLocator" fiducial-vision-id="FVS_Default" enabled-averaging="true" repeat-fiducial-recognition="3">
