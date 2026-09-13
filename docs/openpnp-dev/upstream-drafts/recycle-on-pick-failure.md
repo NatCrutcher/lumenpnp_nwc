@@ -62,8 +62,8 @@ Processors), taken when a part-on vacuum check fails after the feeder's pick ret
 
 The setting applies at all three part-on checks. After alignment and before place, the
 retry actions reset the placement to Pending within Max Placement Attempts; with deferred
-error handling the failure is rethrown so the regular error handling re-plans it and records
-the feeder fault, exactly as before.
+error handling and the attempts used up, the placement is marked as errored and the job goes
+on.
 
 The take-back sequence, including the `Feeder.BeforeTakeBack` and `Feeder.AfterTakeBack`
 scripting events, is factored into `Cycles.recycle(Nozzle, Feeder)`. The Recycle button in the
@@ -111,7 +111,10 @@ manual Recycle button, they now also run for the automatic recycle.
   on the action. A recycle with no part-level pick retries raises `tryLimit` to 2, the same
   way an empty feeder already gets one extra attempt.
 - `Align` and `Place`: `handlePartOnFailure()` applies the action; `retryPlacement()` sets
-  the placement back to Pending within Max Placement Attempts, or rethrows.
+  the placement back to Pending within Max Placement Attempts for Alert and Defer alike,
+  marks it errored when Defer has used them up, and rethrows for Alert. It decides this itself
+  because the regular error handling finds the feeder through the nozzle, which the discard or
+  recycle has just cleared.
 - Tests in `ReferenceJobProcessorRetryTests`: `TestFeeder` gains take-back support and a
   failing mode, `TestNozzle` records place locations so a discard is distinguishable, and
   `TestActuator` can queue readings. One test per action plus the recycle fallbacks; the

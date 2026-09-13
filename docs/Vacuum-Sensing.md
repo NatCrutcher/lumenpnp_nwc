@@ -242,6 +242,15 @@ the threshold goes midway between the worst stuck and the worst open sample:
 the spread in when an open tip starts pulling vacuum dominates. The probe costs its full
 length on every placement, so it's worth trimming.
 
+**The probe depends on how long the pump has been off.** All of the above was measured on
+probes 1.5–2 s after the place cut the pump, while it was still spinning down. A probe of the
+same open tip 12–15 s after the pump last ran reads about 1000 counts weaker (−3884 against
+−4670 to −4856 on 2026-09-13, both with the range temporarily raised). The retry and discard
+checks of [#44](https://github.com/NatCrutcher/lumenpnp_nwc/issues/44) are such late probes, and
+so is a before-pick check at the start of a job. Until the cold-pump curves are characterised,
+assume a stuck part can read above −5150 on them. Candidates: a longer probe for margin, or
+*Vacuum pump control* set to *KeepRunning* on the head during jobs.
+
 **Where's the graph?** The Part Detection tab only shows the part-off graph when Establish
 Level (part-off) is ticked or the method is Difference. With Absolute and Establish Level off,
 which is the right setting as explained above, the graph is hidden even though OpenPnP still
@@ -295,8 +304,9 @@ These apply to OpenPnP 2.6 and are true on any machine, not just a LumenPnP:
   [#34](https://github.com/NatCrutcher/lumenpnp_nwc/issues/34).
 - **A detected stuck part isn't discarded or retried.** `place()` clears the nozzle's part
   *before* the part-off check runs, so OpenPnP believes the nozzle is empty. The job stops,
-  which is the point, but you clear the part by hand. Still true on current `upstream/test`;
-  tracked in [#44].
+  which is the point, but you clear the part by hand. Still true on current `upstream/test`.
+  The local-test build keeps the part and offers to re-place it lower, hand-place, discard or
+  skip: see [Part Detection Failures](NozzleSetup.md#part-detection-failures) and [#44].
 - **Nothing shears the part loose at release.** A part that sticks is a mechanical problem, not
   a sensing one: the vacuum is cut, the dwell expires, and the nozzle lifts straight up. A
   sideways jog against the tape pocket fixes it on recycle — see

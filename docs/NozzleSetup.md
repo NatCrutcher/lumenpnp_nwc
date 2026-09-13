@@ -107,8 +107,9 @@ The graph in Nozzle Tips → N045 → Part Detection plots the curve for the pic
 ## Part Detection Failures
 
 Local-test build only (fork branches `fix/vacuum-check-messages` →
-`feature/recycle-on-pick-failure` → `feature/part-detection-dialog`, a linear
-stack; see [the upstream drafts](openpnp-dev/upstream-drafts/)). Stock 2.6
+`feature/recycle-on-pick-failure` → `feature/part-detection-dialog` →
+`fix/retain-stuck-part` → `feature/stuck-part-recovery`, a linear stack; see
+[the upstream drafts](openpnp-dev/upstream-drafts/)). Stock 2.6
 re-picks `1 + pick retry count` times, discards the part, retries within Max
 Placement Attempts, and pauses with a bare "No part vacuum-detected after pick."
 
@@ -141,8 +142,36 @@ What the build does instead:
 - **Feeders panel test pick.** The feed-and-pick button shows the same numbers and asks
   *Keep the part* / *Recycle the part* / *Discard the part*, since the part only sits on the
   nozzle for inspection there.
-- **After-place part-off failures are unchanged.** No dialog, no discard: `place()` has
-  already cleared the nozzle's part. That is [#44].
+- **A stuck part after place is remembered.** Stock `place()` forgets the part before the
+  part-off check runs, so a stuck part was never discarded and the retry was skipped ([#44](https://github.com/NatCrutcher/lumenpnp_nwc/issues/44)).
+  The build tells the nozzle to keep the part when the check fails, in the job and in a
+  feeder take-back, so the end-of-cycle discard and the deferred retry work.
+- **Two more settings**, same panel, for the after-place site:
+  - **Stuck part after place**: *Prompt with dialog* (default), *Retry the placement*, *Place
+    by hand*, *Discard and retry*, *Discard and skip*, *Pause*. No recycle: the part has
+    touched the paste.
+  - **Stuck part after place (deferred)**: the same minus the prompt and the hand placement.
+    Default *Discard and retry*, which this machine keeps.
+  - **Place retry attempts** (3 stock; 4 here) and **Place retry Z step** (0 mm stock; 0.05 mm
+    here): *Retry the placement* places the same part again at the same X/Y, no re-pick and no
+    re-align, each attempt one step lower to press it into the paste, until the part-off check
+    passes. The dialog states both numbers. Out of attempts, the dialog asks again; deferred,
+    the part is discarded and the placement marked errored.
+  - **Mind the probe.** The retry and discard checks probe a cold pump, 10 s or more after it
+    last ran, and read about 1000 counts weaker than the after-place probe that the N045 range
+    was tuned on (−3884 against −4670 to −4856 on an open tip, 2026-09-13). A stuck part may
+    pass such a probe. See [Part-Off Detection](Vacuum-Sensing.md#part-off-detection).
+- **What the other actions do.** *Place by hand* parks the part at the placement with the
+  vacuum off and asks you to take it off the nozzle (or hold it down while the nozzle lifts),
+  then checks part-off again. *Discard and retry* discards and plans the placement again with
+  a new part, within Max Placement Attempts. *Discard and skip* discards and marks the
+  placement errored, the job goes on. *Pause* leaves the part on the nozzle; the next Start
+  discards it in pre-flight. Every discard here is checked: a part still on the nozzle after
+  the discard pauses the job with "remove it by hand", which matters while the bin is at safe
+  Z ([#27](https://github.com/NatCrutcher/lumenpnp_nwc/issues/27)).
+- **Peel hook.** Each retry fires `Job.Placement.BeforeRetry` with `placement`,
+  `placementLocation` and `attempt`, so a place-side peel script ([#24](https://github.com/NatCrutcher/lumenpnp_nwc/issues/24)) can arm itself on a
+  retry only, the way the recycle peel arms on `Feeder.BeforeTakeBack`.
 
 ## Peel Jog
 
