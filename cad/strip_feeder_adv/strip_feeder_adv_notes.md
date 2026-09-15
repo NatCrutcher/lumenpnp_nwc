@@ -6,7 +6,9 @@ This feeder is designed to be printed as two parts with a dovetail connection. T
 
 ## Tasks
 
-- The 1.5mm pin hole works pretty well, but try fine-tuning it for a more precise and reliable press fit.
+- The 1.5mm pin is not ideal. It is hard to get the height exactly right, a bit too easy to push it in too far, the surface is a bit rough resulting in erratic vision detection of the first hole, and it's hard to install the tape. I think a better solution is to eliminate the pin and hole, and instead fork the ReferenceStripFeeder to scan for the first hole from the feeder square fiducial.
+- Also consider OCR part number checking.
+- SKIP: The 1.5mm pin hole works pretty well, but try fine-tuning it for a more precise and reliable press fit.
 - DONE: Adjust plate mounting to keep feeders flat on build plate. *Raised bottom surface of the mounting dovetail by 0.2mm.* 
 - DONE: Update the base strip design to keep everything square OR use the bolting scheme. *Added a brace that screws into two holes to stay square. I think I'll try it in the center first, so that I can slide feeders in from both sides and it will ensure the center stays flat to the staging plate.*
 - DONE: Add a locator pin to keep the tape from moving. *I could not get good results with a 3D printed post, so I ordered 1.5mm x 8mm machined pins from uxcell on Amazon and they seem good (I haven't run a job yet.*
